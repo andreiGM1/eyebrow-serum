@@ -63,8 +63,8 @@ Pentru proiectarea arhitecturii și UX/UI, au fost analizate cele mai relevante 
 - **Limbaj Principal:** TypeScript (strict type safety, zero `any` la runtime).
 - **Runtime & Build Engine:** Node.js v24 LTS.
 - **Frontend Framework:** Next.js 15 (App Router, React 19 Server Components, Client Components optimizate).
-- **Stilizare & Design System:** Tailwind CSS cu paletă cromatică personalizată (Obsidian `#0B0E0D`, Aur de Atelier `#C5A03C`, Botanical Green `#25332C`).
-- **Iconografie & Animații:** Lucide React Icons, Framer Motion, Canvas Confetti.
+- **Stilizare & Design System:** Tailwind CSS cu paletă cromatică de lux și suport complet bivalent **Dual Theme (Light Mode - Fildeș Cald `#FAF8F5` / Dark Mode - Obsidian `#0B0E0D`)**, accente de aur de atelier (`#C5A03C`) și verde botanic (`#25332C`).
+- **Iconografie & Animații:** Lucide React Icons cu micro-interacțiuni animate, comutator rotativ temă Soare/Lună, Framer Motion, Canvas Confetti.
 - **Bază de Date & Backend:** Supabase (PostgreSQL, Row Level Security, Triggers SQL pentru decrementare automată stoc, Supabase Auth).
 - **Procesare Plăți Electronice:** Stripe SDK & Elements (mod Sandbox Test cu card `4242 4242 4242 4242`).
 - **Generare Documente Fiscale:** Modul dedicat HTML-to-Print / PDF print-engine conform Legii nr. 227/2015 privind Codul Fiscal.
