@@ -205,11 +205,12 @@ erDiagram
    - `Publishable key` (`pk_test_...`) -> `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY`
    - `Secret key` (`sk_test_...`) -> `STRIPE_SECRET_KEY`
 
-### Pasul 3: Deployment pe Vercel
-1. Conectați repository-ul GitHub pe [https://vercel.com/](https://vercel.com/).
-2. Setați variabilele de mediu în Vercel:
+### Pasul 3: Deployment pe Vercel (Configurat & Activ)
+1. Repository conectat: [https://github.com/andreiGM1/eyebrow-serum](https://github.com/andreiGM1/eyebrow-serum)
+2. **URL Producție Live:** [https://eyebrow-serum.vercel.app](https://eyebrow-serum.vercel.app)
+3. Variabilele de mediu configurate în Vercel:
    ```env
-   NEXT_PUBLIC_SITE_URL=https://numele-tau-de-proiect.vercel.app
+   NEXT_PUBLIC_SITE_URL=https://eyebrow-serum.vercel.app
    NEXT_PUBLIC_SUPABASE_URL=https://xyz.supabase.co
    NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGci...
    SUPABASE_SERVICE_ROLE_KEY=eyJhbGci...
@@ -217,7 +218,7 @@ erDiagram
    NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_test_...
    ADMIN_EMAIL=admin@maglaboratories.com
    ```
-3. Apăsați **Deploy**. Vercel va executa `npm run build` și va genera link-ul de producție activ.
+4. Build-ul a fost compilat cu succes pe arhitectura Next.js 15 cu Node.js 24.x, având status **READY**.
 
 ---
 
