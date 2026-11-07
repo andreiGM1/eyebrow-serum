@@ -52,7 +52,7 @@ export default function InvoicePage({ params }: InvoicePageProps) {
 
   if (!order) {
     return (
-      <div className="min-h-screen bg-obsidian-950 text-white flex items-center justify-center p-4">
+      <div className="min-h-screen bg-[#FAF8F5] dark:bg-obsidian-950 text-stone-900 dark:text-white flex items-center justify-center p-4">
         <p>Se încarcă factura fiscală...</p>
       </div>
     );
@@ -63,13 +63,13 @@ export default function InvoicePage({ params }: InvoicePageProps) {
   const vatAmount = Number((order.total - order.shipping_cost - subtotalWithoutVat).toFixed(2));
 
   return (
-    <div className="min-h-screen bg-zinc-950 py-10 px-4 sm:px-6 lg:px-8 font-sans">
+    <div className="min-h-screen bg-[#EFECE6] dark:bg-zinc-950 py-10 px-4 sm:px-6 lg:px-8 font-sans transition-colors">
       
       {/* Top Action Bar (Hidden when printed) */}
       <div className="max-w-4xl mx-auto mb-6 flex flex-col sm:flex-row items-center justify-between gap-4 no-print">
         <Link
           href="/"
-          className="inline-flex items-center gap-2 text-xs font-mono text-zinc-400 hover:text-white transition-colors"
+          className="inline-flex items-center gap-2 text-xs font-mono text-stone-600 dark:text-zinc-400 hover:text-stone-950 dark:hover:text-white transition-colors"
         >
           <ArrowLeft className="w-3.5 h-3.5" />
           <span>Înapoi la Magazin</span>
@@ -78,7 +78,7 @@ export default function InvoicePage({ params }: InvoicePageProps) {
         <div className="flex items-center gap-3">
           <button
             onClick={handlePrint}
-            className="px-5 py-2.5 rounded-xl bg-gold-500 hover:bg-gold-400 text-obsidian-950 font-bold text-xs uppercase tracking-wider flex items-center gap-2 transition-all shadow-md"
+            className="px-5 py-2.5 rounded-xl bg-gold-500 hover:bg-gold-400 text-obsidian-950 font-bold text-xs uppercase tracking-wider flex items-center gap-2 transition-all shadow-md active:scale-95"
           >
             <Printer className="w-4 h-4" />
             <span>Tipărește Factura / Salvează PDF</span>

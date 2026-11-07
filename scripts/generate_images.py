@@ -84,3 +84,4 @@ kit.save("public/images/category-bundles.jpg", "JPEG", quality=90)
 oil.save("public/images/category-cleansing.jpg", "JPEG", quality=90)
 
 print("All luxury product images generated successfully!")
+

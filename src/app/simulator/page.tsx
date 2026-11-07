@@ -12,14 +12,14 @@ export default function SimulatorPage() {
   const [completedAnswers, setCompletedAnswers] = useState<DiagnosticQuizAnswers | null>(null);
 
   return (
-    <div className="min-h-screen bg-obsidian-950 text-foreground py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-[#FAF8F5] dark:bg-obsidian-950 text-stone-900 dark:text-foreground py-12 px-4 sm:px-6 lg:px-8 transition-colors">
       <div className="max-w-5xl mx-auto space-y-12">
         
         {/* Back Link & Breadcrumb */}
         <div>
           <Link
             href="/"
-            className="inline-flex items-center gap-2 text-xs font-mono text-zinc-400 hover:text-gold-400 transition-colors"
+            className="inline-flex items-center gap-2 text-xs font-mono text-stone-500 dark:text-zinc-400 hover:text-gold-600 dark:hover:text-gold-400 transition-colors font-semibold"
           >
             <ArrowLeft className="w-3.5 h-3.5" />
             <span>Înapoi la magazinul principal</span>
@@ -28,34 +28,35 @@ export default function SimulatorPage() {
 
         {/* Hero Banner */}
         <div className="text-center space-y-4 max-w-3xl mx-auto">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gold-500/10 border border-gold-500/30 text-gold-300 text-xs font-mono">
-            <Sparkles className="w-3.5 h-3.5 text-gold-400" />
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-gold-500/15 border border-gold-500/40 text-gold-800 dark:text-gold-300 text-xs font-mono font-semibold">
+            <Sparkles className="w-3.5 h-3.5 text-gold-600 dark:text-gold-400" />
             <span>ORIGINALITATE & INOVAȚIE • ATELIERUL DE PRECIZIE MAG</span>
           </div>
 
-          <h1 className="font-serif text-3xl sm:text-5xl font-bold tracking-tight text-white">
-            BrowGrowth Diagnostics & Visual Timeline Simulator
+          <h1 className="font-serif text-3xl sm:text-5xl font-bold tracking-tight text-stone-950 dark:text-white leading-tight">
+            BrowGrowth Diagnostics & <br />
+            <span className="gold-gradient-text">Visual Timeline Simulator</span>
           </h1>
 
-          <p className="text-sm sm:text-base text-zinc-400 leading-relaxed">
+          <p className="text-sm sm:text-base text-stone-600 dark:text-zinc-400 leading-relaxed font-normal">
             Algoritmul de diagnostic dermato-cosmetic al laboratorului nostru din București.
             Evaluează densitatea actuală a sprâncenelor, simulează grafic evoluția pe săptămâni și
             calculează rutina optimă de îngrijire fără hormoni sintetici.
           </p>
 
-          <div className="pt-2 flex flex-wrap items-center justify-center gap-4 text-xs font-mono text-zinc-400">
-            <span className="flex items-center gap-1.5">
-              <Microscope className="w-4 h-4 text-gold-400" />
+          <div className="pt-2 flex flex-wrap items-center justify-center gap-4 text-xs font-mono text-stone-600 dark:text-zinc-400">
+            <span className="flex items-center gap-1.5 font-semibold">
+              <Microscope className="w-4 h-4 text-gold-600 dark:text-gold-400" />
               <span>Biologie Celulară Activă</span>
             </span>
             <span>•</span>
-            <span className="flex items-center gap-1.5">
-              <ShieldCheck className="w-4 h-4 text-emerald-400" />
+            <span className="flex items-center gap-1.5 font-semibold">
+              <ShieldCheck className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
               <span>Zero Prostaglandine</span>
             </span>
             <span>•</span>
-            <span className="flex items-center gap-1.5">
-              <Award className="w-4 h-4 text-gold-400" />
+            <span className="flex items-center gap-1.5 font-semibold">
+              <Award className="w-4 h-4 text-gold-600 dark:text-gold-400" />
               <span>Conform Regulament CE 1223/2009</span>
             </span>
           </div>
@@ -79,43 +80,43 @@ export default function SimulatorPage() {
         </div>
 
         {/* Scientific Comparison Table: Prostaglandin vs MAG Active Lipid */}
-        <div className="bg-obsidian-900 border border-zinc-800 rounded-3xl p-6 sm:p-8">
-          <h3 className="font-serif text-xl font-bold text-white mb-2">
+        <div className="bg-white dark:bg-obsidian-900 border border-stone-200 dark:border-zinc-800 rounded-3xl p-6 sm:p-8 shadow-xl transition-colors">
+          <h3 className="font-serif text-xl font-bold text-stone-950 dark:text-white mb-2">
             De Ce Tratamentul Botanic MAG Este Sigur pentru Sănătatea Ochilor?
           </h3>
-          <p className="text-xs text-zinc-400 mb-6">
+          <p className="text-xs text-stone-600 dark:text-zinc-400 mb-6 font-normal">
             Comparație științifică între serurile industriale convenționale și formula formulată în București.
           </p>
 
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs border-collapse">
               <thead>
-                <tr className="border-b border-zinc-800 text-zinc-400 font-mono uppercase text-[11px]">
+                <tr className="border-b border-stone-200 dark:border-zinc-800 text-stone-700 dark:text-zinc-400 font-mono uppercase text-[11px]">
                   <th className="py-3 px-4">Criteriu Fiziologic</th>
-                  <th className="py-3 px-4 text-red-400">Seruri Masă (Prostaglandine)</th>
-                  <th className="py-3 px-4 text-emerald-400 bg-gold-500/5">MAG EVERGROW (Lipide Bioactive)</th>
+                  <th className="py-3 px-4 text-red-600 dark:text-red-400 font-bold">Seruri Masă (Prostaglandine)</th>
+                  <th className="py-3 px-4 text-emerald-700 dark:text-emerald-400 bg-gold-500/10 dark:bg-gold-500/5 font-bold">MAG EVERGROW (Lipide Bioactive)</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-zinc-800/60 text-zinc-300">
+              <tbody className="divide-y divide-stone-200 dark:divide-zinc-800/60 text-stone-800 dark:text-zinc-300">
                 <tr>
-                  <td className="py-3 px-4 font-semibold text-white">Mecanism de Acțiune</td>
-                  <td className="py-3 px-4 text-zinc-400">Forțare hormonală chimică a ciclului anagen</td>
-                  <td className="py-3 px-4 bg-gold-500/5 text-gold-200">Hrănire celulară cu acid ricinoleic și rozmarin microcirculator</td>
+                  <td className="py-3 px-4 font-semibold text-stone-900 dark:text-white">Mecanism de Acțiune</td>
+                  <td className="py-3 px-4 text-stone-600 dark:text-zinc-400 font-normal">Forțare hormonală chimică a ciclului anagen</td>
+                  <td className="py-3 px-4 bg-gold-500/10 dark:bg-gold-500/5 text-stone-900 dark:text-gold-200 font-medium">Hrănire celulară cu acid ricinoleic și rozmarin microcirculator</td>
                 </tr>
                 <tr>
-                  <td className="py-3 px-4 font-semibold text-white">Risc Întunecare Pleoape</td>
-                  <td className="py-3 px-4 text-red-400 font-mono">RIDICAT (Hiperpigmentare iris/pleoapă)</td>
-                  <td className="py-3 px-4 bg-gold-500/5 text-emerald-400 font-mono font-bold">ZERO RISC (100% sigur dermatologic)</td>
+                  <td className="py-3 px-4 font-semibold text-stone-900 dark:text-white">Risc Întunecare Pleoape</td>
+                  <td className="py-3 px-4 text-red-600 dark:text-red-400 font-mono font-bold">RIDICAT (Hiperpigmentare iris/pleoapă)</td>
+                  <td className="py-3 px-4 bg-gold-500/10 dark:bg-gold-500/5 text-emerald-700 dark:text-emerald-400 font-mono font-bold">ZERO RISC (100% sigur dermatologic)</td>
                 </tr>
                 <tr>
-                  <td className="py-3 px-4 font-semibold text-white">Compoziție Activă</td>
-                  <td className="py-3 px-4 text-zinc-400">90% apă, alcool, conservanți sintetici, parabeni</td>
-                  <td className="py-3 px-4 bg-gold-500/5 text-gold-200">100% Lipide Active Concentrat (Zero Apă, Zero Fillers)</td>
+                  <td className="py-3 px-4 font-semibold text-stone-900 dark:text-white">Compoziție Activă</td>
+                  <td className="py-3 px-4 text-stone-600 dark:text-zinc-400 font-normal">90% apă, alcool, conservanți sintetici, parabeni</td>
+                  <td className="py-3 px-4 bg-gold-500/10 dark:bg-gold-500/5 text-stone-900 dark:text-gold-200 font-medium">100% Lipide Active Concentrat (Zero Apă, Zero Fillers)</td>
                 </tr>
                 <tr>
-                  <td className="py-3 px-4 font-semibold text-white">Efect la Întrerupere</td>
-                  <td className="py-3 px-4 text-red-400">Cădere bruscă a genelor și sprâncenelor (shedding)</td>
-                  <td className="py-3 px-4 bg-gold-500/5 text-emerald-400 font-medium">Densitate susținută, rădăcini fortifiate nativ</td>
+                  <td className="py-3 px-4 font-semibold text-stone-900 dark:text-white">Efect la Întrerupere</td>
+                  <td className="py-3 px-4 text-red-600 dark:text-red-400 font-normal">Cădere bruscă a genelor și sprâncenelor (shedding)</td>
+                  <td className="py-3 px-4 bg-gold-500/10 dark:bg-gold-500/5 text-emerald-700 dark:text-emerald-400 font-semibold">Densitate susținută, rădăcini fortifiate nativ</td>
                 </tr>
               </tbody>
             </table>
@@ -126,4 +127,3 @@ export default function SimulatorPage() {
     </div>
   );
 }
-

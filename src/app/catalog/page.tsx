@@ -59,45 +59,45 @@ function CatalogContent() {
   };
 
   return (
-    <div className="min-h-screen bg-obsidian-950 text-foreground py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-[#FAF8F5] dark:bg-obsidian-950 text-stone-900 dark:text-foreground py-12 px-4 sm:px-6 lg:px-8 transition-colors">
       <div className="max-w-7xl mx-auto space-y-8">
         
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto space-y-3">
-          <span className="text-xs font-mono uppercase tracking-[0.25em] text-gold-400">
+          <span className="text-xs font-mono uppercase tracking-[0.25em] text-gold-700 dark:text-gold-400 font-semibold">
             MAG Laboratories Bucharest • Catalog Oficial
           </span>
-          <h1 className="font-serif text-3xl sm:text-4xl font-bold text-white">
+          <h1 className="font-serif text-3xl sm:text-4xl font-bold text-stone-950 dark:text-white">
             Tratamente Botanice pentru Regenerarea Sprâncenelor
           </h1>
-          <p className="text-xs sm:text-sm text-zinc-400">
+          <p className="text-xs sm:text-sm text-stone-600 dark:text-zinc-400">
             Formule concentrate de lux, 100% active, realizate în micro-loturi proaspete în atelierul nostru.
           </p>
         </div>
 
         {/* Filter & Search Bar */}
-        <div className="bg-obsidian-900 border border-zinc-800 rounded-2xl p-4 sm:p-6 shadow-xl space-y-4">
+        <div className="bg-white dark:bg-obsidian-900 border border-stone-200 dark:border-zinc-800 rounded-2xl p-4 sm:p-6 shadow-sm dark:shadow-xl space-y-4 transition-colors">
           <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 gap-4 items-center">
             
             {/* Search input */}
             <div className="relative sm:col-span-2">
-              <Search className="w-4 h-4 text-zinc-500 absolute left-3.5 top-1/2 -translate-y-1/2" />
+              <Search className="w-4 h-4 text-stone-400 dark:text-zinc-500 absolute left-3.5 top-1/2 -translate-y-1/2" />
               <input
                 type="text"
                 placeholder="Caută ser, accesoriu sau ingredient..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full bg-obsidian-950 border border-zinc-800 rounded-xl pl-10 pr-4 py-2.5 text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-gold-500/60"
+                className="w-full bg-stone-50 dark:bg-obsidian-950 border border-stone-300 dark:border-zinc-800 rounded-xl pl-10 pr-4 py-2.5 text-xs text-stone-900 dark:text-white placeholder-stone-400 dark:placeholder-zinc-500 focus:outline-none focus:border-gold-500/60"
               />
             </div>
 
             {/* Sort selector */}
             <div className="flex items-center gap-2">
-              <ArrowUpDown className="w-4 h-4 text-zinc-500 flex-shrink-0" />
+              <ArrowUpDown className="w-4 h-4 text-stone-400 dark:text-zinc-500 flex-shrink-0" />
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value as any)}
-                className="w-full bg-obsidian-950 border border-zinc-800 rounded-xl px-3 py-2.5 text-xs text-white focus:outline-none focus:border-gold-500/60"
+                className="w-full bg-stone-50 dark:bg-obsidian-950 border border-stone-300 dark:border-zinc-800 rounded-xl px-3 py-2.5 text-xs text-stone-900 dark:text-white focus:outline-none focus:border-gold-500/60"
               >
                 <option value="featured">Sortare: Recomandate (Bestsellers)</option>
                 <option value="rating">Sortare: Cele mai apreciate (Rating)</option>
@@ -108,8 +108,8 @@ function CatalogContent() {
 
             {/* Price filter slider */}
             <div className="flex items-center gap-3">
-              <div className="text-xs text-zinc-400 font-mono flex-shrink-0">
-                Max: <strong className="text-gold-400">{maxPrice} RON</strong>
+              <div className="text-xs text-stone-600 dark:text-zinc-400 font-mono flex-shrink-0">
+                Max: <strong className="text-gold-700 dark:text-gold-400">{maxPrice} RON</strong>
               </div>
               <input
                 type="range"
@@ -118,19 +118,19 @@ function CatalogContent() {
                 step="10"
                 value={maxPrice}
                 onChange={(e) => setMaxPrice(Number(e.target.value))}
-                className="w-full h-1.5 bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-gold-500"
+                className="w-full h-1.5 bg-stone-200 dark:bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-gold-500"
               />
             </div>
           </div>
 
           {/* Categories Pill Tabs */}
-          <div className="flex flex-wrap items-center gap-2 pt-2 border-t border-zinc-800/80">
+          <div className="flex flex-wrap items-center gap-2 pt-2 border-t border-stone-200 dark:border-zinc-800/80">
             <button
               onClick={() => setSelectedCategory('all')}
               className={`px-3.5 py-1.5 rounded-full text-xs font-medium transition-all ${
                 selectedCategory === 'all'
                   ? 'bg-gold-500 text-obsidian-950 font-bold shadow-md shadow-gold-500/20'
-                  : 'bg-obsidian-950 border border-zinc-800 text-zinc-400 hover:text-white hover:border-zinc-700'
+                  : 'bg-stone-100 dark:bg-obsidian-950 border border-stone-200 dark:border-zinc-800 text-stone-700 dark:text-zinc-400 hover:text-stone-950 dark:hover:text-white hover:border-stone-300 dark:hover:border-zinc-700'
               }`}
             >
               Toate Categoriile
@@ -143,7 +143,7 @@ function CatalogContent() {
                 className={`px-3.5 py-1.5 rounded-full text-xs font-medium transition-all ${
                   selectedCategory === cat.slug
                     ? 'bg-gold-500 text-obsidian-950 font-bold shadow-md shadow-gold-500/20'
-                    : 'bg-obsidian-950 border border-zinc-800 text-zinc-400 hover:text-white hover:border-zinc-700'
+                    : 'bg-stone-100 dark:bg-obsidian-950 border border-stone-200 dark:border-zinc-800 text-stone-700 dark:text-zinc-400 hover:text-stone-950 dark:hover:text-white hover:border-stone-300 dark:hover:border-zinc-700'
                 }`}
               >
                 {cat.name}
@@ -153,7 +153,7 @@ function CatalogContent() {
             {(selectedCategory !== 'all' || searchQuery || maxPrice < 500) && (
               <button
                 onClick={resetFilters}
-                className="ml-auto text-xs text-zinc-400 hover:text-red-400 flex items-center gap-1 font-mono transition-colors"
+                className="ml-auto text-xs text-stone-500 dark:text-zinc-400 hover:text-red-500 dark:hover:text-red-400 flex items-center gap-1 font-mono transition-colors"
               >
                 <RotateCcw className="w-3.5 h-3.5" />
                 <span>Resetează filtre</span>
@@ -163,21 +163,21 @@ function CatalogContent() {
         </div>
 
         {/* Results Counter */}
-        <div className="flex items-center justify-between text-xs font-mono text-zinc-400 px-1">
+        <div className="flex items-center justify-between text-xs font-mono text-stone-600 dark:text-zinc-400 px-1">
           <span>
-            Afișăm <strong className="text-white">{filteredProducts.length}</strong> produse
+            Afișăm <strong className="text-stone-950 dark:text-white">{filteredProducts.length}</strong> produse
           </span>
           <span>Livrare în 24-48h prin curier rapid</span>
         </div>
 
         {/* Product Grid */}
         {filteredProducts.length === 0 ? (
-          <div className="py-20 text-center bg-obsidian-900 border border-zinc-800 rounded-3xl p-8">
-            <SlidersHorizontal className="w-12 h-12 text-zinc-600 mx-auto mb-4" />
-            <h3 className="font-serif text-lg font-bold text-white">
+          <div className="py-20 text-center bg-white dark:bg-obsidian-900 border border-stone-200 dark:border-zinc-800 rounded-3xl p-8 shadow-sm">
+            <SlidersHorizontal className="w-12 h-12 text-stone-400 dark:text-zinc-600 mx-auto mb-4" />
+            <h3 className="font-serif text-lg font-bold text-stone-950 dark:text-white">
               Niciun produs nu corespunde filtrelor selectate
             </h3>
-            <p className="text-xs text-zinc-400 mt-2 max-w-sm mx-auto">
+            <p className="text-xs text-stone-600 dark:text-zinc-400 mt-2 max-w-sm mx-auto">
               Încearcă să resetezi căutarea sau filtrele de preț pentru a descoperi întreaga gamă Evergrow.
             </p>
             <button
@@ -201,7 +201,7 @@ function CatalogContent() {
 
 export default function CatalogPage() {
   return (
-    <Suspense fallback={<div className="min-h-screen bg-obsidian-950 text-white flex items-center justify-center">Se încarcă catalogul...</div>}>
+    <Suspense fallback={<div className="min-h-screen bg-[#FAF8F5] dark:bg-obsidian-950 text-stone-900 dark:text-white flex items-center justify-center">Se încarcă catalogul...</div>}>
       <CatalogContent />
     </Suspense>
   );

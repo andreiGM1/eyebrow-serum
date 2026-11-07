@@ -21,25 +21,25 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-obsidian-950 text-foreground py-20 px-4 flex items-center justify-center">
-      <div className="max-w-md w-full bg-obsidian-900 border border-gold-500/30 rounded-3xl p-8 sm:p-10 shadow-2xl space-y-6">
+    <div className="min-h-screen bg-[#FAF8F5] dark:bg-obsidian-950 text-stone-900 dark:text-foreground py-20 px-4 flex items-center justify-center transition-colors">
+      <div className="max-w-md w-full bg-white dark:bg-obsidian-900 border border-stone-200 dark:border-gold-500/30 rounded-3xl p-8 sm:p-10 shadow-xl dark:shadow-2xl space-y-6">
         
         <div className="text-center space-y-2">
           <div className="flex items-center justify-center gap-2 mb-2">
-            <span className="text-2xl font-serif font-bold text-white tracking-widest">MAG</span>
-            <span className="text-[10px] font-mono uppercase bg-gold-500/10 text-gold-300 border border-gold-500/30 px-2 py-0.5 rounded">
+            <span className="text-2xl font-serif font-bold text-stone-950 dark:text-white tracking-widest">MAG</span>
+            <span className="text-[10px] font-mono uppercase bg-gold-500/10 text-gold-700 dark:text-gold-300 border border-gold-500/30 px-2 py-0.5 rounded font-bold">
               LABORATORIES
             </span>
           </div>
-          <h1 className="font-serif text-2xl font-bold text-white">Autentificare Cont Client</h1>
-          <p className="text-xs text-zinc-400">
+          <h1 className="font-serif text-2xl font-bold text-stone-950 dark:text-white">Autentificare Cont Client</h1>
+          <p className="text-xs text-stone-600 dark:text-zinc-400">
             Accesează istoricul comenzilor și descarcă facturile fiscale.
           </p>
         </div>
 
         <form onSubmit={handleLogin} className="space-y-4">
           <div>
-            <label className="text-xs font-mono text-zinc-400 block mb-1">
+            <label className="text-xs font-mono text-stone-600 dark:text-zinc-400 block mb-1 font-semibold">
               Adresă Email
             </label>
             <div className="relative">
@@ -48,18 +48,18 @@ export default function LoginPage() {
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full bg-obsidian-950 border border-zinc-700 rounded-xl px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-gold-500 pl-10"
+                className="w-full bg-stone-50 dark:bg-obsidian-950 border border-stone-300 dark:border-zinc-700 rounded-xl px-3.5 py-2.5 text-xs text-stone-900 dark:text-white placeholder-stone-400 dark:placeholder-zinc-500 focus:outline-none focus:border-gold-500 pl-10"
               />
-              <Mail className="w-4 h-4 text-zinc-500 absolute left-3.5 top-1/2 -translate-y-1/2" />
+              <Mail className="w-4 h-4 text-stone-400 dark:text-zinc-500 absolute left-3.5 top-1/2 -translate-y-1/2" />
             </div>
           </div>
 
           <div>
             <div className="flex justify-between items-center mb-1">
-              <label className="text-xs font-mono text-zinc-400 block">
+              <label className="text-xs font-mono text-stone-600 dark:text-zinc-400 block font-semibold">
                 Parolă
               </label>
-              <span className="text-[11px] text-gold-400/80 hover:underline cursor-pointer">
+              <span className="text-[11px] text-gold-700 dark:text-gold-400/80 hover:underline cursor-pointer font-medium">
                 Ai uitat parola?
               </span>
             </div>
@@ -69,31 +69,31 @@ export default function LoginPage() {
                 required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full bg-obsidian-950 border border-zinc-700 rounded-xl px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-gold-500 pl-10"
+                className="w-full bg-stone-50 dark:bg-obsidian-950 border border-stone-300 dark:border-zinc-700 rounded-xl px-3.5 py-2.5 text-xs text-stone-900 dark:text-white placeholder-stone-400 dark:placeholder-zinc-500 focus:outline-none focus:border-gold-500 pl-10"
               />
-              <Lock className="w-4 h-4 text-zinc-500 absolute left-3.5 top-1/2 -translate-y-1/2" />
+              <Lock className="w-4 h-4 text-stone-400 dark:text-zinc-500 absolute left-3.5 top-1/2 -translate-y-1/2" />
             </div>
           </div>
 
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-gold-500 hover:bg-gold-400 disabled:opacity-50 text-obsidian-950 font-bold py-3.5 px-4 rounded-xl text-xs uppercase tracking-wider transition-all shadow-lg flex items-center justify-center gap-2"
+            className="w-full bg-gold-500 hover:bg-gold-400 disabled:opacity-50 text-obsidian-950 font-bold py-3.5 px-4 rounded-xl text-xs uppercase tracking-wider transition-all shadow-lg shadow-gold-500/20 active:scale-95 flex items-center justify-center gap-2"
           >
             <span>{loading ? 'Se conectează...' : 'Intră în Cont'}</span>
             <ArrowRight className="w-4 h-4" />
           </button>
         </form>
 
-        <div className="text-center text-xs text-zinc-400 pt-2 border-t border-zinc-800">
+        <div className="text-center text-xs text-stone-600 dark:text-zinc-400 pt-2 border-t border-stone-200 dark:border-zinc-800">
           Nu ai încă un cont?{' '}
-          <Link href="/auth/register" className="text-gold-400 hover:underline font-semibold">
+          <Link href="/auth/register" className="text-gold-700 dark:text-gold-400 hover:underline font-semibold">
             Înregistrează-te gratuit
           </Link>
         </div>
 
         <div className="text-center">
-          <Link href="/admin" className="text-[11px] font-mono text-zinc-500 hover:text-zinc-300">
+          <Link href="/admin" className="text-[11px] font-mono text-stone-500 dark:text-zinc-500 hover:text-stone-800 dark:hover:text-zinc-300">
             Ești evaluator? Accesează direct Panoul Admin &rarr;
           </Link>
         </div>

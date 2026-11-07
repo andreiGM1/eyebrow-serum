@@ -3,14 +3,12 @@
 @tailwind utilities;
 
 :root {
-  --background: #F8F7F4;
-  --foreground: #141716;
+  --background: #FAF8F5;
+  --foreground: #181A19;
   --card-bg: #FFFFFF;
-  --card-border: rgba(197, 160, 60, 0.24);
-  --card-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.07);
+  --card-border: rgba(197, 160, 60, 0.28);
+  --card-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05);
   --gold-accent: #B08B35;
-  --input-bg: #FFFFFF;
-  --surface-subtle: #F2EFE9;
 }
 
 html.dark {
@@ -20,8 +18,6 @@ html.dark {
   --card-border: rgba(197, 160, 60, 0.2);
   --card-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
   --gold-accent: #C5A03C;
-  --input-bg: #070A09;
-  --surface-subtle: #171E1C;
 }
 
 @layer base {
@@ -33,48 +29,6 @@ html.dark {
     -webkit-font-smoothing: antialiased;
     transition: background-color 0.3s ease, color 0.3s ease;
   }
-}
-
-/* Light mode overrides for obsidian / dark specific classes to maintain luxury ivory aesthetic */
-html.light .bg-obsidian-950 {
-  background-color: #F8F7F4 !important;
-}
-html.light .bg-obsidian-900 {
-  background-color: #FFFFFF !important;
-  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05);
-}
-html.light .bg-obsidian-850 {
-  background-color: #FAF8F5 !important;
-}
-html.light .bg-botanical-950 {
-  background-color: #F0ECE4 !important;
-}
-html.light .bg-zinc-950 {
-  background-color: #F2EFE9 !important;
-}
-html.light .border-zinc-800 {
-  border-color: #E6E1D6 !important;
-}
-html.light .border-zinc-700 {
-  border-color: #D8D2C5 !important;
-}
-html.light .text-zinc-400 {
-  color: #636A67 !important;
-}
-html.light .text-zinc-500 {
-  color: #838A87 !important;
-}
-html.light .text-zinc-300 {
-  color: #374151 !important;
-}
-html.light .text-zinc-200 {
-  color: #1F2937 !important;
-}
-html.light .text-white {
-  color: #111827 !important;
-}
-html.light .hover\:text-white:hover {
-  color: #000000 !important;
 }
 
 /* Luxury scrollbar */
@@ -158,13 +112,13 @@ html.light .hover\:text-white:hover {
 }
 
 .gold-gradient-text {
-  background: linear-gradient(135deg, #DFC28F 0%, #C5A03C 50%, #9E7E2C 100%);
+  background: linear-gradient(135deg, #B58A28 0%, #996F1B 50%, #78530B 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
-html.light .gold-gradient-text {
-  background: linear-gradient(135deg, #A88124 0%, #856213 100%);
+html.dark .gold-gradient-text {
+  background: linear-gradient(135deg, #FFF7D6 0%, #E6CA85 50%, #B89035 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }

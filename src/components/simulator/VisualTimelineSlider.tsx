@@ -91,28 +91,28 @@ export default function VisualTimelineSlider() {
   const activeStage = STAGES[activeStageIndex];
 
   return (
-    <div className="bg-obsidian-900 border border-gold-500/30 rounded-3xl p-6 sm:p-8 shadow-2xl transition-all">
+    <div className="bg-white dark:bg-obsidian-900 border border-stone-200 dark:border-gold-500/30 rounded-3xl p-6 sm:p-8 shadow-xl transition-all">
       
       {/* Title & Badge */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-zinc-800">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-stone-200 dark:border-zinc-800">
         <div>
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gold-500/10 border border-gold-500/30 text-gold-400 text-xs font-mono mb-2">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gold-500/15 border border-gold-500/40 text-gold-700 dark:text-gold-400 text-xs font-mono mb-2 font-semibold">
             <Sparkles className="w-3.5 h-3.5" />
             <span>SIMULATOR VIZUAL PE SĂPTĂMÂNI</span>
           </div>
-          <h3 className="font-serif text-2xl font-bold text-white">
+          <h3 className="font-serif text-2xl font-bold text-stone-950 dark:text-white">
             Evoluția Densității Foliculare în Timp
           </h3>
-          <p className="text-xs text-zinc-400 mt-1">
+          <p className="text-xs text-stone-600 dark:text-zinc-400 mt-1">
             Glisați sliderul pentru a vizualiza transformarea biologică pe parcursul curei de 90-120 de zile.
           </p>
         </div>
 
-        <div className="bg-obsidian-950 px-4 py-2.5 rounded-xl border border-zinc-800 flex items-center gap-3 shadow-inner">
-          <Clock className="w-5 h-5 text-gold-400" />
+        <div className="bg-stone-50 dark:bg-obsidian-950 px-4 py-2.5 rounded-xl border border-stone-200 dark:border-zinc-800 flex items-center gap-3 shadow-inner">
+          <Clock className="w-5 h-5 text-gold-600 dark:text-gold-400" />
           <div>
-            <div className="text-[10px] uppercase font-mono text-zinc-400">Etapa Selectată</div>
-            <div className="text-sm font-serif font-bold text-white">
+            <div className="text-[10px] uppercase font-mono text-stone-500 dark:text-zinc-400">Etapa Selectată</div>
+            <div className="text-sm font-serif font-bold text-stone-900 dark:text-white">
               {activeStage.label} ({activeStage.phaseName})
             </div>
           </div>
@@ -123,31 +123,25 @@ export default function VisualTimelineSlider() {
       <div className="my-8 grid grid-cols-1 md:grid-cols-2 gap-6">
         
         {/* State 0: Initial Sparse State (Week 0) */}
-        <div className="relative rounded-2xl bg-obsidian-950 border border-zinc-800 p-6 flex flex-col justify-between overflow-hidden shadow-inner">
+        <div className="relative rounded-2xl bg-stone-50 dark:bg-obsidian-950 border border-stone-200 dark:border-zinc-800 p-6 flex flex-col justify-between overflow-hidden shadow-inner">
           <div className="flex items-center justify-between mb-4">
-            <span className="text-xs font-mono uppercase text-zinc-400 bg-zinc-800/80 px-2.5 py-1 rounded border border-zinc-700/60 flex items-center gap-1.5">
-              <Compass className="w-3 h-3" />
+            <span className="text-xs font-mono uppercase text-stone-700 dark:text-zinc-400 bg-white dark:bg-zinc-800/80 px-2.5 py-1 rounded border border-stone-200 dark:border-zinc-700/60 flex items-center gap-1.5 font-semibold">
+              <Compass className="w-3 h-3 text-stone-500" />
               <span>Ziua 0 (Înainte de Tratament)</span>
             </span>
-            <span className="text-xs font-mono text-red-400 font-bold">Densitate: ~20%</span>
+            <span className="text-xs font-mono text-red-500 dark:text-red-400 font-bold">Densitate: ~20%</span>
           </div>
 
           {/* SVG Visual Representation of Sparse Brow */}
           <div className="py-6 flex items-center justify-center">
-            <svg viewBox="0 0 320 80" className="w-full max-w-xs h-20 text-zinc-600">
-              <defs>
-                <linearGradient id="sparseHairGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                  <stop offset="0%" stopColor="#4A3F35" stopOpacity="0.4" />
-                  <stop offset="100%" stopColor="#2E2822" stopOpacity="0.3" />
-                </linearGradient>
-              </defs>
+            <svg viewBox="0 0 320 80" className="w-full max-w-xs h-20 text-stone-500 dark:text-zinc-600">
               <path
                 d="M 30,55 Q 160,25 290,45"
                 fill="none"
-                stroke="#888"
+                stroke="#A8A29E"
                 strokeWidth="1.5"
                 strokeDasharray="4 4"
-                opacity="0.4"
+                opacity="0.6"
               />
               {[...Array(28)].map((_, i) => {
                 const x = 40 + i * 9 + (i % 3) * 2;
@@ -157,29 +151,29 @@ export default function VisualTimelineSlider() {
                   <path
                     key={i}
                     d={`M ${x},${baseY} Q ${x + 4},${baseY - 12} ${x + angle * 0.4},${baseY - 18}`}
-                    stroke={i % 4 === 0 ? '#8B7355' : '#5C4D3C'}
+                    stroke={i % 4 === 0 ? '#78716C' : '#57534E'}
                     strokeWidth={i % 3 === 0 ? 1 : 1.4}
                     strokeLinecap="round"
-                    opacity={i % 5 === 0 ? 0.25 : 0.6}
+                    opacity={i % 5 === 0 ? 0.35 : 0.75}
                   />
                 );
               })}
             </svg>
           </div>
 
-          <div className="text-xs text-zinc-400 bg-zinc-900/60 p-3 rounded-xl border border-zinc-800/80">
+          <div className="text-xs text-stone-600 dark:text-zinc-400 bg-white/80 dark:bg-zinc-900/60 p-3 rounded-xl border border-stone-200 dark:border-zinc-800/80 font-normal">
             Foliculi dorminzi, micro-rupere la nivelul cuticulei, goluri evidente în arcadă.
           </div>
         </div>
 
         {/* State 1: Active Stage After Treatment */}
-        <div className="relative rounded-2xl bg-obsidian-950 border border-gold-500/40 p-6 flex flex-col justify-between overflow-hidden shadow-xl shadow-gold-500/5">
+        <div className="relative rounded-2xl bg-[#FBF8F1] dark:bg-obsidian-950 border border-gold-500/40 p-6 flex flex-col justify-between overflow-hidden shadow-xl shadow-gold-500/5">
           <div className="flex items-center justify-between mb-4">
-            <span className="text-xs font-mono uppercase text-gold-400 bg-gold-500/10 px-2.5 py-1 rounded border border-gold-500/30 flex items-center gap-1.5 font-bold">
-              <Feather className="w-3 h-3 text-gold-400" />
+            <span className="text-xs font-mono uppercase text-gold-800 dark:text-gold-400 bg-gold-500/20 px-2.5 py-1 rounded border border-gold-500/40 flex items-center gap-1.5 font-bold">
+              <Feather className="w-3 h-3 text-gold-700 dark:text-gold-400" />
               <span>{activeStage.label} (Tratament MAG)</span>
             </span>
-            <span className="text-xs font-mono text-emerald-400 font-bold">
+            <span className="text-xs font-mono text-emerald-600 dark:text-emerald-400 font-bold">
               Densitate: {activeStage.densityScore}%
             </span>
           </div>
@@ -187,12 +181,6 @@ export default function VisualTimelineSlider() {
           {/* SVG Visual Representation of Regrown Dense Brow */}
           <div className="py-6 flex items-center justify-center">
             <svg viewBox="0 0 320 80" className="w-full max-w-xs h-20">
-              <defs>
-                <linearGradient id="richHairGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                  <stop offset="0%" stopColor="#C5A03C" stopOpacity="0.8" />
-                  <stop offset="100%" stopColor="#1C1814" stopOpacity="1" />
-                </linearGradient>
-              </defs>
               <path
                 d="M 30,55 Q 160,20 290,45"
                 fill="none"
@@ -213,7 +201,7 @@ export default function VisualTimelineSlider() {
                   <path
                     key={i}
                     d={`M ${x},${baseY} Q ${x + 5},${baseY - hairLength * 0.6} ${x + angle * 0.5},${baseY - hairLength}`}
-                    stroke={i % 7 === 0 ? '#C5A03C' : '#2A241C'}
+                    stroke={i % 7 === 0 ? '#B08B35' : '#292524'}
                     strokeWidth={isNewHair ? 1.4 : 1.8}
                     strokeLinecap="round"
                     opacity={activeStage.visualOpacity}
@@ -224,8 +212,8 @@ export default function VisualTimelineSlider() {
             </svg>
           </div>
 
-          <div className="text-xs text-zinc-300 bg-gold-500/10 p-3 rounded-xl border border-gold-500/20">
-            <strong className="text-gold-400">{activeStage.phaseName}:</strong> {activeStage.description}
+          <div className="text-xs text-stone-800 dark:text-zinc-300 bg-gold-500/15 p-3 rounded-xl border border-gold-500/30 font-normal">
+            <strong className="text-gold-700 dark:text-gold-400 font-semibold">{activeStage.phaseName}:</strong> {activeStage.description}
           </div>
         </div>
       </div>
@@ -242,16 +230,16 @@ export default function VisualTimelineSlider() {
                 className={`p-3 sm:p-4 rounded-2xl border text-center transition-all duration-200 active:scale-95 flex flex-col items-center justify-center gap-1 ${
                   isActive
                     ? 'bg-gold-500 text-obsidian-950 border-gold-400 font-bold shadow-lg shadow-gold-500/20 scale-105'
-                    : 'bg-obsidian-950 border-zinc-800 text-zinc-400 hover:border-zinc-700 hover:text-white'
+                    : 'bg-stone-50 dark:bg-obsidian-950 border-stone-200 dark:border-zinc-800 text-stone-600 dark:text-zinc-400 hover:border-stone-300 dark:hover:border-zinc-700 hover:text-stone-900 dark:hover:text-white'
                 }`}
               >
-                <span className={`text-[11px] font-mono uppercase ${isActive ? 'text-obsidian-950' : 'text-zinc-400'}`}>
+                <span className={`text-[11px] font-mono uppercase font-semibold ${isActive ? 'text-obsidian-950' : 'text-stone-500 dark:text-zinc-400'}`}>
                   Etapa {idx + 1}
                 </span>
                 <span className="font-serif text-sm sm:text-base font-bold">
                   {stage.label}
                 </span>
-                <span className={`text-[10px] font-mono ${isActive ? 'text-obsidian-900 font-bold' : 'text-gold-400'}`}>
+                <span className={`text-[10px] font-mono ${isActive ? 'text-obsidian-900 font-bold' : 'text-gold-600 dark:text-gold-400 font-semibold'}`}>
                   {stage.densityScore}% Densitate
                 </span>
               </button>
@@ -268,9 +256,9 @@ export default function VisualTimelineSlider() {
             step="1"
             value={activeStageIndex}
             onChange={(e) => setActiveStageIndex(Number(e.target.value))}
-            className="w-full h-2 bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-gold-500"
+            className="w-full h-2 bg-stone-200 dark:bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-gold-500"
           />
-          <div className="flex justify-between text-[11px] font-mono text-zinc-500 mt-2">
+          <div className="flex justify-between text-[11px] font-mono text-stone-500 dark:text-zinc-500 mt-2 font-medium">
             <span>Săpt. 2 (Ancorare)</span>
             <span>Săpt. 4 (Trezire)</span>
             <span>Săpt. 8 (Densificare)</span>
@@ -280,16 +268,16 @@ export default function VisualTimelineSlider() {
       </div>
 
       {/* Stage Breakdown & Milestones */}
-      <div className="mt-8 pt-6 border-t border-zinc-800 grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="mt-8 pt-6 border-t border-stone-200 dark:border-zinc-800 grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
-          <h4 className="text-xs font-mono uppercase text-gold-400 tracking-wider mb-3 flex items-center gap-1.5 font-bold">
-            <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+          <h4 className="text-xs font-mono uppercase text-gold-700 dark:text-gold-400 tracking-wider mb-3 flex items-center gap-1.5 font-bold">
+            <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
             Ce Vei Observa În Oglindă
           </h4>
           <ul className="space-y-2">
             {activeStage.milestones.map((m, i) => (
-              <li key={i} className="text-xs text-zinc-300 flex items-start gap-2">
-                <span className="text-gold-400 font-bold">•</span>
+              <li key={i} className="text-xs text-stone-700 dark:text-zinc-300 flex items-start gap-2">
+                <span className="text-gold-600 dark:text-gold-400 font-bold">•</span>
                 <span>{m}</span>
               </li>
             ))}
@@ -297,15 +285,15 @@ export default function VisualTimelineSlider() {
         </div>
 
         <div>
-          <h4 className="text-xs font-mono uppercase text-zinc-400 tracking-wider mb-3 flex items-center gap-1.5 font-bold">
-            <Microscope className="w-4 h-4 text-gold-400" />
+          <h4 className="text-xs font-mono uppercase text-stone-700 dark:text-zinc-400 tracking-wider mb-3 flex items-center gap-1.5 font-bold">
+            <Microscope className="w-4 h-4 text-gold-600 dark:text-gold-400" />
             Mecanismul Fiziologic de Laborator
           </h4>
-          <p className="text-xs text-zinc-300 bg-obsidian-950 p-3.5 rounded-xl border border-zinc-800 leading-relaxed">
+          <p className="text-xs text-stone-700 dark:text-zinc-300 bg-stone-50 dark:bg-obsidian-950 p-3.5 rounded-xl border border-stone-200 dark:border-zinc-800 leading-relaxed font-normal">
             {activeStage.scientificMechanism}
           </p>
-          <div className="mt-2 text-[11px] font-mono text-zinc-400">
-            Aproximativ <strong className="text-gold-400">{activeStage.hairCountEstimate} fire active</strong> per arcadă.
+          <div className="mt-2 text-[11px] font-mono text-stone-500 dark:text-zinc-400">
+            Aproximativ <strong className="text-gold-600 dark:text-gold-400 font-semibold">{activeStage.hairCountEstimate} fire active</strong> per arcadă.
           </div>
         </div>
       </div>

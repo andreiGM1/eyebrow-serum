@@ -31,10 +31,10 @@ export default function ProductCard({ product }: ProductCardProps) {
   };
 
   return (
-    <div className="group relative bg-obsidian-900 border border-zinc-800/80 hover:border-gold-500/50 rounded-2xl overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-gold-500/10 flex flex-col justify-between">
+    <div className="group relative bg-white dark:bg-obsidian-900 border border-stone-200 dark:border-zinc-800/80 hover:border-gold-500/50 rounded-2xl overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-gold-500/10 flex flex-col justify-between shadow-sm">
       
       {/* Top Image Section */}
-      <div className="relative aspect-square w-full overflow-hidden bg-zinc-950">
+      <div className="relative aspect-square w-full overflow-hidden bg-stone-100 dark:bg-zinc-950">
         <Link href={`/product/${product.slug}`} className="block w-full h-full">
           <Image
             src={product.images[0] || '/images/mag-evergrow-bottle.png'}
@@ -60,8 +60,8 @@ export default function ProductCard({ product }: ProductCardProps) {
           )}
         </div>
 
-        {/* Volume tag */}
-        <div className="absolute bottom-3 left-3 bg-obsidian-950/85 backdrop-blur-sm border border-zinc-800/80 px-2 py-0.5 rounded text-[10px] font-mono text-zinc-300 shadow">
+        {/* Volume tag (Fixed for Light & Dark mode contrast) */}
+        <div className="absolute bottom-3 left-3 bg-white/95 dark:bg-obsidian-950/85 backdrop-blur-sm border border-stone-300 dark:border-zinc-800/80 px-2.5 py-0.5 rounded text-[10px] font-mono text-stone-800 dark:text-zinc-300 shadow-sm font-semibold">
           {product.volume}
         </div>
 
@@ -82,32 +82,32 @@ export default function ProductCard({ product }: ProductCardProps) {
         <div>
           {/* Reviews Rating */}
           <div className="flex items-center gap-1.5 mb-2">
-            <div className="flex text-gold-400">
+            <div className="flex text-gold-500">
               {[...Array(5)].map((_, i) => (
                 <Star
                   key={i}
                   className={`w-3.5 h-3.5 ${
                     i < Math.floor(product.rating)
-                      ? 'fill-gold-400 text-gold-400'
-                      : 'text-zinc-500/50'
+                      ? 'fill-gold-500 text-gold-500'
+                      : 'text-stone-300 dark:text-zinc-600'
                   }`}
                 />
               ))}
             </div>
-            <span className="text-[11px] font-mono text-zinc-400">
+            <span className="text-[11px] font-mono text-stone-500 dark:text-zinc-400">
               {product.rating.toFixed(2)} ({product.review_count})
             </span>
           </div>
 
           {/* Product Title */}
           <Link href={`/product/${product.slug}`}>
-            <h3 className="font-serif font-semibold text-base text-zinc-100 group-hover:text-gold-400 transition-colors line-clamp-1">
+            <h3 className="font-serif font-semibold text-base text-stone-900 dark:text-zinc-100 group-hover:text-gold-600 dark:group-hover:text-gold-400 transition-colors line-clamp-1">
               {product.name}
             </h3>
           </Link>
 
           {/* Subtitle / Short Description */}
-          <p className="text-xs text-zinc-400 mt-1.5 line-clamp-2 leading-relaxed">
+          <p className="text-xs text-stone-600 dark:text-zinc-400 mt-1.5 line-clamp-2 leading-relaxed">
             {product.short_description}
           </p>
 
@@ -117,9 +117,9 @@ export default function ProductCard({ product }: ProductCardProps) {
               {product.active_ingredients.slice(0, 3).map((ing, idx) => (
                 <span
                   key={idx}
-                  className="text-[9px] px-1.5 py-0.5 rounded bg-gold-500/10 text-zinc-300 border border-gold-500/20 font-mono flex items-center gap-1"
+                  className="text-[9px] px-1.5 py-0.5 rounded bg-gold-500/10 text-stone-700 dark:text-zinc-300 border border-gold-500/25 font-mono flex items-center gap-1 font-medium"
                 >
-                  <Feather className="w-2.5 h-2.5 text-gold-400" />
+                  <Feather className="w-2.5 h-2.5 text-gold-600 dark:text-gold-400" />
                   <span>{ing.name.split('(')[0].trim()}</span>
                 </span>
               ))}
@@ -128,7 +128,7 @@ export default function ProductCard({ product }: ProductCardProps) {
         </div>
 
         {/* Bottom Section: Stock, Price & Add Button */}
-        <div className="mt-5 pt-4 border-t border-zinc-800/80">
+        <div className="mt-5 pt-4 border-t border-stone-200 dark:border-zinc-800/80">
           <div className="mb-3">
             <StockBadge stock={product.stock} />
           </div>
@@ -136,16 +136,16 @@ export default function ProductCard({ product }: ProductCardProps) {
           <div className="flex items-center justify-between gap-2">
             <div>
               <div className="flex items-baseline gap-2">
-                <span className="text-lg font-serif font-bold text-white">
+                <span className="text-lg font-serif font-bold text-stone-950 dark:text-white">
                   {product.price.toFixed(2)} RON
                 </span>
                 {product.compare_at_price && (
-                  <span className="text-xs text-zinc-500 line-through font-mono">
+                  <span className="text-xs text-stone-400 dark:text-zinc-500 line-through font-mono">
                     {product.compare_at_price.toFixed(2)} RON
                   </span>
                 )}
               </div>
-              <span className="text-[10px] text-zinc-500 block">TVA 19% inclus</span>
+              <span className="text-[10px] text-stone-500 dark:text-zinc-500 block">TVA 19% inclus</span>
             </div>
 
             <button
@@ -153,7 +153,7 @@ export default function ProductCard({ product }: ProductCardProps) {
               disabled={product.stock <= 0}
               className={`px-3.5 py-2.5 rounded-xl font-medium text-xs flex items-center gap-1.5 transition-all duration-200 active:scale-95 shadow-md ${
                 product.stock <= 0
-                  ? 'bg-zinc-800 text-zinc-500 cursor-not-allowed border border-zinc-700/40'
+                  ? 'bg-stone-200 dark:bg-zinc-800 text-stone-400 dark:text-zinc-500 cursor-not-allowed border border-stone-300 dark:border-zinc-700/40'
                   : isAdded
                   ? 'bg-emerald-600 text-white shadow-emerald-500/20'
                   : 'bg-gold-500 hover:bg-gold-400 text-obsidian-950 font-semibold shadow-gold-500/20'
