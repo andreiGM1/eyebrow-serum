@@ -96,7 +96,7 @@ export default function Navbar() {
       </div>
 
       {/* Main Header */}
-      <header className="sticky top-0 z-40 bg-white/95 dark:bg-obsidian-950/90 backdrop-blur-md border-b border-stone-200 dark:border-gold-500/15 transition-all duration-300 shadow-sm">
+      <header className="sticky top-0 z-40 bg-white dark:bg-obsidian-950 border-b border-stone-200 dark:border-gold-500/15 transition-all duration-300 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
           
           {/* Mobile Menu Button */}
@@ -143,16 +143,16 @@ export default function Navbar() {
 
               {/* Mega Menu Dropdown */}
               {isMegaMenuOpen && (
-                <div className="absolute top-full left-1/2 -translate-x-1/2 w-[720px] bg-white/98 dark:bg-obsidian-900/95 backdrop-blur-xl border border-stone-200 dark:border-gold-500/30 rounded-b-2xl shadow-2xl p-6 grid grid-cols-2 gap-4 animate-in fade-in slide-in-from-top-2 duration-200">
+                <div className="absolute top-full left-1/2 -translate-x-1/2 w-[720px] bg-white dark:bg-obsidian-950 border border-stone-300 dark:border-gold-500/30 rounded-b-2xl shadow-2xl p-6 grid grid-cols-2 gap-4 animate-in fade-in slide-in-from-top-2 duration-200 z-50">
                   <div className="col-span-2 pb-2 border-b border-stone-200 dark:border-zinc-800 flex items-center justify-between">
-                    <span className="text-xs font-mono uppercase text-gold-600 dark:text-gold-400 tracking-wider flex items-center gap-1.5 font-bold">
+                    <span className="text-xs font-mono uppercase text-gold-700 dark:text-gold-400 tracking-wider flex items-center gap-1.5 font-bold">
                       <Feather className="w-3.5 h-3.5 text-gold-600 dark:text-gold-400" />
                       Categoriile Noastre de Excelență Botanică
                     </span>
                     <Link
                       href="/catalog"
                       onClick={() => setIsMegaMenuOpen(false)}
-                      className="text-xs text-stone-500 dark:text-zinc-400 hover:text-gold-600 dark:hover:text-gold-400 flex items-center gap-1 group font-medium"
+                      className="text-xs text-stone-700 dark:text-zinc-400 hover:text-gold-700 dark:hover:text-gold-400 flex items-center gap-1 group font-semibold"
                     >
                       Vezi tot catalogul <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
                     </Link>
@@ -163,18 +163,18 @@ export default function Navbar() {
                       key={cat.id}
                       href={`/catalog?category=${cat.slug}`}
                       onClick={() => setIsMegaMenuOpen(false)}
-                      className="p-3.5 rounded-xl border border-stone-200 dark:border-zinc-800/80 hover:border-gold-500/50 bg-stone-50/70 dark:bg-obsidian-850/60 hover:bg-stone-100 dark:hover:bg-zinc-800/40 transition-all flex flex-col justify-between group"
+                      className="p-4 rounded-xl border border-stone-200 dark:border-zinc-800 hover:border-gold-500/50 bg-stone-50 dark:bg-obsidian-900 hover:bg-stone-100 dark:hover:bg-zinc-800/80 transition-all flex flex-col justify-between group shadow-sm"
                     >
                       <div>
-                        <div className="text-sm font-serif font-semibold text-stone-900 dark:text-zinc-100 group-hover:text-gold-600 dark:group-hover:text-gold-300 transition-colors flex items-center justify-between">
+                        <div className="text-sm font-serif font-bold text-stone-950 dark:text-zinc-100 group-hover:text-gold-700 dark:group-hover:text-gold-300 transition-colors flex items-center justify-between">
                           <span>{cat.name}</span>
                           <span className="text-gold-600 dark:text-gold-400 text-xs opacity-0 group-hover:opacity-100 transition-opacity">&rarr;</span>
                         </div>
-                        <p className="text-xs text-stone-600 dark:text-zinc-400 mt-1 line-clamp-2">
+                        <p className="text-xs text-stone-700 dark:text-zinc-300 mt-1.5 line-clamp-2 leading-relaxed">
                           {cat.description}
                         </p>
                       </div>
-                      <span className="text-[11px] text-gold-600 dark:text-gold-400/90 font-mono mt-3 group-hover:underline">
+                      <span className="text-[11px] text-gold-700 dark:text-gold-400 font-mono font-semibold mt-3 group-hover:underline">
                         Explorează categoria &rarr;
                       </span>
                     </Link>
