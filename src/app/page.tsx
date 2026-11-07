@@ -107,7 +107,7 @@ export default function HomePage() {
               />
 
               {/* Floating luxury certificate badge */}
-              <div className="absolute bottom-5 left-4 right-4 bg-white/95 dark:bg-obsidian-950/90 backdrop-blur-md border border-stone-200 dark:border-gold-500/40 p-3.5 rounded-2xl flex items-center gap-3 shadow-2xl">
+              <div className="absolute top-5 left-4 right-4 bg-white/95 dark:bg-obsidian-950/90 backdrop-blur-md border border-stone-200 dark:border-gold-500/40 p-3.5 rounded-2xl flex items-center gap-3 shadow-2xl z-10">
                 <div className="p-2.5 rounded-xl bg-gold-500/15 border border-gold-500/30 text-gold-600 dark:text-gold-400 animate-pulse">
                   <ShieldCheck className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
                 </div>
