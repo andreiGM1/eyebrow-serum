@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import { CartProvider } from '@/lib/store/cart-context';
+import { ThemeProvider } from '@/lib/store/theme-context';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import CartDrawer from '@/components/layout/CartDrawer';
@@ -73,13 +74,15 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdData) }}
         />
       </head>
-      <body className="min-h-screen flex flex-col bg-obsidian-950 text-foreground selection:bg-gold-500 selection:text-obsidian-950 font-sans antialiased">
-        <CartProvider>
-          <Navbar />
-          <main className="flex-1">{children}</main>
-          <CartDrawer />
-          <Footer />
-        </CartProvider>
+      <body className="min-h-screen flex flex-col font-sans antialiased">
+        <ThemeProvider>
+          <CartProvider>
+            <Navbar />
+            <main className="flex-1">{children}</main>
+            <CartDrawer />
+            <Footer />
+          </CartProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

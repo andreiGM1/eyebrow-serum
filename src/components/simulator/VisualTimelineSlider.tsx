@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Calendar, CheckCircle2, Sparkles, AlertCircle, Clock } from 'lucide-react';
+import { Calendar, CheckCircle2, Sparkles, AlertCircle, Clock, Feather, Microscope, Compass } from 'lucide-react';
 
 interface StageInfo {
   week: number;
@@ -91,7 +91,7 @@ export default function VisualTimelineSlider() {
   const activeStage = STAGES[activeStageIndex];
 
   return (
-    <div className="bg-obsidian-900 border border-gold-500/30 rounded-3xl p-6 sm:p-8 shadow-2xl">
+    <div className="bg-obsidian-900 border border-gold-500/30 rounded-3xl p-6 sm:p-8 shadow-2xl transition-all">
       
       {/* Title & Badge */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-zinc-800">
@@ -108,7 +108,7 @@ export default function VisualTimelineSlider() {
           </p>
         </div>
 
-        <div className="bg-obsidian-950 px-4 py-2.5 rounded-xl border border-zinc-800 flex items-center gap-3">
+        <div className="bg-obsidian-950 px-4 py-2.5 rounded-xl border border-zinc-800 flex items-center gap-3 shadow-inner">
           <Clock className="w-5 h-5 text-gold-400" />
           <div>
             <div className="text-[10px] uppercase font-mono text-zinc-400">Etapa Selectată</div>
@@ -123,12 +123,13 @@ export default function VisualTimelineSlider() {
       <div className="my-8 grid grid-cols-1 md:grid-cols-2 gap-6">
         
         {/* State 0: Initial Sparse State (Week 0) */}
-        <div className="relative rounded-2xl bg-obsidian-950 border border-zinc-800 p-6 flex flex-col justify-between overflow-hidden">
+        <div className="relative rounded-2xl bg-obsidian-950 border border-zinc-800 p-6 flex flex-col justify-between overflow-hidden shadow-inner">
           <div className="flex items-center justify-between mb-4">
-            <span className="text-xs font-mono uppercase text-zinc-400 bg-zinc-900 px-2.5 py-1 rounded border border-zinc-800">
-              Ziua 0 (Înainte de Tratament)
+            <span className="text-xs font-mono uppercase text-zinc-400 bg-zinc-800/80 px-2.5 py-1 rounded border border-zinc-700/60 flex items-center gap-1.5">
+              <Compass className="w-3 h-3" />
+              <span>Ziua 0 (Înainte de Tratament)</span>
             </span>
-            <span className="text-xs font-mono text-red-400">Densitate: ~20%</span>
+            <span className="text-xs font-mono text-red-400 font-bold">Densitate: ~20%</span>
           </div>
 
           {/* SVG Visual Representation of Sparse Brow */}
@@ -140,15 +141,14 @@ export default function VisualTimelineSlider() {
                   <stop offset="100%" stopColor="#2E2822" stopOpacity="0.3" />
                 </linearGradient>
               </defs>
-              {/* Brow baseline */}
               <path
                 d="M 30,55 Q 160,25 290,45"
                 fill="none"
-                stroke="#252F2B"
+                stroke="#888"
                 strokeWidth="1.5"
                 strokeDasharray="4 4"
+                opacity="0.4"
               />
-              {/* Sparse, broken hairs */}
               {[...Array(28)].map((_, i) => {
                 const x = 40 + i * 9 + (i % 3) * 2;
                 const baseY = 52 - Math.sin((i / 28) * Math.PI) * 20;
@@ -157,10 +157,10 @@ export default function VisualTimelineSlider() {
                   <path
                     key={i}
                     d={`M ${x},${baseY} Q ${x + 4},${baseY - 12} ${x + angle * 0.4},${baseY - 18}`}
-                    stroke={i % 4 === 0 ? '#635343' : '#3E342B'}
+                    stroke={i % 4 === 0 ? '#8B7355' : '#5C4D3C'}
                     strokeWidth={i % 3 === 0 ? 1 : 1.4}
                     strokeLinecap="round"
-                    opacity={i % 5 === 0 ? 0.2 : 0.55}
+                    opacity={i % 5 === 0 ? 0.25 : 0.6}
                   />
                 );
               })}
@@ -175,8 +175,9 @@ export default function VisualTimelineSlider() {
         {/* State 1: Active Stage After Treatment */}
         <div className="relative rounded-2xl bg-obsidian-950 border border-gold-500/40 p-6 flex flex-col justify-between overflow-hidden shadow-xl shadow-gold-500/5">
           <div className="flex items-center justify-between mb-4">
-            <span className="text-xs font-mono uppercase text-gold-300 bg-gold-500/10 px-2.5 py-1 rounded border border-gold-500/30">
-              {activeStage.label} (Tratament MAG)
+            <span className="text-xs font-mono uppercase text-gold-400 bg-gold-500/10 px-2.5 py-1 rounded border border-gold-500/30 flex items-center gap-1.5 font-bold">
+              <Feather className="w-3 h-3 text-gold-400" />
+              <span>{activeStage.label} (Tratament MAG)</span>
             </span>
             <span className="text-xs font-mono text-emerald-400 font-bold">
               Densitate: {activeStage.densityScore}%
@@ -192,14 +193,12 @@ export default function VisualTimelineSlider() {
                   <stop offset="100%" stopColor="#1C1814" stopOpacity="1" />
                 </linearGradient>
               </defs>
-              {/* Arch guide */}
               <path
                 d="M 30,55 Q 160,20 290,45"
                 fill="none"
-                stroke="rgba(197, 160, 60, 0.25)"
+                stroke="rgba(197, 160, 60, 0.4)"
                 strokeWidth="2"
               />
-              {/* Dense hairs mapped to density score */}
               {[...Array(70)].map((_, i) => {
                 const x = 35 + i * 3.7;
                 const baseY = 53 - Math.sin((i / 70) * Math.PI) * 26;
@@ -214,7 +213,7 @@ export default function VisualTimelineSlider() {
                   <path
                     key={i}
                     d={`M ${x},${baseY} Q ${x + 5},${baseY - hairLength * 0.6} ${x + angle * 0.5},${baseY - hairLength}`}
-                    stroke={i % 7 === 0 ? '#E6CA85' : '#1F1A14'}
+                    stroke={i % 7 === 0 ? '#C5A03C' : '#2A241C'}
                     strokeWidth={isNewHair ? 1.4 : 1.8}
                     strokeLinecap="round"
                     opacity={activeStage.visualOpacity}
@@ -226,7 +225,7 @@ export default function VisualTimelineSlider() {
           </div>
 
           <div className="text-xs text-zinc-300 bg-gold-500/10 p-3 rounded-xl border border-gold-500/20">
-            <strong className="text-gold-300">{activeStage.phaseName}:</strong> {activeStage.description}
+            <strong className="text-gold-400">{activeStage.phaseName}:</strong> {activeStage.description}
           </div>
         </div>
       </div>
@@ -240,19 +239,19 @@ export default function VisualTimelineSlider() {
               <button
                 key={stage.week}
                 onClick={() => setActiveStageIndex(idx)}
-                className={`p-3 sm:p-4 rounded-2xl border text-center transition-all flex flex-col items-center justify-center gap-1 ${
+                className={`p-3 sm:p-4 rounded-2xl border text-center transition-all duration-200 active:scale-95 flex flex-col items-center justify-center gap-1 ${
                   isActive
                     ? 'bg-gold-500 text-obsidian-950 border-gold-400 font-bold shadow-lg shadow-gold-500/20 scale-105'
                     : 'bg-obsidian-950 border-zinc-800 text-zinc-400 hover:border-zinc-700 hover:text-white'
                 }`}
               >
-                <span className={`text-[11px] font-mono uppercase ${isActive ? 'text-obsidian-950' : 'text-zinc-500'}`}>
+                <span className={`text-[11px] font-mono uppercase ${isActive ? 'text-obsidian-950' : 'text-zinc-400'}`}>
                   Etapa {idx + 1}
                 </span>
                 <span className="font-serif text-sm sm:text-base font-bold">
                   {stage.label}
                 </span>
-                <span className={`text-[10px] font-mono ${isActive ? 'text-obsidian-900' : 'text-gold-400'}`}>
+                <span className={`text-[10px] font-mono ${isActive ? 'text-obsidian-900 font-bold' : 'text-gold-400'}`}>
                   {stage.densityScore}% Densitate
                 </span>
               </button>
@@ -283,7 +282,7 @@ export default function VisualTimelineSlider() {
       {/* Stage Breakdown & Milestones */}
       <div className="mt-8 pt-6 border-t border-zinc-800 grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
-          <h4 className="text-xs font-mono uppercase text-gold-400 tracking-wider mb-3 flex items-center gap-1.5">
+          <h4 className="text-xs font-mono uppercase text-gold-400 tracking-wider mb-3 flex items-center gap-1.5 font-bold">
             <CheckCircle2 className="w-4 h-4 text-emerald-400" />
             Ce Vei Observa În Oglindă
           </h4>
@@ -298,14 +297,14 @@ export default function VisualTimelineSlider() {
         </div>
 
         <div>
-          <h4 className="text-xs font-mono uppercase text-zinc-400 tracking-wider mb-3 flex items-center gap-1.5">
-            <AlertCircle className="w-4 h-4 text-gold-400" />
+          <h4 className="text-xs font-mono uppercase text-zinc-400 tracking-wider mb-3 flex items-center gap-1.5 font-bold">
+            <Microscope className="w-4 h-4 text-gold-400" />
             Mecanismul Fiziologic de Laborator
           </h4>
           <p className="text-xs text-zinc-300 bg-obsidian-950 p-3.5 rounded-xl border border-zinc-800 leading-relaxed">
             {activeStage.scientificMechanism}
           </p>
-          <div className="mt-2 text-[11px] font-mono text-zinc-500">
+          <div className="mt-2 text-[11px] font-mono text-zinc-400">
             Aproximativ <strong className="text-gold-400">{activeStage.hairCountEstimate} fire active</strong> per arcadă.
           </div>
         </div>

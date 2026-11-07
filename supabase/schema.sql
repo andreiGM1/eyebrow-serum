@@ -278,3 +278,4 @@ CREATE POLICY "Reviews are public readable" ON public.reviews
 
 CREATE POLICY "Authenticated users can post reviews" ON public.reviews
     FOR INSERT WITH CHECK (auth.uid() IS NOT NULL);
+

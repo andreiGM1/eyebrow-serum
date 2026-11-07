@@ -3,11 +3,25 @@
 @tailwind utilities;
 
 :root {
+  --background: #F8F7F4;
+  --foreground: #141716;
+  --card-bg: #FFFFFF;
+  --card-border: rgba(197, 160, 60, 0.24);
+  --card-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.07);
+  --gold-accent: #B08B35;
+  --input-bg: #FFFFFF;
+  --surface-subtle: #F2EFE9;
+}
+
+html.dark {
   --background: #0B0E0D;
   --foreground: #F5F3EC;
   --card-bg: #121816;
-  --card-border: rgba(197, 160, 60, 0.18);
+  --card-border: rgba(197, 160, 60, 0.2);
+  --card-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
   --gold-accent: #C5A03C;
+  --input-bg: #070A09;
+  --surface-subtle: #171E1C;
 }
 
 @layer base {
@@ -17,22 +31,65 @@
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
+    transition: background-color 0.3s ease, color 0.3s ease;
   }
 }
 
-/* Custom luxury scrollbar */
+/* Light mode overrides for obsidian / dark specific classes to maintain luxury ivory aesthetic */
+html.light .bg-obsidian-950 {
+  background-color: #F8F7F4 !important;
+}
+html.light .bg-obsidian-900 {
+  background-color: #FFFFFF !important;
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05);
+}
+html.light .bg-obsidian-850 {
+  background-color: #FAF8F5 !important;
+}
+html.light .bg-botanical-950 {
+  background-color: #F0ECE4 !important;
+}
+html.light .bg-zinc-950 {
+  background-color: #F2EFE9 !important;
+}
+html.light .border-zinc-800 {
+  border-color: #E6E1D6 !important;
+}
+html.light .border-zinc-700 {
+  border-color: #D8D2C5 !important;
+}
+html.light .text-zinc-400 {
+  color: #636A67 !important;
+}
+html.light .text-zinc-500 {
+  color: #838A87 !important;
+}
+html.light .text-zinc-300 {
+  color: #374151 !important;
+}
+html.light .text-zinc-200 {
+  color: #1F2937 !important;
+}
+html.light .text-white {
+  color: #111827 !important;
+}
+html.light .hover\:text-white:hover {
+  color: #000000 !important;
+}
+
+/* Luxury scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #090C0B;
+  background: var(--background);
 }
 ::-webkit-scrollbar-thumb {
-  background: #25332C;
+  background: #C5A03C;
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #C5A03C;
+  background: #B08B35;
 }
 
 /* Print styles for Fiscal Invoices */
@@ -56,29 +113,70 @@
   }
 }
 
-/* Glassmorphism card utilities */
-.glass-panel {
-  background: rgba(18, 24, 22, 0.75);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(197, 160, 60, 0.2);
+/* Animation Utilities */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
 }
 
-.glass-panel-hover {
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
 }
 
-.glass-panel-hover:hover {
-  border-color: rgba(197, 160, 60, 0.45);
-  box-shadow: 0 10px 30px -10px rgba(197, 160, 60, 0.15);
-  transform: translateY(-2px);
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow: 0 0 15px -3px rgba(197, 160, 60, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 25px 2px rgba(197, 160, 60, 0.45);
+  }
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulseGlow 3s ease-in-out infinite;
+}
+
+.shimmer-text {
+  background: linear-gradient(90deg, #C5A03C 0%, #FFF2B2 50%, #C5A03C 100%);
+  background-size: 200% auto;
+  color: transparent;
+  -webkit-background-clip: text;
+  animation: shimmer 4s linear infinite;
 }
 
 .gold-gradient-text {
-  background: linear-gradient(135deg, #FFF7D6 0%, #E6CA85 50%, #B89035 100%);
+  background: linear-gradient(135deg, #DFC28F 0%, #C5A03C 50%, #9E7E2C 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+html.light .gold-gradient-text {
+  background: linear-gradient(135deg, #A88124 0%, #856213 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .gold-gradient-bg {
   background: linear-gradient(135deg, #DFC28F 0%, #C5A03C 50%, #9E7E2C 100%);
+}
+
+/* Glassmorphism utilities */
+.glass-panel {
+  background: var(--card-bg);
+  backdrop-filter: blur(14px);
+  border: 1px solid var(--card-border);
+  box-shadow: var(--card-shadow);
 }

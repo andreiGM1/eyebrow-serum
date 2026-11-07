@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Check, ArrowRight, ArrowLeft, Sparkles, Shield, HeartHandshake, Eye } from 'lucide-react';
+import { Check, ArrowRight, ArrowLeft, Sparkles, Shield, HeartHandshake, Eye, Feather } from 'lucide-react';
 import { DiagnosticQuizAnswers } from '@/lib/types';
 
 interface DiagnosticQuizProps {
@@ -32,11 +32,12 @@ export default function DiagnosticQuiz({ onComplete }: DiagnosticQuizProps) {
   };
 
   return (
-    <div className="bg-obsidian-900 border border-gold-500/30 rounded-3xl p-6 sm:p-8 shadow-2xl">
+    <div className="bg-obsidian-900 border border-gold-500/30 rounded-3xl p-6 sm:p-8 shadow-2xl transition-all">
       {/* Progress header */}
       <div className="flex items-center justify-between pb-6 border-b border-zinc-800">
         <div>
-          <span className="text-[11px] font-mono text-gold-400 uppercase tracking-widest block">
+          <span className="text-[11px] font-mono text-gold-400 uppercase tracking-widest block flex items-center gap-1.5 font-bold">
+            <Feather className="w-3.5 h-3.5 text-gold-400" />
             Protocol de Evaluare Clinico-Botanică • Pasul {step} din 3
           </span>
           <h3 className="font-serif text-xl sm:text-2xl font-bold text-white mt-1">
@@ -53,7 +54,7 @@ export default function DiagnosticQuiz({ onComplete }: DiagnosticQuizProps) {
               key={s}
               className={`w-8 h-8 rounded-full flex items-center justify-center font-mono text-xs font-bold transition-all ${
                 s === step
-                  ? 'bg-gold-500 text-obsidian-950 ring-2 ring-gold-400/40'
+                  ? 'bg-gold-500 text-obsidian-950 ring-4 ring-gold-400/30 scale-110 shadow'
                   : s < step
                   ? 'bg-emerald-900/60 text-emerald-300 border border-emerald-500/30'
                   : 'bg-zinc-800 text-zinc-500'
@@ -97,9 +98,9 @@ export default function DiagnosticQuiz({ onComplete }: DiagnosticQuizProps) {
                 key={opt.id}
                 type="button"
                 onClick={() => setAnswers({ ...answers, density: opt.id as any })}
-                className={`p-5 rounded-2xl border text-left transition-all ${
+                className={`p-5 rounded-2xl border text-left transition-all duration-200 active:scale-95 ${
                   answers.density === opt.id
-                    ? 'bg-gold-500/15 border-gold-500 text-white shadow-lg shadow-gold-500/10'
+                    ? 'bg-gold-500/15 border-gold-500 text-white shadow-lg shadow-gold-500/10 ring-1 ring-gold-500/30'
                     : 'bg-obsidian-950 border-zinc-800 text-zinc-300 hover:border-zinc-700'
                 }`}
               >
@@ -108,7 +109,7 @@ export default function DiagnosticQuiz({ onComplete }: DiagnosticQuizProps) {
                     {opt.title}
                   </span>
                   <div
-                    className={`w-5 h-5 rounded-full border flex items-center justify-center ${
+                    className={`w-5 h-5 rounded-full border flex items-center justify-center transition-colors ${
                       answers.density === opt.id
                         ? 'border-gold-500 bg-gold-500 text-obsidian-950'
                         : 'border-zinc-700'
@@ -152,9 +153,9 @@ export default function DiagnosticQuiz({ onComplete }: DiagnosticQuizProps) {
                 key={opt.id}
                 type="button"
                 onClick={() => setAnswers({ ...answers, history: opt.id as any })}
-                className={`p-5 rounded-2xl border text-left transition-all ${
+                className={`p-5 rounded-2xl border text-left transition-all duration-200 active:scale-95 ${
                   answers.history === opt.id
-                    ? 'bg-gold-500/15 border-gold-500 text-white shadow-lg shadow-gold-500/10'
+                    ? 'bg-gold-500/15 border-gold-500 text-white shadow-lg shadow-gold-500/10 ring-1 ring-gold-500/30'
                     : 'bg-obsidian-950 border-zinc-800 text-zinc-300 hover:border-zinc-700'
                 }`}
               >
@@ -163,7 +164,7 @@ export default function DiagnosticQuiz({ onComplete }: DiagnosticQuizProps) {
                     {opt.title}
                   </span>
                   <div
-                    className={`w-5 h-5 rounded-full border flex items-center justify-center ${
+                    className={`w-5 h-5 rounded-full border flex items-center justify-center transition-colors ${
                       answers.history === opt.id
                         ? 'border-gold-500 bg-gold-500 text-obsidian-950'
                         : 'border-zinc-700'
@@ -202,9 +203,9 @@ export default function DiagnosticQuiz({ onComplete }: DiagnosticQuizProps) {
                 key={opt.id}
                 type="button"
                 onClick={() => setAnswers({ ...answers, sensitivity: opt.id as any })}
-                className={`p-5 rounded-2xl border text-left transition-all ${
+                className={`p-5 rounded-2xl border text-left transition-all duration-200 active:scale-95 ${
                   answers.sensitivity === opt.id
-                    ? 'bg-gold-500/15 border-gold-500 text-white shadow-lg shadow-gold-500/10'
+                    ? 'bg-gold-500/15 border-gold-500 text-white shadow-lg shadow-gold-500/10 ring-1 ring-gold-500/30'
                     : 'bg-obsidian-950 border-zinc-800 text-zinc-300 hover:border-zinc-700'
                 }`}
               >
@@ -213,7 +214,7 @@ export default function DiagnosticQuiz({ onComplete }: DiagnosticQuizProps) {
                     {opt.title}
                   </span>
                   <div
-                    className={`w-4 h-4 rounded-full border flex items-center justify-center ${
+                    className={`w-4 h-4 rounded-full border flex items-center justify-center transition-colors ${
                       answers.sensitivity === opt.id
                         ? 'border-gold-500 bg-gold-500 text-obsidian-950'
                         : 'border-zinc-700'
@@ -235,7 +236,7 @@ export default function DiagnosticQuiz({ onComplete }: DiagnosticQuizProps) {
           <button
             type="button"
             onClick={handlePrev}
-            className="px-5 py-2.5 rounded-xl border border-zinc-700 hover:bg-zinc-800 text-zinc-300 text-xs font-semibold flex items-center gap-1.5 transition-colors"
+            className="px-5 py-2.5 rounded-xl border border-zinc-700 hover:bg-zinc-800 text-zinc-300 text-xs font-semibold flex items-center gap-1.5 transition-all duration-200 active:scale-95"
           >
             <ArrowLeft className="w-3.5 h-3.5" />
             <span>Înapoi</span>
@@ -247,10 +248,10 @@ export default function DiagnosticQuiz({ onComplete }: DiagnosticQuizProps) {
         <button
           type="button"
           onClick={handleNext}
-          className="px-6 py-3 rounded-xl bg-gold-500 hover:bg-gold-400 text-obsidian-950 text-xs font-bold uppercase tracking-wider flex items-center gap-2 transition-all shadow-lg shadow-gold-500/20"
+          className="px-6 py-3 rounded-xl bg-gold-500 hover:bg-gold-400 text-obsidian-950 text-xs font-bold uppercase tracking-wider flex items-center gap-2 transition-all duration-200 active:scale-95 shadow-lg shadow-gold-500/20 group"
         >
           <span>{step === 3 ? 'Generează Diagnostic & Protocol Personalizat' : 'Pasul Următor'}</span>
-          <ArrowRight className="w-4 h-4" />
+          <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
         </button>
       </div>
     </div>

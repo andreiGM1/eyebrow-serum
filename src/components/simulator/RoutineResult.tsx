@@ -248,3 +248,4 @@ export default function RoutineResult({ answers, onReset }: RoutineResultProps) 
     </div>
   );
 }
+

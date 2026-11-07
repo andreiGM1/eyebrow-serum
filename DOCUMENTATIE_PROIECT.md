@@ -255,3 +255,4 @@ Pentru a demonstra performanța superioară a stack-ului Next.js 15 față de pl
 
 ---
 *Proiect realizat conform standardelor de excelență software de către echipa MAG Laboratories Bucharest.*
+

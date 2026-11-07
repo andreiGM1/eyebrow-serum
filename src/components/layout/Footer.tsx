@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { ShieldCheck, Leaf, FlaskConical, Award, Mail, CheckCircle2 } from 'lucide-react';
+import { ShieldCheck, Leaf, FlaskConical, Award, Mail, CheckCircle2, Sparkles, Feather } from 'lucide-react';
 
 export default function Footer() {
   const [email, setEmail] = useState('');
@@ -17,17 +17,17 @@ export default function Footer() {
   };
 
   return (
-    <footer className="bg-obsidian-950 border-t border-gold-500/20 text-zinc-400 font-sans pt-16 pb-12">
+    <footer className="bg-obsidian-950 border-t border-gold-500/20 text-zinc-400 font-sans pt-16 pb-12 transition-colors">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Top Badges: Botanical Luxury Pillars */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6 pb-14 border-b border-zinc-800/80">
-          <div className="flex items-start gap-3">
-            <div className="p-2.5 rounded-lg bg-gold-500/10 border border-gold-500/20 text-gold-400">
+          <div className="flex items-start gap-3 group">
+            <div className="p-3 rounded-2xl bg-gold-500/10 border border-gold-500/30 text-gold-400 group-hover:scale-110 group-hover:rotate-6 transition-all duration-300 shadow-sm">
               <FlaskConical className="w-5 h-5" />
             </div>
             <div>
-              <div className="text-sm font-semibold text-white uppercase tracking-wider">
+              <div className="text-sm font-semibold text-white uppercase tracking-wider group-hover:text-gold-400 transition-colors">
                 Compounded în București
               </div>
               <p className="text-xs text-zinc-400 mt-1">
@@ -36,12 +36,12 @@ export default function Footer() {
             </div>
           </div>
 
-          <div className="flex items-start gap-3">
-            <div className="p-2.5 rounded-lg bg-gold-500/10 border border-gold-500/20 text-gold-400">
+          <div className="flex items-start gap-3 group">
+            <div className="p-3 rounded-2xl bg-gold-500/10 border border-gold-500/30 text-gold-400 group-hover:scale-110 group-hover:rotate-6 transition-all duration-300 shadow-sm">
               <Leaf className="w-5 h-5" />
             </div>
             <div>
-              <div className="text-sm font-semibold text-white uppercase tracking-wider">
+              <div className="text-sm font-semibold text-white uppercase tracking-wider group-hover:text-gold-400 transition-colors">
                 100% Active Lipid Complex
               </div>
               <p className="text-xs text-zinc-400 mt-1">
@@ -50,12 +50,12 @@ export default function Footer() {
             </div>
           </div>
 
-          <div className="flex items-start gap-3">
-            <div className="p-2.5 rounded-lg bg-gold-500/10 border border-gold-500/20 text-gold-400">
-              <ShieldCheck className="w-5 h-5" />
+          <div className="flex items-start gap-3 group">
+            <div className="p-3 rounded-2xl bg-gold-500/10 border border-gold-500/30 text-gold-400 group-hover:scale-110 group-hover:rotate-6 transition-all duration-300 shadow-sm">
+              <ShieldCheck className="w-5 h-5 text-emerald-400" />
             </div>
             <div>
-              <div className="text-sm font-semibold text-white uppercase tracking-wider">
+              <div className="text-sm font-semibold text-white uppercase tracking-wider group-hover:text-gold-400 transition-colors">
                 Prostaglandin-Free
               </div>
               <p className="text-xs text-zinc-400 mt-1">
@@ -64,12 +64,12 @@ export default function Footer() {
             </div>
           </div>
 
-          <div className="flex items-start gap-3">
-            <div className="p-2.5 rounded-lg bg-gold-500/10 border border-gold-500/20 text-gold-400">
+          <div className="flex items-start gap-3 group">
+            <div className="p-3 rounded-2xl bg-gold-500/10 border border-gold-500/30 text-gold-400 group-hover:scale-110 group-hover:rotate-6 transition-all duration-300 shadow-sm">
               <Award className="w-5 h-5" />
             </div>
             <div>
-              <div className="text-sm font-semibold text-white uppercase tracking-wider">
+              <div className="text-sm font-semibold text-white uppercase tracking-wider group-hover:text-gold-400 transition-colors">
                 Regulament UE (CE) 1223/2009
               </div>
               <p className="text-xs text-zinc-400 mt-1">
@@ -104,7 +104,8 @@ export default function Footer() {
 
           {/* Quick Links */}
           <div>
-            <h4 className="text-xs uppercase tracking-widest text-white font-mono mb-4">
+            <h4 className="text-xs uppercase tracking-widest text-white font-mono mb-4 flex items-center gap-1.5">
+              <Feather className="w-3.5 h-3.5 text-gold-400" />
               Catalog Produse
             </h4>
             <ul className="space-y-2 text-xs">
@@ -138,7 +139,8 @@ export default function Footer() {
 
           {/* Customer Care */}
           <div>
-            <h4 className="text-xs uppercase tracking-widest text-white font-mono mb-4">
+            <h4 className="text-xs uppercase tracking-widest text-white font-mono mb-4 flex items-center gap-1.5">
+              <Sparkles className="w-3.5 h-3.5 text-gold-400" />
               Asistență & Diagnostic
             </h4>
             <ul className="space-y-2 text-xs">
@@ -172,7 +174,8 @@ export default function Footer() {
 
           {/* Newsletter */}
           <div>
-            <h4 className="text-xs uppercase tracking-widest text-white font-mono mb-4">
+            <h4 className="text-xs uppercase tracking-widest text-white font-mono mb-4 flex items-center gap-1.5">
+              <Mail className="w-3.5 h-3.5 text-gold-400" />
               Atelier Newsletter
             </h4>
             <p className="text-xs text-zinc-400 mb-3">

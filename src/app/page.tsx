@@ -12,8 +12,10 @@ import {
   Star,
   CheckCircle2,
   Droplets,
-  Heart,
-  TrendingUp,
+  Feather,
+  Layers,
+  Compass,
+  Zap,
 } from 'lucide-react';
 import { INITIAL_PRODUCTS, INITIAL_CATEGORIES } from '@/lib/data';
 import ProductCard from '@/components/product/ProductCard';
@@ -22,7 +24,7 @@ export default function HomePage() {
   const featuredProducts = INITIAL_PRODUCTS.filter((p) => p.is_featured);
 
   return (
-    <div className="min-h-screen bg-obsidian-950 text-foreground overflow-hidden">
+    <div className="min-h-screen bg-obsidian-950 text-foreground overflow-hidden transition-colors">
       
       {/* 1. HERO SECTION */}
       <section className="relative pt-12 pb-20 sm:pt-20 sm:pb-32 px-4 sm:px-6 lg:px-8 border-b border-zinc-800/80">
@@ -37,7 +39,7 @@ export default function HomePage() {
           <div className="lg:col-span-7 space-y-6 text-center lg:text-left">
             
             {/* Pill */}
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-gold-500/10 border border-gold-500/30 text-gold-300 text-xs font-mono">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gold-500/10 border border-gold-500/30 text-gold-400 text-xs font-mono shadow-sm animate-pulse-glow">
               <FlaskConical className="w-3.5 h-3.5 text-gold-400" />
               <span>MAG LABORATORIES • ATELIER BUCUREȘTI</span>
             </div>
@@ -59,7 +61,7 @@ export default function HomePage() {
             <div className="pt-2 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
               <Link
                 href="/catalog"
-                className="w-full sm:w-auto px-8 py-4 rounded-xl bg-gold-500 hover:bg-gold-400 text-obsidian-950 font-bold text-xs uppercase tracking-wider transition-all shadow-xl shadow-gold-500/20 flex items-center justify-center gap-2 group"
+                className="w-full sm:w-auto px-8 py-4 rounded-xl bg-gold-500 hover:bg-gold-400 text-obsidian-950 font-bold text-xs uppercase tracking-wider transition-all duration-200 active:scale-95 shadow-xl shadow-gold-500/20 flex items-center justify-center gap-2 group"
               >
                 <span>Descoperă Catalogul</span>
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -67,34 +69,34 @@ export default function HomePage() {
 
               <Link
                 href="/simulator"
-                className="w-full sm:w-auto px-6 py-4 rounded-xl bg-obsidian-900 hover:bg-zinc-800 border border-gold-500/40 text-gold-300 hover:text-white font-medium text-xs tracking-wider transition-all flex items-center justify-center gap-2"
+                className="w-full sm:w-auto px-6 py-4 rounded-xl bg-obsidian-900 hover:bg-zinc-800 border border-gold-500/40 text-gold-400 hover:text-gold-300 font-medium text-xs tracking-wider transition-all duration-200 active:scale-95 flex items-center justify-center gap-2 shadow-sm"
               >
-                <Sparkles className="w-4 h-4 text-gold-400" />
+                <Sparkles className="w-4 h-4 text-gold-400 animate-spin" style={{ animationDuration: '8s' }} />
                 <span>Simulator Timeline & Diagnostic</span>
               </Link>
             </div>
 
             {/* Trust highlights */}
             <div className="pt-6 border-t border-zinc-800/80 grid grid-cols-3 gap-4 text-left max-w-md mx-auto lg:mx-0">
-              <div>
-                <span className="font-serif text-xl sm:text-2xl font-bold text-white block">100%</span>
+              <div className="group">
+                <span className="font-serif text-xl sm:text-2xl font-bold text-white block group-hover:text-gold-400 transition-colors">100%</span>
                 <span className="text-[11px] font-mono text-zinc-400">Lipide Active (Fără Apă)</span>
               </div>
-              <div>
+              <div className="group">
                 <span className="font-serif text-xl sm:text-2xl font-bold text-gold-400 block">0%</span>
                 <span className="text-[11px] font-mono text-zinc-400">Hormoni / Prostaglandine</span>
               </div>
-              <div>
-                <span className="font-serif text-xl sm:text-2xl font-bold text-white block">90 Zile</span>
+              <div className="group">
+                <span className="font-serif text-xl sm:text-2xl font-bold text-white block group-hover:text-gold-400 transition-colors">90 Zile</span>
                 <span className="text-[11px] font-mono text-zinc-400">Cură per Flacon 3 ml</span>
               </div>
             </div>
 
           </div>
 
-          {/* Right Hero Column: Real Product Visual */}
+          {/* Right Hero Column: Real Product Visual with Floating Animation */}
           <div className="lg:col-span-5 relative flex justify-center">
-            <div className="relative w-72 sm:w-84 aspect-[9/16] rounded-3xl overflow-hidden border-2 border-gold-500/40 shadow-2xl shadow-gold-500/10 group">
+            <div className="relative w-72 sm:w-84 aspect-[9/16] rounded-3xl overflow-hidden border-2 border-gold-500/40 shadow-2xl shadow-gold-500/10 group animate-float">
               <Image
                 src="/images/mag-evergrow-bottle.png"
                 alt="MAG EVERGROW Lash and Brow Serum Bottle"
@@ -105,9 +107,9 @@ export default function HomePage() {
               />
 
               {/* Floating luxury certificate badge */}
-              <div className="absolute bottom-5 left-4 right-4 bg-obsidian-950/85 backdrop-blur-md border border-gold-500/40 p-3.5 rounded-2xl flex items-center gap-3 shadow-2xl">
-                <div className="p-2 rounded-xl bg-gold-500/10 border border-gold-500/30 text-gold-400">
-                  <ShieldCheck className="w-5 h-5" />
+              <div className="absolute bottom-5 left-4 right-4 bg-obsidian-950/90 backdrop-blur-md border border-gold-500/40 p-3.5 rounded-2xl flex items-center gap-3 shadow-2xl">
+                <div className="p-2.5 rounded-xl bg-gold-500/10 border border-gold-500/30 text-gold-400 animate-pulse">
+                  <ShieldCheck className="w-5 h-5 text-emerald-400" />
                 </div>
                 <div>
                   <div className="text-xs font-serif font-bold text-white">MAG EVERGROW 3 ML</div>
@@ -124,7 +126,8 @@ export default function HomePage() {
       <section className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10">
           <div>
-            <span className="text-xs font-mono uppercase tracking-[0.25em] text-gold-400 block mb-1">
+            <span className="text-xs font-mono uppercase tracking-[0.25em] text-gold-400 block mb-1 flex items-center gap-1.5">
+              <Feather className="w-3.5 h-3.5 text-gold-400" />
               Colecții de Tratament Folicular
             </span>
             <h2 className="font-serif text-3xl font-bold text-white">
@@ -145,11 +148,13 @@ export default function HomePage() {
             <Link
               key={cat.id}
               href={`/catalog?category=${cat.slug}`}
-              className="group bg-obsidian-900 border border-zinc-800 hover:border-gold-500/40 rounded-2xl p-6 transition-all duration-300 hover:shadow-xl hover:shadow-gold-500/5 flex flex-col justify-between"
+              className="group bg-obsidian-900 border border-zinc-800 hover:border-gold-500/50 rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-gold-500/10 flex flex-col justify-between"
             >
               <div>
-                <span className="text-xs font-mono text-gold-400 font-bold">0{idx + 1}</span>
-                <h3 className="font-serif text-lg font-bold text-white mt-2 group-hover:text-gold-300 transition-colors">
+                <span className="text-xs font-mono text-gold-400 font-bold bg-gold-500/10 border border-gold-500/20 px-2 py-0.5 rounded">
+                  0{idx + 1}
+                </span>
+                <h3 className="font-serif text-lg font-bold text-white mt-3 group-hover:text-gold-400 transition-colors">
                   {cat.name}
                 </h3>
                 <p className="text-xs text-zinc-400 mt-2 leading-relaxed">
@@ -157,9 +162,9 @@ export default function HomePage() {
                 </p>
               </div>
 
-              <div className="mt-6 pt-4 border-t border-zinc-800/80 flex items-center justify-between text-xs font-mono text-zinc-500 group-hover:text-gold-400 transition-colors">
+              <div className="mt-6 pt-4 border-t border-zinc-800/80 flex items-center justify-between text-xs font-mono text-zinc-400 group-hover:text-gold-400 transition-colors">
                 <span>Explorează</span>
-                <span>&rarr;</span>
+                <span className="group-hover:translate-x-1 transition-transform">&rarr;</span>
               </div>
             </Link>
           ))}
@@ -170,8 +175,8 @@ export default function HomePage() {
       <section className="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         <div className="relative rounded-3xl bg-gradient-to-r from-obsidian-900 via-botanical-950 to-obsidian-900 border border-gold-500/30 p-8 sm:p-14 overflow-hidden shadow-2xl">
           <div className="max-w-2xl space-y-5 relative z-10">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gold-500/10 border border-gold-500/30 text-gold-300 text-xs font-mono">
-              <Sparkles className="w-3.5 h-3.5 text-gold-400" />
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-gold-500/10 border border-gold-500/30 text-gold-400 text-xs font-mono">
+              <Sparkles className="w-3.5 h-3.5 text-gold-400 animate-spin" style={{ animationDuration: '6s' }} />
               <span>MODUL ORIGINAL • EVALUARE PERSONALIZATĂ</span>
             </div>
 
@@ -189,10 +194,10 @@ export default function HomePage() {
             <div className="pt-2">
               <Link
                 href="/simulator"
-                className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl bg-gold-500 hover:bg-gold-400 text-obsidian-950 font-bold text-xs uppercase tracking-wider transition-all shadow-xl shadow-gold-500/20"
+                className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl bg-gold-500 hover:bg-gold-400 text-obsidian-950 font-bold text-xs uppercase tracking-wider transition-all duration-200 active:scale-95 shadow-xl shadow-gold-500/20 group"
               >
                 <span>Pornește Simulatorul Interactiv</span>
-                <ArrowRight className="w-4 h-4" />
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Link>
             </div>
           </div>
@@ -203,7 +208,8 @@ export default function HomePage() {
       <section className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10">
           <div>
-            <span className="text-xs font-mono uppercase tracking-[0.25em] text-gold-400 block mb-1">
+            <span className="text-xs font-mono uppercase tracking-[0.25em] text-gold-400 block mb-1 flex items-center gap-1.5">
+              <Award className="w-3.5 h-3.5 text-gold-400" />
               Selectate de Laborator
             </span>
             <h2 className="font-serif text-3xl font-bold text-white">
@@ -230,7 +236,8 @@ export default function HomePage() {
       <section className="py-20 bg-obsidian-900 border-y border-zinc-800 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto space-y-12">
           <div className="text-center max-w-2xl mx-auto space-y-3">
-            <span className="text-xs font-mono uppercase tracking-[0.25em] text-gold-400">
+            <span className="text-xs font-mono uppercase tracking-[0.25em] text-gold-400 flex items-center justify-center gap-1.5">
+              <FlaskConical className="w-3.5 h-3.5 text-gold-400" />
               Decriptare Științifică
             </span>
             <h2 className="font-serif text-3xl sm:text-4xl font-bold text-white">
@@ -266,12 +273,14 @@ export default function HomePage() {
             ].map((item, idx) => (
               <div
                 key={idx}
-                className="bg-obsidian-950 border border-zinc-800 p-6 rounded-2xl space-y-3"
+                className="bg-obsidian-950 border border-zinc-800 p-6 rounded-2xl space-y-3 group hover:border-gold-500/40 transition-colors"
               >
-                <div className="w-8 h-8 rounded-lg bg-gold-500/10 border border-gold-500/30 flex items-center justify-center text-gold-400 font-mono text-xs font-bold">
+                <div className="w-8 h-8 rounded-lg bg-gold-500/10 border border-gold-500/30 flex items-center justify-center text-gold-400 font-mono text-xs font-bold group-hover:scale-110 transition-transform">
                   0{idx + 1}
                 </div>
-                <h3 className="font-serif font-bold text-base text-white">{item.title}</h3>
+                <h3 className="font-serif font-bold text-base text-white group-hover:text-gold-400 transition-colors">
+                  {item.title}
+                </h3>
                 <span className="text-[10px] font-mono text-gold-400/90 block">{item.source}</span>
                 <p className="text-xs text-zinc-400 leading-relaxed">{item.desc}</p>
               </div>
@@ -313,7 +322,7 @@ export default function HomePage() {
           ].map((item, idx) => (
             <div
               key={idx}
-              className="bg-obsidian-900 border border-zinc-800 p-6 rounded-2xl flex flex-col justify-between"
+              className="bg-obsidian-900 border border-zinc-800 hover:border-gold-500/30 p-6 rounded-2xl flex flex-col justify-between transition-all hover:-translate-y-1 shadow-md"
             >
               <div>
                 <div className="flex text-gold-400 mb-3">
@@ -328,7 +337,9 @@ export default function HomePage() {
 
               <div className="mt-6 pt-4 border-t border-zinc-800/80 flex items-center justify-between">
                 <span className="font-serif font-bold text-xs text-white">{item.author}</span>
-                <span className="text-[10px] font-mono text-emerald-400">Achiziție Verificată</span>
+                <span className="text-[10px] font-mono text-emerald-400 flex items-center gap-1">
+                  <CheckCircle2 className="w-3 h-3" /> Achiziție Verificată
+                </span>
               </div>
             </div>
           ))}

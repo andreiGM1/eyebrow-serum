@@ -15,14 +15,22 @@ import {
   User,
   FlaskConical,
   ArrowRight,
+  Sun,
+  Moon,
+  Feather,
+  Layers,
+  Compass,
 } from 'lucide-react';
 import { useCart } from '@/lib/store/cart-context';
+import { useTheme } from '@/lib/store/theme-context';
 import { INITIAL_PRODUCTS, INITIAL_CATEGORIES } from '@/lib/data';
 import { Product } from '@/lib/types';
 
 export default function Navbar() {
   const router = useRouter();
   const { totalItemsCount, openCart } = useCart();
+  const { theme, toggleTheme } = useTheme();
+
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
@@ -80,9 +88,9 @@ export default function Navbar() {
   return (
     <>
       {/* Top Notification Bar */}
-      <div className="bg-botanical-950 border-b border-gold-500/20 text-xs py-2 px-4 text-center text-zinc-300 font-sans tracking-wider uppercase flex items-center justify-center gap-2">
-        <span className="w-1.5 h-1.5 rounded-full bg-gold-400 animate-pulse" />
-        <span>
+      <div className="bg-botanical-950 border-b border-gold-500/20 text-xs py-2 px-4 text-center text-zinc-300 font-sans tracking-wider uppercase flex items-center justify-center gap-2 transition-colors">
+        <span className="w-1.5 h-1.5 rounded-full bg-gold-400 animate-ping" />
+        <span className="font-medium">
           LIVRARE GRATUITĂ ÎN TOATĂ ROMÂNIA LA COMENZI PESTE 200 RON • FORMULE BIOACTIVE COMPOUNDATE ÎN BUCUREȘTI
         </span>
       </div>
@@ -100,13 +108,13 @@ export default function Navbar() {
             <Menu className="w-6 h-6" />
           </button>
 
-          {/* Brand Logo */}
+          {/* Brand Logo with subtle hover glow */}
           <Link href="/" className="flex flex-col items-start group">
             <div className="flex items-center gap-2">
-              <span className="text-xl sm:text-2xl font-serif tracking-[0.25em] font-bold text-white group-hover:text-gold-300 transition-colors">
+              <span className="text-xl sm:text-2xl font-serif tracking-[0.25em] font-bold text-white group-hover:text-gold-400 transition-colors">
                 MAG
               </span>
-              <span className="text-xs uppercase px-1.5 py-0.5 rounded bg-gold-500/10 border border-gold-500/30 text-gold-400 font-mono tracking-widest">
+              <span className="text-xs uppercase px-1.5 py-0.5 rounded bg-gold-500/10 border border-gold-500/30 text-gold-400 font-mono tracking-widest group-hover:border-gold-500/60 transition-colors">
                 LABORATORIES
               </span>
             </div>
@@ -116,7 +124,7 @@ export default function Navbar() {
           </Link>
 
           {/* Desktop Navigation Links & Mega Menu Trigger */}
-          <nav className="hidden lg:flex items-center space-x-8 text-sm font-medium tracking-wide">
+          <nav className="hidden lg:flex items-center space-x-7 text-sm font-medium tracking-wide">
             
             {/* Mega Menu Parent: Catalog */}
             <div
@@ -126,25 +134,27 @@ export default function Navbar() {
             >
               <Link
                 href="/catalog"
-                className="flex items-center gap-1.5 text-zinc-300 hover:text-gold-400 py-6 transition-colors"
+                className="flex items-center gap-1.5 text-zinc-300 hover:text-gold-400 py-6 transition-colors group"
               >
+                <Layers className="w-4 h-4 text-zinc-400 group-hover:text-gold-400 group-hover:rotate-12 transition-transform duration-300" />
                 <span>CATALOG PRODUSE</span>
-                <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${isMegaMenuOpen ? 'rotate-180 text-gold-400' : ''}`} />
+                <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${isMegaMenuOpen ? 'rotate-180 text-gold-400' : ''}`} />
               </Link>
 
               {/* Mega Menu Dropdown */}
               {isMegaMenuOpen && (
-                <div className="absolute top-full left-1/2 -translate-x-1/2 w-[720px] bg-obsidian-900/95 backdrop-blur-xl border border-gold-500/30 rounded-b-xl shadow-2xl p-6 grid grid-cols-2 gap-4 animate-in fade-in slide-in-from-top-2 duration-200">
+                <div className="absolute top-full left-1/2 -translate-x-1/2 w-[720px] bg-obsidian-900/95 backdrop-blur-xl border border-gold-500/30 rounded-b-2xl shadow-2xl p-6 grid grid-cols-2 gap-4 animate-in fade-in slide-in-from-top-2 duration-200">
                   <div className="col-span-2 pb-2 border-b border-zinc-800 flex items-center justify-between">
-                    <span className="text-xs font-mono uppercase text-gold-400 tracking-wider">
+                    <span className="text-xs font-mono uppercase text-gold-400 tracking-wider flex items-center gap-1.5">
+                      <Feather className="w-3.5 h-3.5 text-gold-400" />
                       Categoriile Noastre de Excelență Botanică
                     </span>
                     <Link
                       href="/catalog"
                       onClick={() => setIsMegaMenuOpen(false)}
-                      className="text-xs text-zinc-400 hover:text-white flex items-center gap-1 group"
+                      className="text-xs text-zinc-400 hover:text-gold-400 flex items-center gap-1 group"
                     >
-                      Vezi tot catalogul <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
+                      Vezi tot catalogul <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
                     </Link>
                   </div>
 
@@ -153,17 +163,18 @@ export default function Navbar() {
                       key={cat.id}
                       href={`/catalog?category=${cat.slug}`}
                       onClick={() => setIsMegaMenuOpen(false)}
-                      className="p-3 rounded-lg border border-zinc-800/80 hover:border-gold-500/40 bg-obsidian-850/60 hover:bg-zinc-900/80 transition-all flex flex-col justify-between group"
+                      className="p-3.5 rounded-xl border border-zinc-800/80 hover:border-gold-500/40 bg-obsidian-850/60 hover:bg-zinc-800/40 transition-all flex flex-col justify-between group"
                     >
                       <div>
-                        <div className="text-sm font-serif font-semibold text-zinc-100 group-hover:text-gold-300 transition-colors">
-                          {cat.name}
+                        <div className="text-sm font-serif font-semibold text-zinc-100 group-hover:text-gold-300 transition-colors flex items-center justify-between">
+                          <span>{cat.name}</span>
+                          <span className="text-gold-400 text-xs opacity-0 group-hover:opacity-100 transition-opacity">&rarr;</span>
                         </div>
                         <p className="text-xs text-zinc-400 mt-1 line-clamp-2">
                           {cat.description}
                         </p>
                       </div>
-                      <span className="text-[11px] text-gold-400/80 font-mono mt-3 flex items-center gap-1 group-hover:underline">
+                      <span className="text-[11px] text-gold-400/80 font-mono mt-3 group-hover:underline">
                         Explorează categoria &rarr;
                       </span>
                     </Link>
@@ -175,58 +186,73 @@ export default function Navbar() {
             {/* Inovativ: Simulator Creștere Sprâncene */}
             <Link
               href="/simulator"
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gold-500/10 border border-gold-500/30 text-gold-300 hover:bg-gold-500/20 hover:text-gold-200 transition-all text-xs tracking-wider"
+              className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-gold-500/10 border border-gold-500/30 text-gold-300 hover:bg-gold-500/20 hover:text-gold-200 transition-all text-xs tracking-wider animate-pulse-glow"
             >
-              <Sparkles className="w-3.5 h-3.5 text-gold-400" />
-              <span>DIAGNOSTIC & SIMULATOR TIMELINE</span>
+              <Sparkles className="w-3.5 h-3.5 text-gold-400 animate-spin" style={{ animationDuration: '6s' }} />
+              <span>DIAGNOSTIC & SIMULATOR</span>
             </Link>
 
             <Link
               href="/about"
-              className="text-zinc-300 hover:text-gold-400 transition-colors"
+              className="text-zinc-300 hover:text-gold-400 transition-colors flex items-center gap-1.5"
             >
-              ATELIER BUCUREȘTI
+              <Compass className="w-3.5 h-3.5 text-zinc-400" />
+              <span>ATELIER BUCUREȘTI</span>
             </Link>
 
             <Link
               href="/admin"
-              className="text-zinc-400 hover:text-gold-400 flex items-center gap-1 text-xs font-mono transition-colors"
+              className="text-zinc-400 hover:text-gold-400 flex items-center gap-1.5 text-xs font-mono transition-colors"
             >
-              <FlaskConical className="w-3.5 h-3.5" />
+              <FlaskConical className="w-3.5 h-3.5 text-gold-400/80" />
               <span>ADMIN</span>
             </Link>
           </nav>
 
-          {/* Right Action Icons: Search, Account, Cart */}
-          <div className="flex items-center space-x-4">
+          {/* Right Action Icons: Theme Toggle, Search, Account, Cart */}
+          <div className="flex items-center space-x-3 sm:space-x-4">
             
+            {/* LIGHT / DARK MODE TOGGLE BUTTON */}
+            <button
+              onClick={toggleTheme}
+              className="relative p-2.5 rounded-full border border-gold-500/30 bg-obsidian-900 hover:bg-zinc-800/80 text-gold-400 hover:text-gold-300 transition-all shadow-md group focus:outline-none"
+              aria-label={`Comută pe modul ${theme === 'dark' ? 'luminos' : 'întunecat'}`}
+              title={`Comută pe modul ${theme === 'dark' ? 'Light Mode (Ivory)' : 'Dark Mode (Obsidian)'}`}
+            >
+              {theme === 'dark' ? (
+                <Sun className="w-4 h-4 text-amber-300 group-hover:rotate-90 group-hover:scale-110 transition-all duration-300" />
+              ) : (
+                <Moon className="w-4 h-4 text-zinc-700 group-hover:-rotate-45 group-hover:scale-110 transition-all duration-300" />
+              )}
+            </button>
+
             {/* Search Trigger */}
             <button
               onClick={handleOpenSearch}
-              className="p-2 text-zinc-300 hover:text-gold-400 transition-colors rounded-full hover:bg-zinc-800/50"
+              className="p-2.5 text-zinc-300 hover:text-gold-400 transition-colors rounded-full hover:bg-zinc-800/50"
               aria-label="Căutare produse"
             >
-              <Search className="w-5 h-5" />
+              <Search className="w-4 h-4" />
             </button>
 
             {/* Account Icon */}
             <Link
               href="/account"
-              className="p-2 text-zinc-300 hover:text-gold-400 transition-colors rounded-full hover:bg-zinc-800/50 hidden sm:flex"
+              className="p-2.5 text-zinc-300 hover:text-gold-400 transition-colors rounded-full hover:bg-zinc-800/50 hidden sm:flex"
               aria-label="Contul meu"
             >
-              <User className="w-5 h-5" />
+              <User className="w-4 h-4" />
             </Link>
 
             {/* Cart Drawer Trigger */}
             <button
               onClick={openCart}
-              className="relative p-2.5 bg-botanical-800/60 hover:bg-botanical-700/80 border border-gold-500/30 text-zinc-100 rounded-full transition-all group"
+              className="relative p-2.5 bg-gold-500/10 hover:bg-gold-500/20 border border-gold-500/40 text-zinc-100 rounded-full transition-all group"
               aria-label="Coș de cumpărături"
             >
-              <ShoppingBag className="w-5 h-5 text-gold-400 group-hover:scale-110 transition-transform" />
+              <ShoppingBag className="w-4 h-4 text-gold-400 group-hover:scale-110 transition-transform" />
               {totalItemsCount > 0 && (
-                <span className="absolute -top-1.5 -right-1.5 bg-gold-500 text-obsidian-950 text-[11px] font-bold w-5 h-5 rounded-full flex items-center justify-center shadow-lg border border-obsidian-950 animate-in zoom-in-50 duration-200">
+                <span className="absolute -top-1.5 -right-1.5 bg-gold-500 text-obsidian-950 text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center shadow-lg border border-obsidian-950 animate-bounce">
                   {totalItemsCount}
                 </span>
               )}
@@ -278,7 +304,7 @@ export default function Navbar() {
                     className="py-3 flex items-center justify-between hover:bg-zinc-800/40 px-3 rounded-lg cursor-pointer transition-colors group"
                   >
                     <div className="flex items-center gap-4">
-                      <div className="w-12 h-12 relative rounded-md overflow-hidden bg-zinc-900 flex-shrink-0 border border-zinc-800">
+                      <div className="w-12 h-12 relative rounded-md overflow-hidden bg-zinc-950 flex-shrink-0 border border-zinc-800">
                         <Image
                           src={product.images[0] || '/images/mag-evergrow-bottle.png'}
                           alt={product.name}
@@ -319,7 +345,7 @@ export default function Navbar() {
         </div>
       )}
 
-      {/* Mobile Drawer Menu */}
+      {/* Mobile Drawer Menu with Theme Toggle */}
       {isMobileMenuOpen && (
         <div className="fixed inset-0 z-50 lg:hidden">
           <div
@@ -340,11 +366,23 @@ export default function Navbar() {
                 </button>
               </div>
 
-              <div className="mt-6 flex flex-col space-y-4">
+              {/* Theme toggle in mobile drawer */}
+              <div className="my-4 p-3 rounded-xl bg-obsidian-950 border border-zinc-800 flex items-center justify-between">
+                <span className="text-xs font-mono text-zinc-300">Mod Afișare:</span>
+                <button
+                  onClick={toggleTheme}
+                  className="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-gold-500/10 border border-gold-500/30 text-gold-300 text-xs font-mono"
+                >
+                  {theme === 'dark' ? <Sun className="w-3.5 h-3.5" /> : <Moon className="w-3.5 h-3.5" />}
+                  <span>{theme === 'dark' ? 'Light Mode' : 'Dark Mode'}</span>
+                </button>
+              </div>
+
+              <div className="mt-4 flex flex-col space-y-4">
                 <Link
                   href="/simulator"
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="flex items-center gap-2 p-3 rounded-lg bg-gold-500/10 border border-gold-500/30 text-gold-300 font-medium text-sm"
+                  className="flex items-center gap-2 p-3 rounded-xl bg-gold-500/10 border border-gold-500/30 text-gold-300 font-medium text-sm"
                 >
                   <Sparkles className="w-4 h-4 text-gold-400" />
                   <span>Simulator Creștere & Quiz</span>

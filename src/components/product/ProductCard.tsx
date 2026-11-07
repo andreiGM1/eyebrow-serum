@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Star, ShoppingBag, Check, Eye } from 'lucide-react';
+import { Star, ShoppingBag, Check, Eye, Sparkles, Feather } from 'lucide-react';
 import { Product } from '@/lib/types';
 import { useCart } from '@/lib/store/cart-context';
 import StockBadge from './StockBadge';
@@ -31,7 +31,7 @@ export default function ProductCard({ product }: ProductCardProps) {
   };
 
   return (
-    <div className="group relative bg-obsidian-900 border border-zinc-800/80 hover:border-gold-500/40 rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-2xl hover:shadow-gold-500/5 flex flex-col justify-between">
+    <div className="group relative bg-obsidian-900 border border-zinc-800/80 hover:border-gold-500/50 rounded-2xl overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-gold-500/10 flex flex-col justify-between">
       
       {/* Top Image Section */}
       <div className="relative aspect-square w-full overflow-hidden bg-zinc-950">
@@ -41,15 +41,16 @@ export default function ProductCard({ product }: ProductCardProps) {
             alt={product.name}
             fill
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            className="object-cover object-center group-hover:scale-105 transition-transform duration-500"
+            className="object-cover object-center group-hover:scale-105 transition-transform duration-500 ease-out"
           />
         </Link>
 
         {/* Badges Container */}
         <div className="absolute top-3 left-3 flex flex-col gap-1.5 items-start pointer-events-none">
           {product.badge && (
-            <span className="px-2.5 py-1 rounded-md text-[10px] font-mono font-bold tracking-wider uppercase bg-gold-500 text-obsidian-950 shadow-md">
-              {product.badge}
+            <span className="px-2.5 py-1 rounded-md text-[10px] font-mono font-bold tracking-wider uppercase bg-gold-500 text-obsidian-950 shadow-md flex items-center gap-1">
+              <Sparkles className="w-3 h-3" />
+              <span>{product.badge}</span>
             </span>
           )}
           {discountPercent && (
@@ -60,7 +61,7 @@ export default function ProductCard({ product }: ProductCardProps) {
         </div>
 
         {/* Volume tag */}
-        <div className="absolute bottom-3 left-3 bg-obsidian-950/80 backdrop-blur-sm border border-zinc-800 px-2 py-0.5 rounded text-[10px] font-mono text-zinc-300">
+        <div className="absolute bottom-3 left-3 bg-obsidian-950/85 backdrop-blur-sm border border-zinc-800/80 px-2 py-0.5 rounded text-[10px] font-mono text-zinc-300 shadow">
           {product.volume}
         </div>
 
@@ -69,7 +70,7 @@ export default function ProductCard({ product }: ProductCardProps) {
           href={`/product/${product.slug}`}
           className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center pointer-events-none"
         >
-          <span className="px-4 py-2 rounded-full bg-obsidian-950/90 border border-gold-500/50 text-gold-300 text-xs font-medium flex items-center gap-1.5 shadow-xl transform translate-y-2 group-hover:translate-y-0 transition-transform">
+          <span className="px-4 py-2 rounded-full bg-obsidian-950/90 border border-gold-500/60 text-gold-300 text-xs font-medium flex items-center gap-1.5 shadow-xl transform translate-y-3 group-hover:translate-y-0 transition-transform duration-300">
             <Eye className="w-3.5 h-3.5" />
             Vezi Detalii & Ingrediente
           </span>
@@ -88,7 +89,7 @@ export default function ProductCard({ product }: ProductCardProps) {
                   className={`w-3.5 h-3.5 ${
                     i < Math.floor(product.rating)
                       ? 'fill-gold-400 text-gold-400'
-                      : 'text-zinc-600'
+                      : 'text-zinc-500/50'
                   }`}
                 />
               ))}
@@ -100,7 +101,7 @@ export default function ProductCard({ product }: ProductCardProps) {
 
           {/* Product Title */}
           <Link href={`/product/${product.slug}`}>
-            <h3 className="font-serif font-semibold text-base text-zinc-100 group-hover:text-gold-300 transition-colors line-clamp-1">
+            <h3 className="font-serif font-semibold text-base text-zinc-100 group-hover:text-gold-400 transition-colors line-clamp-1">
               {product.name}
             </h3>
           </Link>
@@ -110,15 +111,16 @@ export default function ProductCard({ product }: ProductCardProps) {
             {product.short_description}
           </p>
 
-          {/* Active Ingredients Highlights */}
+          {/* Active Ingredients Highlights with Feather Pictogram */}
           {product.active_ingredients && product.active_ingredients.length > 0 && (
             <div className="mt-3 flex flex-wrap gap-1">
               {product.active_ingredients.slice(0, 3).map((ing, idx) => (
                 <span
                   key={idx}
-                  className="text-[9px] px-1.5 py-0.5 rounded bg-zinc-800 text-zinc-300 border border-zinc-700/60 font-mono"
+                  className="text-[9px] px-1.5 py-0.5 rounded bg-gold-500/10 text-zinc-300 border border-gold-500/20 font-mono flex items-center gap-1"
                 >
-                  {ing.name.split('(')[0].trim()}
+                  <Feather className="w-2.5 h-2.5 text-gold-400" />
+                  <span>{ing.name.split('(')[0].trim()}</span>
                 </span>
               ))}
             </div>
@@ -149,18 +151,18 @@ export default function ProductCard({ product }: ProductCardProps) {
             <button
               onClick={handleAddToCart}
               disabled={product.stock <= 0}
-              className={`px-3.5 py-2.5 rounded-xl font-medium text-xs flex items-center gap-1.5 transition-all shadow-md ${
+              className={`px-3.5 py-2.5 rounded-xl font-medium text-xs flex items-center gap-1.5 transition-all duration-200 active:scale-95 shadow-md ${
                 product.stock <= 0
                   ? 'bg-zinc-800 text-zinc-500 cursor-not-allowed border border-zinc-700/40'
                   : isAdded
-                  ? 'bg-emerald-600 text-white'
-                  : 'bg-gold-500 hover:bg-gold-400 text-obsidian-950 font-semibold'
+                  ? 'bg-emerald-600 text-white shadow-emerald-500/20'
+                  : 'bg-gold-500 hover:bg-gold-400 text-obsidian-950 font-semibold shadow-gold-500/20'
               }`}
               aria-label="Adaugă în coș"
             >
               {isAdded ? (
                 <>
-                  <Check className="w-4 h-4" />
+                  <Check className="w-4 h-4 animate-in zoom-in" />
                   <span>Adăugat</span>
                 </>
               ) : (

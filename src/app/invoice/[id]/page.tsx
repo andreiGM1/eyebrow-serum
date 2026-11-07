@@ -294,3 +294,4 @@ export default function InvoicePage({ params }: InvoicePageProps) {
     </div>
   );
 }
+

@@ -146,3 +146,4 @@ export interface DiagnosticRecommendation {
   targetTimelineWeeks: number;
   customProtocol: string[];
 }
+

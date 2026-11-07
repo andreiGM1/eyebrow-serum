@@ -312,3 +312,4 @@ VALUES
     ('p1111111-1111-1111-1111-111111111111', 'Simona T. (Timișoara)', 5, 'Textura de ulei virgin miroase subtil a rozmarin proaspăt. Genele mele sunt de două ori mai rezistente și nu mai cad deloc când mă demachiez.', true),
     ('p5555555-5555-5555-5555-555555555555', 'Ioana V. (Iași)', 5, 'Am comandat Duo Pack pentru a face cura completă de 6 luni recomandată de laborator. Rezultatele sunt spectaculoase, nu mai am nevoie deloc de creion de sprâncene!', true),
     ('p6666666-6666-6666-6666-666666666666', 'Raluca D. (Brașov)', 5, 'Kitul complet Atelier este cadoul suprem! Dermarollerul de 0.25mm este foarte delicat, iar serul intră impecabil în piele.', true);
+
