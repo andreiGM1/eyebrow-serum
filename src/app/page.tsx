@@ -45,7 +45,7 @@ export default function HomePage() {
             </div>
 
             {/* Main Headline */}
-            <h1 className="font-serif text-4xl sm:text-6xl font-bold tracking-tight text-stone-950 dark:text-white leading-[1.15]">
+            <h1 className="font-serif text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-stone-950 dark:text-white leading-[1.15]">
               Botanică de Precizie. <br />
               <span className="gold-gradient-text">Fără Prostaglandine.</span>
             </h1>
@@ -77,18 +77,18 @@ export default function HomePage() {
             </div>
 
             {/* Trust highlights */}
-            <div className="pt-6 border-t border-stone-200 dark:border-zinc-800/80 grid grid-cols-3 gap-4 text-left max-w-md mx-auto lg:mx-0">
+            <div className="pt-6 border-t border-stone-200 dark:border-zinc-800/80 grid grid-cols-3 gap-2 sm:gap-4 text-left max-w-md mx-auto lg:mx-0">
               <div className="group">
-                <span className="font-serif text-xl sm:text-2xl font-bold text-stone-900 dark:text-white block group-hover:text-gold-600 dark:group-hover:text-gold-400 transition-colors">100%</span>
-                <span className="text-[11px] font-mono text-stone-500 dark:text-zinc-400">Lipide Active (Fără Apă)</span>
+                <span className="font-serif text-lg sm:text-2xl font-bold text-stone-900 dark:text-white block group-hover:text-gold-600 dark:group-hover:text-gold-400 transition-colors">100%</span>
+                <span className="text-[10px] sm:text-[11px] font-mono text-stone-500 dark:text-zinc-400">Lipide Active (Fără Apă)</span>
               </div>
               <div className="group">
-                <span className="font-serif text-xl sm:text-2xl font-bold text-gold-600 dark:text-gold-400 block">0%</span>
-                <span className="text-[11px] font-mono text-stone-500 dark:text-zinc-400">Hormoni / Prostaglandine</span>
+                <span className="font-serif text-lg sm:text-2xl font-bold text-gold-600 dark:text-gold-400 block">0%</span>
+                <span className="text-[10px] sm:text-[11px] font-mono text-stone-500 dark:text-zinc-400">Hormoni / Prostaglandine</span>
               </div>
               <div className="group">
-                <span className="font-serif text-xl sm:text-2xl font-bold text-stone-900 dark:text-white block group-hover:text-gold-600 dark:group-hover:text-gold-400 transition-colors">90 Zile</span>
-                <span className="text-[11px] font-mono text-stone-500 dark:text-zinc-400">Cură per Flacon 3 ml</span>
+                <span className="font-serif text-lg sm:text-2xl font-bold text-stone-900 dark:text-white block group-hover:text-gold-600 dark:group-hover:text-gold-400 transition-colors">90 Zile</span>
+                <span className="text-[10px] sm:text-[11px] font-mono text-stone-500 dark:text-zinc-400">Cură per Flacon 3 ml</span>
               </div>
             </div>
 
@@ -96,7 +96,7 @@ export default function HomePage() {
 
           {/* Right Hero Column: Real Product Visual with Floating Animation */}
           <div className="lg:col-span-5 relative flex justify-center">
-            <div className="relative w-72 sm:w-84 aspect-[9/16] rounded-3xl overflow-hidden border-2 border-gold-500/40 shadow-2xl shadow-gold-500/10 group animate-float">
+            <div className="relative w-64 sm:w-84 aspect-[9/16] rounded-3xl overflow-hidden border-2 border-gold-500/40 shadow-2xl shadow-gold-500/10 group animate-float">
               <Image
                 src="/images/mag-evergrow-bottle.png"
                 alt="MAG EVERGROW Lash and Brow Serum Bottle"
@@ -107,13 +107,13 @@ export default function HomePage() {
               />
 
               {/* Floating luxury certificate badge */}
-              <div className="absolute top-5 left-4 right-4 bg-white/95 dark:bg-obsidian-950/90 backdrop-blur-md border border-stone-200 dark:border-gold-500/40 p-3.5 rounded-2xl flex items-center gap-3 shadow-2xl z-10">
-                <div className="p-2.5 rounded-xl bg-gold-500/15 border border-gold-500/30 text-gold-600 dark:text-gold-400 animate-pulse">
-                  <ShieldCheck className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
+              <div className="absolute top-4 sm:top-5 left-3 sm:left-4 right-3 sm:right-4 bg-white/95 dark:bg-obsidian-950/90 backdrop-blur-md border border-stone-200 dark:border-gold-500/40 p-2.5 sm:p-3.5 rounded-2xl flex items-center gap-2.5 sm:gap-3 shadow-2xl z-10">
+                <div className="p-2 sm:p-2.5 rounded-xl bg-gold-500/15 border border-gold-500/30 text-gold-600 dark:text-gold-400 animate-pulse flex-shrink-0">
+                  <ShieldCheck className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-600 dark:text-emerald-400" />
                 </div>
                 <div>
-                  <div className="text-xs font-serif font-bold text-stone-950 dark:text-white">MAG EVERGROW 3 ML</div>
-                  <div className="text-[10px] font-mono text-gold-600 dark:text-gold-400 font-semibold">Compounded in Bucharest Atelier</div>
+                  <div className="text-[11px] sm:text-xs font-serif font-bold text-stone-950 dark:text-white">MAG EVERGROW 3 ML</div>
+                  <div className="text-[9px] sm:text-[10px] font-mono text-gold-600 dark:text-gold-400 font-semibold">Compounded in Bucharest Atelier</div>
                 </div>
               </div>
             </div>

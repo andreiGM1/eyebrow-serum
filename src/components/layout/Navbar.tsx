@@ -39,6 +39,18 @@ export default function Navbar() {
   const searchInputRef = useRef<HTMLInputElement>(null);
   const megaMenuTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
+  // Lock body scroll when mobile menu or search is open
+  useEffect(() => {
+    if (isMobileMenuOpen || isSearchOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isMobileMenuOpen, isSearchOpen]);
+
   // Debounced search logic
   useEffect(() => {
     if (!searchQuery.trim()) {
@@ -88,21 +100,21 @@ export default function Navbar() {
   return (
     <>
       {/* Top Notification Bar */}
-      <div className="bg-[#EFE9DF] dark:bg-botanical-950 border-b border-stone-200 dark:border-gold-500/20 text-xs py-2 px-4 text-center text-stone-800 dark:text-zinc-300 font-sans tracking-wider uppercase flex items-center justify-center gap-2 transition-colors">
-        <span className="w-1.5 h-1.5 rounded-full bg-gold-600 dark:bg-gold-400 animate-ping" />
-        <span className="font-medium text-[11px] sm:text-xs">
+      <div className="bg-[#EFE9DF] dark:bg-botanical-950 border-b border-stone-200 dark:border-gold-500/20 text-[10px] sm:text-xs py-1.5 sm:py-2 px-3 sm:px-4 text-center text-stone-800 dark:text-zinc-300 font-sans tracking-tight sm:tracking-wider uppercase flex items-center justify-center gap-1.5 sm:gap-2 transition-colors">
+        <span className="w-1.5 h-1.5 rounded-full bg-gold-600 dark:bg-gold-400 animate-ping flex-shrink-0" />
+        <span className="font-medium">
           LIVRARE GRATUITĂ ÎN TOATĂ ROMÂNIA LA COMENZI PESTE 200 RON • FORMULE BIOACTIVE COMPOUNDATE ÎN BUCUREȘTI
         </span>
       </div>
 
       {/* Main Header */}
       <header className="sticky top-0 z-40 bg-white dark:bg-obsidian-950 border-b border-stone-200 dark:border-gold-500/15 transition-all duration-300 shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
+        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between gap-2 sm:gap-4">
           
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsMobileMenuOpen(true)}
-            className="lg:hidden p-2 text-stone-700 dark:text-zinc-300 hover:text-gold-600 dark:hover:text-gold-400 focus:outline-none transition-colors"
+            className="lg:hidden p-2 -ml-1 text-stone-700 dark:text-zinc-300 hover:text-gold-600 dark:hover:text-gold-400 focus:outline-none transition-colors rounded-lg hover:bg-stone-100 dark:hover:bg-zinc-800/50"
             aria-label="Deschide Meniul"
           >
             <Menu className="w-6 h-6" />
@@ -110,15 +122,15 @@ export default function Navbar() {
 
           {/* Brand Logo */}
           <Link href="/" className="flex flex-col items-start group">
-            <div className="flex items-center gap-2">
-              <span className="text-xl sm:text-2xl font-serif tracking-[0.25em] font-bold text-stone-950 dark:text-white group-hover:text-gold-600 dark:group-hover:text-gold-400 transition-colors">
+            <div className="flex items-center gap-1.5 sm:gap-2">
+              <span className="text-xl sm:text-2xl font-serif tracking-[0.2em] sm:tracking-[0.25em] font-bold text-stone-950 dark:text-white group-hover:text-gold-600 dark:group-hover:text-gold-400 transition-colors">
                 MAG
               </span>
-              <span className="text-xs uppercase px-1.5 py-0.5 rounded bg-gold-500/15 border border-gold-500/40 text-gold-700 dark:text-gold-400 font-mono tracking-widest font-semibold">
+              <span className="text-[10px] sm:text-xs uppercase px-1.5 py-0.5 rounded bg-gold-500/15 border border-gold-500/40 text-gold-700 dark:text-gold-400 font-mono tracking-wider sm:tracking-widest font-semibold">
                 LABORATORIES
               </span>
             </div>
-            <span className="text-[9px] uppercase tracking-[0.3em] text-stone-500 dark:text-zinc-400 font-sans mt-0.5">
+            <span className="text-[8px] sm:text-[9px] uppercase tracking-[0.2em] sm:tracking-[0.3em] text-stone-500 dark:text-zinc-400 font-sans mt-0.5 max-w-[190px] sm:max-w-none truncate">
               EVERGROW • ATELIER BOTANIQUE • BUCHAREST
             </span>
           </Link>
@@ -209,13 +221,13 @@ export default function Navbar() {
             </Link>
           </nav>
 
-          {/* Right Action Icons: Theme Toggle, Search, Account, Cart */}
-          <div className="flex items-center space-x-3 sm:space-x-4">
+          {/* Right Action Icons: Theme Toggle (desktop only), Search, Account, Cart */}
+          <div className="flex items-center space-x-1 sm:space-x-3 md:space-x-4">
             
-            {/* LIGHT / DARK MODE TOGGLE BUTTON */}
+            {/* LIGHT / DARK MODE TOGGLE BUTTON - Hidden on phone/tablet, placed inside mobile drawer menu */}
             <button
               onClick={toggleTheme}
-              className="relative p-2.5 rounded-full border border-stone-300 dark:border-gold-500/30 bg-stone-100 dark:bg-obsidian-900 hover:bg-stone-200 dark:hover:bg-zinc-800 text-stone-800 dark:text-gold-400 transition-all shadow-sm group focus:outline-none"
+              className="relative p-2.5 rounded-full border border-stone-300 dark:border-gold-500/30 bg-stone-100 dark:bg-obsidian-900 hover:bg-stone-200 dark:hover:bg-zinc-800 text-stone-800 dark:text-gold-400 transition-all shadow-sm group focus:outline-none hidden md:flex"
               aria-label={`Comută pe modul ${theme === 'dark' ? 'luminos' : 'întunecat'}`}
               title={`Comută pe modul ${theme === 'dark' ? 'Light Mode (Ivory)' : 'Dark Mode (Obsidian)'}`}
             >
@@ -229,10 +241,10 @@ export default function Navbar() {
             {/* Search Trigger */}
             <button
               onClick={handleOpenSearch}
-              className="p-2.5 text-stone-700 dark:text-zinc-300 hover:text-gold-600 dark:hover:text-gold-400 transition-colors rounded-full hover:bg-stone-100 dark:hover:bg-zinc-800/50"
+              className="p-2 sm:p-2.5 text-stone-700 dark:text-zinc-300 hover:text-gold-600 dark:hover:text-gold-400 transition-colors rounded-full hover:bg-stone-100 dark:hover:bg-zinc-800/50"
               aria-label="Căutare produse"
             >
-              <Search className="w-4 h-4" />
+              <Search className="w-5 h-5 sm:w-4 sm:h-4" />
             </button>
 
             {/* Account Icon */}
@@ -247,12 +259,12 @@ export default function Navbar() {
             {/* Cart Drawer Trigger */}
             <button
               onClick={openCart}
-              className="relative p-2.5 bg-gold-500/15 hover:bg-gold-500/25 border border-gold-500/40 text-stone-900 dark:text-zinc-100 rounded-full transition-all shadow-sm group"
+              className="relative p-2 sm:p-2.5 bg-gold-500/15 hover:bg-gold-500/25 border border-gold-500/40 text-stone-900 dark:text-zinc-100 rounded-full transition-all shadow-sm group"
               aria-label="Coș de cumpărături"
             >
-              <ShoppingBag className="w-4 h-4 text-gold-600 dark:text-gold-400 group-hover:scale-110 transition-transform" />
+              <ShoppingBag className="w-5 h-5 sm:w-4 sm:h-4 text-gold-600 dark:text-gold-400 group-hover:scale-110 transition-transform" />
               {totalItemsCount > 0 && (
-                <span className="absolute -top-1.5 -right-1.5 bg-gold-500 text-obsidian-950 text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center shadow-lg border border-white dark:border-obsidian-950 animate-bounce">
+                <span className="absolute -top-1 -right-1 bg-gold-500 text-obsidian-950 text-[10px] font-bold w-4 h-4 sm:w-5 sm:h-5 rounded-full flex items-center justify-center shadow-lg border border-white dark:border-obsidian-950 animate-bounce">
                   {totalItemsCount}
                 </span>
               )}
@@ -349,95 +361,138 @@ export default function Navbar() {
       {isMobileMenuOpen && (
         <div className="fixed inset-0 z-50 lg:hidden">
           <div
-            className="fixed inset-0 bg-black/70 backdrop-blur-sm"
+            className="fixed inset-0 bg-black/70 backdrop-blur-sm transition-opacity"
             onClick={() => setIsMobileMenuOpen(false)}
           />
-          <div className="fixed inset-y-0 left-0 max-w-xs w-full bg-white dark:bg-obsidian-900 border-r border-stone-200 dark:border-gold-500/20 p-6 flex flex-col justify-between shadow-2xl">
+          <div className="fixed inset-y-0 left-0 max-w-xs w-full bg-white dark:bg-obsidian-900 border-r border-stone-200 dark:border-gold-500/20 p-5 sm:p-6 flex flex-col justify-between shadow-2xl overflow-y-auto">
             <div>
-              <div className="flex items-center justify-between pb-6 border-b border-stone-200 dark:border-zinc-800">
-                <span className="font-serif font-bold text-lg text-stone-900 dark:text-white tracking-widest">
-                  MAG LABORATORIES
-                </span>
+              <div className="flex items-center justify-between pb-4 border-b border-stone-200 dark:border-zinc-800">
+                <div className="flex items-center gap-1.5">
+                  <span className="font-serif font-bold text-lg text-stone-900 dark:text-white tracking-widest">
+                    MAG
+                  </span>
+                  <span className="text-[10px] uppercase px-1.5 py-0.5 rounded bg-gold-500/15 border border-gold-500/40 text-gold-700 dark:text-gold-400 font-mono font-semibold">
+                    LABORATORIES
+                  </span>
+                </div>
                 <button
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="p-1 text-stone-500 dark:text-zinc-400 hover:text-stone-900 dark:hover:text-white"
+                  className="p-1.5 rounded-lg text-stone-500 dark:text-zinc-400 hover:text-stone-900 dark:hover:text-white hover:bg-stone-100 dark:hover:bg-zinc-800 transition-colors"
+                  aria-label="Închide meniul"
                 >
-                  <X className="w-6 h-6" />
+                  <X className="w-5 h-5" />
                 </button>
               </div>
 
-              {/* Theme toggle in mobile drawer */}
-              <div className="my-4 p-3 rounded-xl bg-stone-100 dark:bg-obsidian-950 border border-stone-200 dark:border-zinc-800 flex items-center justify-between">
-                <span className="text-xs font-mono text-stone-700 dark:text-zinc-300 font-medium">Mod Afișare:</span>
+              {/* Theme toggle in mobile drawer - very clean & elegant */}
+              <div className="my-4 p-3 rounded-xl bg-stone-50 dark:bg-obsidian-950 border border-stone-200 dark:border-zinc-800 flex items-center justify-between shadow-sm">
+                <div className="flex items-center gap-2">
+                  {theme === 'dark' ? (
+                    <Moon className="w-4 h-4 text-gold-400" />
+                  ) : (
+                    <Sun className="w-4 h-4 text-amber-500" />
+                  )}
+                  <span className="text-xs font-mono text-stone-800 dark:text-zinc-200 font-semibold">
+                    {theme === 'dark' ? 'Mod Dark (Obsidian)' : 'Mod Light (Fildeș)'}
+                  </span>
+                </div>
                 <button
                   onClick={toggleTheme}
-                  className="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-gold-500/20 border border-gold-500/40 text-gold-700 dark:text-gold-300 text-xs font-mono font-semibold"
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-gold-500 hover:bg-gold-400 text-obsidian-950 text-xs font-mono font-bold transition-all shadow-sm active:scale-95"
                 >
-                  {theme === 'dark' ? <Sun className="w-3.5 h-3.5" /> : <Moon className="w-3.5 h-3.5" />}
-                  <span>{theme === 'dark' ? 'Light Mode' : 'Dark Mode'}</span>
+                  <span>Schimbă</span>
                 </button>
               </div>
 
-              <div className="mt-4 flex flex-col space-y-4">
+              {/* Quick direct links */}
+              <div className="mt-3 flex flex-col space-y-2.5">
+                {/* Simulator link */}
                 <Link
                   href="/simulator"
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="flex items-center gap-2 p-3 rounded-xl bg-gold-500/15 border border-gold-500/40 text-gold-700 dark:text-gold-300 font-medium text-sm"
+                  className="flex items-center gap-2.5 p-3 rounded-xl bg-gold-500/15 hover:bg-gold-500/25 border border-gold-500/40 text-gold-800 dark:text-gold-300 font-medium text-xs tracking-wider transition-colors shadow-sm"
                 >
-                  <Sparkles className="w-4 h-4 text-gold-600 dark:text-gold-400" />
-                  <span>Simulator Creștere & Quiz</span>
+                  <Sparkles className="w-4 h-4 text-gold-600 dark:text-gold-400 animate-spin" style={{ animationDuration: '6s' }} />
+                  <span className="font-semibold uppercase">Simulator & Diagnostic Brow</span>
                 </Link>
 
-                <Link
-                  href="/catalog"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className="text-base text-stone-800 dark:text-zinc-200 hover:text-gold-600 dark:hover:text-gold-400 font-serif font-semibold"
+                {/* Direct Cart Button inside drawer for mobile */}
+                <button
+                  onClick={() => {
+                    setIsMobileMenuOpen(false);
+                    openCart();
+                  }}
+                  className="flex items-center justify-between p-3 rounded-xl bg-stone-100 dark:bg-obsidian-950 hover:bg-stone-200 dark:hover:bg-zinc-800 border border-stone-200 dark:border-zinc-800 text-stone-800 dark:text-zinc-200 text-xs font-semibold transition-colors"
                 >
-                  Toate Produsele
-                </Link>
+                  <div className="flex items-center gap-2.5">
+                    <ShoppingBag className="w-4 h-4 text-gold-600 dark:text-gold-400" />
+                    <span>Deschide Coșul de Cumpărături</span>
+                  </div>
+                  {totalItemsCount > 0 && (
+                    <span className="px-2 py-0.5 rounded-full bg-gold-500 text-obsidian-950 text-[10px] font-bold">
+                      {totalItemsCount}
+                    </span>
+                  )}
+                </button>
 
-                <div className="pl-3 border-l-2 border-stone-200 dark:border-zinc-800 flex flex-col space-y-2">
-                  {INITIAL_CATEGORIES.map((cat) => (
-                    <Link
-                      key={cat.id}
-                      href={`/catalog?category=${cat.slug}`}
-                      onClick={() => setIsMobileMenuOpen(false)}
-                      className="text-sm text-stone-600 dark:text-zinc-400 hover:text-gold-600 dark:hover:text-gold-300"
-                    >
-                      {cat.name}
-                    </Link>
-                  ))}
+                <div className="pt-2">
+                  <Link
+                    href="/catalog"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="text-sm text-stone-900 dark:text-white hover:text-gold-600 dark:hover:text-gold-400 font-serif font-bold flex items-center justify-between py-1"
+                  >
+                    <span>Catalog Complet Produse</span>
+                    <ArrowRight className="w-3.5 h-3.5 text-gold-600 dark:text-gold-400" />
+                  </Link>
+
+                  <div className="mt-1 pl-3 border-l-2 border-stone-200 dark:border-zinc-800 flex flex-col space-y-1.5">
+                    {INITIAL_CATEGORIES.map((cat) => (
+                      <Link
+                        key={cat.id}
+                        href={`/catalog?category=${cat.slug}`}
+                        onClick={() => setIsMobileMenuOpen(false)}
+                        className="text-xs text-stone-600 dark:text-zinc-400 hover:text-gold-600 dark:hover:text-gold-300 py-1 transition-colors"
+                      >
+                        {cat.name}
+                      </Link>
+                    ))}
+                  </div>
                 </div>
 
-                <Link
-                  href="/about"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className="text-sm text-stone-700 dark:text-zinc-300 hover:text-gold-600 dark:hover:text-gold-400"
-                >
-                  Atelier București & Tehnologie
-                </Link>
+                <div className="pt-2 border-t border-stone-200 dark:border-zinc-800/80 flex flex-col space-y-2">
+                  <Link
+                    href="/about"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="text-xs text-stone-700 dark:text-zinc-300 hover:text-gold-600 dark:hover:text-gold-400 py-1 transition-colors flex items-center gap-2"
+                  >
+                    <Compass className="w-3.5 h-3.5 text-stone-500 dark:text-zinc-400" />
+                    <span>Atelier București & Tehnologie</span>
+                  </Link>
 
-                <Link
-                  href="/account"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className="text-sm text-stone-700 dark:text-zinc-300 hover:text-gold-600 dark:hover:text-gold-400"
-                >
-                  Contul Meu & Facturi
-                </Link>
+                  <Link
+                    href="/account"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="text-xs text-stone-700 dark:text-zinc-300 hover:text-gold-600 dark:hover:text-gold-400 py-1 transition-colors flex items-center gap-2"
+                  >
+                    <User className="w-3.5 h-3.5 text-stone-500 dark:text-zinc-400" />
+                    <span>Contul Meu & Facturi</span>
+                  </Link>
 
-                <Link
-                  href="/admin"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className="text-sm text-stone-600 dark:text-zinc-400 hover:text-gold-600 dark:hover:text-gold-400 font-mono"
-                >
-                  Panou Administrare
-                </Link>
+                  <Link
+                    href="/admin"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="text-xs text-stone-600 dark:text-zinc-400 hover:text-gold-600 dark:hover:text-gold-400 py-1 transition-colors font-mono flex items-center gap-2"
+                  >
+                    <FlaskConical className="w-3.5 h-3.5 text-gold-600 dark:text-gold-400/80" />
+                    <span>Panou Administrare</span>
+                  </Link>
+                </div>
               </div>
             </div>
 
-            <div className="pt-6 border-t border-stone-200 dark:border-zinc-800 text-xs text-stone-500 dark:text-zinc-500">
-              <p>MAG Laboratories Bucharest</p>
-              <p className="mt-1">Regulament Cosmetic UE 1223/2009</p>
+            <div className="pt-4 border-t border-stone-200 dark:border-zinc-800 text-[11px] text-stone-500 dark:text-zinc-500">
+              <p className="font-semibold text-stone-700 dark:text-zinc-400">MAG Laboratories Bucharest</p>
+              <p className="mt-0.5 text-[10px]">Formule Bioactive • Conform Regulament Cosmetic UE</p>
             </div>
           </div>
         </div>

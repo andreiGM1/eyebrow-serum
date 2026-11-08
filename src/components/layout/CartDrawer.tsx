@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
@@ -40,6 +40,18 @@ export default function CartDrawer() {
   const [couponError, setCouponError] = useState('');
   const [couponSuccess, setCouponSuccess] = useState('');
 
+  // Prevent background scroll on mobile/desktop when cart is open
+  useEffect(() => {
+    if (isCartOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isCartOpen]);
+
   if (!isCartOpen) return null;
 
   const handleApplyCoupon = (e: React.FormEvent) => {
@@ -69,7 +81,7 @@ export default function CartDrawer() {
         onClick={closeCart}
       />
 
-      <div className="fixed inset-y-0 right-0 max-w-full flex pl-10">
+      <div className="fixed inset-y-0 right-0 max-w-full flex pl-0 sm:pl-10">
         <div className="w-screen max-w-md bg-white dark:bg-obsidian-900 border-l border-stone-200 dark:border-gold-500/20 shadow-2xl flex flex-col justify-between text-stone-900 dark:text-zinc-100 transition-colors">
           
           {/* Header */}
