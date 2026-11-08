@@ -15,7 +15,7 @@ export const INITIAL_CATEGORIES: Category[] = [
     name: 'Aplicatoare & Accesorii',
     description: 'Instrumente ergonomice de laborator, micro-needling și aplicatoare sterile de precizie.',
     display_order: 2,
-    image_url: '/images/mag-evergrow-bottle.png',
+    image_url: '/images/category-accessories.jpg',
   },
   {
     id: 'c3333333-3333-3333-3333-333333333333',
@@ -23,7 +23,7 @@ export const INITIAL_CATEGORIES: Category[] = [
     name: 'Pachete Tratament & Promoționale',
     description: 'Cure intensive de 3-6 luni și seturi complete de regenerare cu reduceri avantajoase.',
     display_order: 3,
-    image_url: '/images/mag-evergrow-bottle.png',
+    image_url: '/images/category-bundles.jpg',
   },
   {
     id: 'c4444444-4444-4444-4444-444444444444',
@@ -31,7 +31,7 @@ export const INITIAL_CATEGORIES: Category[] = [
     name: 'Demachiere & Îngrijire Delicată',
     description: 'Demachiere neiritantă fără sulfați sau alcool, concepută pentru a proteja foliculul.',
     display_order: 4,
-    image_url: '/images/mag-evergrow-bottle.png',
+    image_url: '/images/category-cleansing.jpg',
   },
 ];
 
@@ -110,7 +110,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     stock: 28,
     sku: 'MAG-EVG-NIT-005',
     volume: '5 ml (120 de zile)',
-    images: ['/images/mag-evergrow-bottle.png'],
+    images: ['/images/night-elixir.jpg'],
     active_ingredients: [
       {
         name: 'Tripeptide-1 & Biotinoyl Tripeptide',
@@ -160,7 +160,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     stock: 6, // Shows "Stoc redus" badge!
     sku: 'MAG-ACC-DRL-01',
     volume: '1 bucată sterilă cu carcasă de protecție',
-    images: ['/images/mag-evergrow-bottle.png'],
+    images: ['/images/dermaroller.jpg'],
     active_ingredients: [],
     full_inci: 'Titan de grad chirurgical, mâner ergonomic polimer medical hipoalergenic.',
     usage_instructions: [
@@ -193,7 +193,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     stock: 120,
     sku: 'MAG-ACC-MBR-50',
     volume: '50 bucăți ambalate individual',
-    images: ['/images/mag-evergrow-bottle.png'],
+    images: ['/images/microbrush.jpg'],
     active_ingredients: [],
     full_inci: 'Fibre sintetice medicale lint-free, mâner biodegradabil.',
     usage_instructions: [
@@ -225,7 +225,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     stock: 35,
     sku: 'MAG-BND-DUO-02',
     volume: '2 x 3 ml (180 de zile de aplicare)',
-    images: ['/images/mag-evergrow-bottle.png'],
+    images: ['/images/duo-pack.jpg'],
     active_ingredients: [
       {
         name: 'Ricinus Communis & Rosmarinus Complex',
@@ -269,7 +269,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     stock: 18,
     sku: 'MAG-BND-KIT-03',
     volume: 'Set complet 3 produse premium în cutie cadou de lux',
-    images: ['/images/mag-evergrow-bottle.png'],
+    images: ['/images/complete-kit.jpg'],
     active_ingredients: [
       {
         name: 'Protocol Complet MAG Atelier',
@@ -308,7 +308,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     stock: 40,
     sku: 'MAG-CLN-OIL-100',
     volume: '100 ml cu pompiță dozatoare de precizie',
-    images: ['/images/mag-evergrow-bottle.png'],
+    images: ['/images/cleansing-oil.jpg'],
     active_ingredients: [
       {
         name: 'Prunus Amygdalus Dulcis (Sweet Almond Oil)',
@@ -353,7 +353,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     stock: 0, // Out of stock example!
     sku: 'MAG-CLN-FOM-150',
     volume: '150 ml flacon spumant',
-    images: ['/images/mag-evergrow-bottle.png'],
+    images: ['/images/micellar-foam.jpg'],
     active_ingredients: [
       {
         name: 'Rosa Damascena Flower Water',
