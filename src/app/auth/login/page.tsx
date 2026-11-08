@@ -97,13 +97,13 @@ export default function LoginPage() {
         </div>
 
         {/* Quick Demo Pill for Evaluators */}
-        <div className="p-3.5 rounded-2xl bg-gold-500/10 border border-gold-500/30 flex items-center justify-between gap-3 shadow-sm">
-          <div>
+        <div className="p-3.5 sm:p-4 rounded-2xl bg-gold-500/10 border border-gold-500/30 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-sm">
+          <div className="min-w-0">
             <div className="text-xs font-serif font-bold text-stone-950 dark:text-white flex items-center gap-1.5">
-              <Sparkles className="w-3.5 h-3.5 text-gold-600 dark:text-gold-400" />
+              <Sparkles className="w-3.5 h-3.5 text-gold-600 dark:text-gold-400 flex-shrink-0" />
               <span>Cont Demo Evaluator</span>
             </div>
-            <div className="text-[10px] font-mono text-stone-600 dark:text-zinc-400 mt-0.5">
+            <div className="text-[11px] font-mono text-stone-600 dark:text-zinc-400 mt-0.5 break-all sm:break-normal">
               evaluator@maglaboratories.com
             </div>
           </div>
@@ -111,9 +111,10 @@ export default function LoginPage() {
             type="button"
             onClick={handleQuickEvaluatorLogin}
             disabled={loading}
-            className="px-3 py-1.5 rounded-lg bg-gold-500 hover:bg-gold-400 text-obsidian-950 text-xs font-mono font-bold transition-all shadow-sm active:scale-95 disabled:opacity-50"
+            className="w-full sm:w-auto px-4 py-2.5 sm:py-1.5 rounded-xl bg-gold-500 hover:bg-gold-400 text-obsidian-950 text-xs font-mono font-bold transition-all shadow-sm active:scale-95 disabled:opacity-50 text-center flex items-center justify-center gap-1.5 cursor-pointer touch-manipulation flex-shrink-0"
           >
-            Autentificare 1-Click
+            <Sparkles className="w-3.5 h-3.5 text-obsidian-950 sm:hidden flex-shrink-0" />
+            <span>Autentificare 1-Click</span>
           </button>
         </div>
 

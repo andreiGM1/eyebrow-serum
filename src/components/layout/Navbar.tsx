@@ -113,13 +113,14 @@ export default function Navbar() {
       <header className="sticky top-0 z-40 bg-white dark:bg-obsidian-950 border-b border-stone-200 dark:border-gold-500/15 transition-all duration-300 shadow-sm">
         <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between gap-2 sm:gap-4">
           
-          {/* Mobile Menu Button */}
+          {/* Mobile Menu Button - Accessible 44px+ touch target with instant response */}
           <button
             onClick={() => setIsMobileMenuOpen(true)}
-            className="lg:hidden p-2 -ml-1 text-stone-700 dark:text-zinc-300 hover:text-gold-600 dark:hover:text-gold-400 focus:outline-none transition-colors rounded-lg hover:bg-stone-100 dark:hover:bg-zinc-800/50"
-            aria-label="Deschide Meniul"
+            className="lg:hidden min-w-[44px] min-h-[44px] flex items-center justify-center p-2.5 rounded-xl border border-stone-200/80 dark:border-zinc-800 bg-stone-50/80 dark:bg-obsidian-900 text-stone-800 dark:text-zinc-200 hover:text-gold-600 dark:hover:text-gold-400 hover:border-gold-500/40 active:scale-95 active:bg-gold-500/10 focus:outline-none transition-all shadow-sm touch-manipulation cursor-pointer"
+            aria-label="Deschide Meniul Principal"
+            title="Meniu"
           >
-            <Menu className="w-6 h-6" />
+            <Menu className="w-5 h-5 text-stone-800 dark:text-zinc-200" />
           </button>
 
           {/* Brand Logo */}
@@ -361,32 +362,44 @@ export default function Navbar() {
         </div>
       )}
 
-      {/* Mobile Drawer Menu with Theme Toggle */}
-      {isMobileMenuOpen && (
-        <div className="fixed inset-0 z-50 lg:hidden">
-          <div
-            className="fixed inset-0 bg-black/70 backdrop-blur-sm transition-opacity"
-            onClick={() => setIsMobileMenuOpen(false)}
-          />
-          <div className="fixed inset-y-0 left-0 max-w-xs w-full bg-white dark:bg-obsidian-900 border-r border-stone-200 dark:border-gold-500/20 p-5 sm:p-6 flex flex-col justify-between shadow-2xl overflow-y-auto">
-            <div>
-              <div className="flex items-center justify-between pb-4 border-b border-stone-200 dark:border-zinc-800">
-                <div className="flex items-center gap-1.5">
-                  <span className="font-serif font-bold text-lg text-stone-900 dark:text-white tracking-widest">
-                    MAG
-                  </span>
-                  <span className="text-[10px] uppercase px-1.5 py-0.5 rounded bg-gold-500/15 border border-gold-500/40 text-gold-700 dark:text-gold-400 font-mono font-semibold">
-                    LABORATORIES
-                  </span>
-                </div>
-                <button
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className="p-1.5 rounded-lg text-stone-500 dark:text-zinc-400 hover:text-stone-900 dark:hover:text-white hover:bg-stone-100 dark:hover:bg-zinc-800 transition-colors"
-                  aria-label="Închide meniul"
-                >
-                  <X className="w-5 h-5" />
-                </button>
+      {/* Mobile Drawer Menu with Theme Toggle - GPU-accelerated instant opening */}
+      <div
+        className={`fixed inset-0 z-50 lg:hidden transition-all duration-300 ease-out ${
+          isMobileMenuOpen
+            ? 'opacity-100 pointer-events-auto visible'
+            : 'opacity-0 pointer-events-none invisible'
+        }`}
+        aria-hidden={!isMobileMenuOpen}
+      >
+        <div
+          className={`fixed inset-0 bg-black/60 backdrop-blur-sm transition-opacity duration-300 ease-out ${
+            isMobileMenuOpen ? 'opacity-100' : 'opacity-0'
+          }`}
+          onClick={() => setIsMobileMenuOpen(false)}
+        />
+        <div
+          className={`fixed inset-y-0 left-0 max-w-xs w-full bg-white dark:bg-obsidian-900 border-r border-stone-200 dark:border-gold-500/20 p-5 sm:p-6 flex flex-col justify-between shadow-2xl overflow-y-auto transform transition-transform duration-300 ease-out will-change-transform ${
+            isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'
+          }`}
+        >
+          <div>
+            <div className="flex items-center justify-between pb-4 border-b border-stone-200 dark:border-zinc-800">
+              <div className="flex items-center gap-1.5">
+                <span className="font-serif font-bold text-lg text-stone-900 dark:text-white tracking-widest">
+                  MAG
+                </span>
+                <span className="text-[10px] uppercase px-1.5 py-0.5 rounded bg-gold-500/15 border border-gold-500/40 text-gold-700 dark:text-gold-400 font-mono font-semibold">
+                  LABORATORIES
+                </span>
               </div>
+              <button
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="min-w-[38px] min-h-[38px] flex items-center justify-center p-2 rounded-xl text-stone-500 dark:text-zinc-400 hover:text-stone-900 dark:hover:text-white hover:bg-stone-100 dark:hover:bg-zinc-800 transition-all active:scale-95 touch-manipulation cursor-pointer"
+                aria-label="Închide meniul"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
 
               {/* Theme toggle in mobile drawer - very clean & elegant */}
               <div className="my-4 p-3 rounded-xl bg-stone-50 dark:bg-obsidian-950 border border-stone-200 dark:border-zinc-800 flex items-center justify-between shadow-sm">
@@ -507,7 +520,6 @@ export default function Navbar() {
             </div>
           </div>
         </div>
-      )}
     </>
   );
 }
