@@ -7,7 +7,7 @@ export const INITIAL_CATEGORIES: Category[] = [
     name: 'Seruri Active pentru Sprâncene',
     description: 'Formule concentrate botanice și lipidice pentru activarea foliculilor și densitate maximă.',
     display_order: 1,
-    image_url: '/images/mag-evergrow-bottle.png',
+    image_url: '/images/category-serums.jpg',
   },
   {
     id: 'c2222222-2222-2222-2222-222222222222',
@@ -551,7 +551,7 @@ export const INITIAL_ORDERS: Order[] = [
         order_id: 'ord-1002',
         product_id: 'p6666666-6666-6666-6666-666666666666',
         product_name: 'Kit Regenerare Completă Atelier MAG (Serum + Dermaroller + Ulei Curățare)',
-        product_image: '/images/mag-evergrow-bottle.png',
+        product_image: '/images/complete-kit.jpg',
         unit_price: 389.0,
         quantity: 1,
         total_price: 389.0,

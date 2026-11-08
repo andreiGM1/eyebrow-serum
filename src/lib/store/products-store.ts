@@ -4,15 +4,40 @@ import { useState, useEffect } from 'react';
 import { Product, Order, OrderStatus } from '@/lib/types';
 import { INITIAL_PRODUCTS, INITIAL_ORDERS } from '@/lib/data';
 
-const PRODUCTS_STORAGE_KEY = 'evergrow_products_v1';
-const ORDERS_STORAGE_KEY = 'evergrow_orders_v1';
+const PRODUCTS_STORAGE_KEY = 'evergrow_products_v4';
+const ORDERS_STORAGE_KEY = 'evergrow_orders_v2';
 
 export function getStoredProducts(): Product[] {
   if (typeof window === 'undefined') return INITIAL_PRODUCTS;
   try {
+    // Purge outdated caches where obsolete single-image arrays were saved
+    localStorage.removeItem('evergrow_products_v1');
+    localStorage.removeItem('evergrow_products_v2');
+    localStorage.removeItem('evergrow_products_v3');
+
     const data = localStorage.getItem(PRODUCTS_STORAGE_KEY);
     if (data) {
-      return JSON.parse(data);
+      const parsed: Product[] = JSON.parse(data);
+      // Synchronize authoritative images & metadata from INITIAL_PRODUCTS while preserving stock
+      const mergedInitial = INITIAL_PRODUCTS.map((initP) => {
+        const stored = parsed.find((p) => p.id === initP.id);
+        if (stored) {
+          return {
+            ...stored,
+            images: initP.images,
+            name: initP.name,
+            subtitle: initP.subtitle,
+            volume: initP.volume,
+          };
+        }
+        return initP;
+      });
+
+      const customProducts = parsed.filter(
+        (p) => !INITIAL_PRODUCTS.some((initP) => initP.id === p.id)
+      );
+
+      return [...mergedInitial, ...customProducts];
     }
   } catch {
     // fallback
@@ -32,6 +57,7 @@ export function saveStoredProducts(products: Product[]): void {
 export function getStoredOrders(): Order[] {
   if (typeof window === 'undefined') return INITIAL_ORDERS;
   try {
+    localStorage.removeItem('evergrow_orders_v1');
     const data = localStorage.getItem(ORDERS_STORAGE_KEY);
     if (data) {
       return JSON.parse(data);
