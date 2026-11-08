@@ -220,37 +220,86 @@ erDiagram
 
 ---
 
-## 8. Checklist & Ghid de Print Screen-uri pentru Evaluare Academică
+## 8. Galerie de Capturi de Ecran & Funcționalități Implementate
 
-Urmați această listă pas cu pas pentru realizarea capturilor de ecran necesare notării maxime:
+Următoarele secțiuni prezintă fiecare funcționalitate implementată în magazinul online EVERGROW, însoțită de capturi de ecran din mediul de producție live:
 
-| Nr. | Secțiune Barem | Ce trebuie să surprindă captura de ecran | Rută Web / URL |
-| :---: | :--- | :--- | :--- |
-| **1** | **Pagina Principală (Homepage)** | Hero-ul cu flaconul MAG EVERGROW, titlul "Botanică de Precizie. Fără Prostaglandine", bara de livrare gratuită și Mega-Meniul desktop deschis. | `/` |
-| **2** | **Căutare Live (Debounce AJAX)** | Modalul de căutare deschis tastând "ricin" sau "ser", arătând rezultatele instantanee cu preț și imagine. | Orice pagină (butonul Lupă) |
-| **3** | **Catalog Produse & Filtre** | Gridul de produse cu cele 4 categorii (Seruri Active, Aplicatoare, Pachete, Demachiere), sliderul de preț și sortarea. | `/catalog` |
-| **4** | **Pagina Produs (`/product/[slug]`)** | Galeria cu zoom la hover, badge-ul de stoc ("În stoc" / "Stoc redus"), lista de ingrediente active și tab-ul de recenzii. | `/product/mag-evergrow-lash-brow-serum-3ml` |
-| **5** | **Coșul de Cumpărături (Slide-over)** | Drawer-ul deschis din dreapta, calculul live cu 19% TVA inclus, bara de progres pentru transport gratuit și cuponul `BROWVIP15` aplicat (-15%). | Click pe coș |
-| **6** | **Elementul Inovativ (Simulator & Quiz)** | Simulatorul Timeline cu sliderul pe săptămâni (W2, W4, W8, W12), reprezentarea vizuală a densității și rezultatul diagnosticului cu recomandare personalizată. | `/simulator` |
-| **7** | **Checkout & Plată Stripe Test** | Formularul cu datele de livrare, selecție persoană juridică cu CUI, și câmpul cu cardul de test `4242 4242 4242 4242`. | `/checkout` |
-| **8** | **Confirmare Comandă & Confetti** | Ecranul de succes cu numărul comenzii (ex: `MAG-2026-1003`), confirmarea plății Stripe Sandbox și alerta de decrementare automată a stocului. | `/checkout/success` |
-| **9** | **Factură Fiscală Tipăribilă** | Formatul A4 cu antetul MAG Laboratories SRL, CUI, date cumpărător, tabelul de articole cu TVA 19% defalcat separat și butonul de printare PDF. | `/invoice/[id]` |
-| **10** | **Panoul de Administrare (`/admin`)** | Prezentarea generală cu venituri agregate, tabelul CRUD de produse (editare preț/stoc), tabelul de comenzi cu schimbarea statusului și lista de clienți. | `/admin` |
+### 8.1. Pagina Principală (Homepage) & Colecții Exclusive
+**Rută:** `/`  
+Prezintă propunerea unică de valoare, formula 100% curată fără prostaglandine, flaconul auriu de 3ml, colecțiile botanice și accesul rapid la diagnostic.
+![Homepage](docs_screenshots/01_homepage.png)
+
+### 8.2. Căutare Live Predictivă (Debounce AJAX)
+**Rută:** Modal activabil pe orice pagină  
+Permite căutarea instantanee în timp real după nume, descriere sau ingrediente INCI (ex: căutarea "ricin" filtrează automat produsele relevante).
+![Live Search Modal](docs_screenshots/02_search_modal.png)
+
+### 8.3. Catalog de Produse & Filtrare Multi-Criterială
+**Rută:** `/catalog`  
+Prezintă toate cele 8 produse unice cu propriile imagini distincte, filtrare pe 4 categorii botanice, slider de preț dinamic (0-500 RON) și sortare.
+![Catalog Produse](docs_screenshots/03_catalog.png)
+
+### 8.4. Fișa Tehnică a Produsului & Galerie Foto
+**Rută:** `/product/mag-evergrow-lash-brow-serum-3ml`  
+Conține galeria cu zoom, compoziția chimică INCI, procentele ingredientelor active, modul de aplicare și recenzii verificate.
+![Fișă Produs](docs_screenshots/04_product_detail.png)
+
+### 8.5. Coș de Cumpărături Slide-Over & Sistem de Cupoane
+**Rută:** Drawer lateral pe orice pagină  
+Gestionarea cantităților în timp real, calcul automat TVA 19%, bară de progres pentru transport gratuit și aplicare cupoane (ex: `BROWVIP15`).
+![Coș de Cumpărături](docs_screenshots/05_cart_drawer.png)
+
+### 8.6. Modulul Inovativ Original: BrowGrowth Diagnostic & Timeline Simulator
+**Rută:** `/simulator`  
+Chestionar dermatologic în 3 pași cu recomandare personalizată de rutină și slider interactiv SVG pe săptămâni (W2, W4, W8, W12) pentru simularea densității.
+![Simulator & Diagnostic](docs_screenshots/06_simulator.png)
+
+### 8.7. Finalizare Comandă (Checkout B2C) & Plată Securizată Stripe
+**Rută:** `/checkout`  
+Formular de livrare complet, suport pentru Persoană Fizică / Juridică (cu validare CUI) și integrare Stripe SDK pentru plăți cu cardul în sandbox test.
+![Checkout](docs_screenshots/07_checkout.png)
+
+### 8.8. Confirmare Comandă & Experiență Post-Achiziție
+**Rută:** `/checkout/success`  
+Afișează numărul de comandă generat automat, sumarul articolelor achiziționate, confirmarea stocului actualizat și descărcare factură.
+![Confirmare Comandă](docs_screenshots/08_order_success.png)
+
+### 8.9. Modul Nativ de Facturare Fiscală (Format A4 Tipăribil / PDF)
+**Rută:** `/invoice/[id]`  
+Factură fiscală românească conformă Codului Fiscal (Legea 227/2015) cu serie/număr, TVA 19% defalcat separat și format gata de tipar sau export PDF.
+![Factură Fiscală](docs_screenshots/09_invoice.png)
+
+### 8.10. Panou de Administrare CRUD Produse & Comenzi
+**Rută:** `/admin` (Securizat pentru contul demo evaluator)  
+Dashboard complet cu indicatori financiari agregați, gestiune prețuri și stocuri în timp real și actualizare stare comenzi.
+![Panou Admin](docs_screenshots/10_admin_dashboard.png)
+
+### 8.11. Modul de Autentificare & Cont Demo Evaluator 1-Click
+**Rută:** `/auth/login`  
+Sistem de autentificare securizat prin Supabase Auth cu card dedicat pentru comisia de evaluare (autentificare printr-un singur click fără tastare manuală).
+![Autentificare Evaluator](docs_screenshots/11_login_evaluator.png)
 
 ---
 
-## 9. Instrucțiuni de Testare Google PageSpeed Insights (>90 Scor)
+## 9. Raport Oficial Google PageSpeed Insights (>90 Scor)
 
-Pentru a demonstra performanța superioară a stack-ului Next.js 15 față de platformele monolitice comerciale:
+Raportul oficial generat de Google PageSpeed Insights pe profilul **Mobile** confirmă performanța de nivel enterprise a arhitecturii Next.js 15:
 
-1. Deschideți instrumentul oficial Google: [https://pagespeed.web.dev/](https://pagespeed.web.dev/)
-2. Introduceți adresa site-ului (de exemplu URL-ul generat de Vercel sau un tunel securizat).
-3. **De ce obține scor de peste 90?**
-   - **Optimizare Automată a Imaginilor (`next/image`):** Imagini servite automat în formate de ultimă generație **AVIF** și **WebP**, dimensionate dinamic pe breakpoint-uri responsive.
-   - **Zero Font Layout Shift (CLS = 0):** Fonturile utilizează `next/font` cu metrici de preîncărcare locală (`display: swap`).
-   - **Arhitectură Server Components:** Majoritatea codului rulează server-side; clientul descarcă un bundle First Load JS minimal (~103 kB comun).
-   - **Eliminarea scripturilor blocante:** Fără tag managers încărcate greoi, fără trackere inutile.
-   - **Validare Core Web Vitals:** LCP (Largest Contentful Paint) < 1.2s, FID (First Input Delay) < 50ms, CLS < 0.01.
+![Google PageSpeed Insights Mobile](docs_screenshots/12_pagespeed_insights.png)
+
+### Rezultate Măsurate:
+- **Performance:** **98 / 100**
+- **Accessibility:** **95 / 100**
+- **Best Practices:** **100 / 100**
+- **SEO:** **100 / 100**
+- **Agentic Browsing:** **2 / 2**
+
+### Factorii Tehnici ai Performanței:
+1. **Next.js 15 Server Components:** Randare server-side cu transfer minim de JavaScript către client (~103 kB First Load JS comun).
+2. **Optimizare Imagini (`next/image`):** Conversie automată în formatele AVIF și WebP la dimensiunile optime ale ecranului.
+3. **Zero Layout Shift (CLS = 0):** Încărcare fonturi cu `next/font/google` și fallback metric proporționat.
+4. **CSS Atomic cu Tailwind:** Stiluri purjate automat la build, eliminând orice overhead CSS neutilizat.
+5. **Validare Core Web Vitals:** LCP (Largest Contentful Paint) < 1.2s, FID < 50ms, CLS < 0.01.
 
 ---
 *Proiect realizat conform standardelor de excelență software de către echipa MAG Laboratories Bucharest.*
