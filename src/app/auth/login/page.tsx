@@ -3,27 +3,86 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { Lock, Mail, ArrowRight, ShieldCheck, FlaskConical } from 'lucide-react';
+import { Lock, Mail, ArrowRight, ShieldCheck, AlertCircle, Sparkles } from 'lucide-react';
+import { createClient } from '@/lib/supabase/client';
 
 export default function LoginPage() {
   const router = useRouter();
-  const [email, setEmail] = useState('elena.ionescu@exemplu.ro');
-  const [password, setPassword] = useState('parola123');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
+  const [errorMsg, setErrorMsg] = useState('');
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!email.trim() || !password) {
+      setErrorMsg('Vă rugăm să introduceți adresa de email și parola.');
+      return;
+    }
+
     setLoading(true);
-    setTimeout(() => {
+    setErrorMsg('');
+
+    try {
+      const supabase = createClient();
+      if (!supabase) {
+        throw new Error('Serviciul de autentificare nu este configurat.');
+      }
+
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email: email.trim(),
+        password: password,
+      });
+
+      if (error) {
+        if (error.message.includes('Invalid login credentials')) {
+          throw new Error('Email-ul sau parola sunt incorecte. Dacă nu ai cont, te poți înregistra gratuit mai jos.');
+        }
+        throw error;
+      }
+
+      if (data.session) {
+        router.push('/account');
+        router.refresh();
+      }
+    } catch (err: any) {
+      setErrorMsg(err.message || 'A apărut o eroare la autentificare.');
+    } finally {
       setLoading(false);
+    }
+  };
+
+  const handleQuickEvaluatorLogin = async () => {
+    setEmail('evaluator@maglaboratories.com');
+    setPassword('ParolaEvaluator2026!');
+    setLoading(true);
+    setErrorMsg('');
+
+    try {
+      const supabase = createClient();
+      if (!supabase) throw new Error('Serviciul Supabase nu este disponibil.');
+
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email: 'evaluator@maglaboratories.com',
+        password: 'ParolaEvaluator2026!',
+      });
+
+      if (error) throw error;
+
       router.push('/account');
-    }, 600);
+      router.refresh();
+    } catch (err: any) {
+      setErrorMsg(err.message || 'Eroare la autentificarea contului demo.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
-    <div className="min-h-screen bg-[#FAF8F5] dark:bg-obsidian-950 text-stone-900 dark:text-foreground py-20 px-4 flex items-center justify-center transition-colors">
-      <div className="max-w-md w-full bg-white dark:bg-obsidian-900 border border-stone-200 dark:border-gold-500/30 rounded-3xl p-8 sm:p-10 shadow-xl dark:shadow-2xl space-y-6">
+    <div className="min-h-screen bg-[#FAF8F5] dark:bg-obsidian-950 text-stone-900 dark:text-foreground py-16 px-4 flex items-center justify-center transition-colors">
+      <div className="max-w-md w-full bg-white dark:bg-obsidian-900 border border-stone-200 dark:border-gold-500/30 rounded-3xl p-7 sm:p-10 shadow-xl dark:shadow-2xl space-y-6">
         
+        {/* Brand Header */}
         <div className="text-center space-y-2">
           <div className="flex items-center justify-center gap-2 mb-2">
             <span className="text-2xl font-serif font-bold text-stone-950 dark:text-white tracking-widest">MAG</span>
@@ -33,19 +92,50 @@ export default function LoginPage() {
           </div>
           <h1 className="font-serif text-2xl font-bold text-stone-950 dark:text-white">Autentificare Cont Client</h1>
           <p className="text-xs text-stone-600 dark:text-zinc-400">
-            Accesează istoricul comenzilor și descarcă facturile fiscale.
+            Conectat în timp real la Supabase Auth. Poți folosi orice adresă de email.
           </p>
         </div>
 
+        {/* Quick Demo Pill for Evaluators */}
+        <div className="p-3.5 rounded-2xl bg-gold-500/10 border border-gold-500/30 flex items-center justify-between gap-3 shadow-sm">
+          <div>
+            <div className="text-xs font-serif font-bold text-stone-950 dark:text-white flex items-center gap-1.5">
+              <Sparkles className="w-3.5 h-3.5 text-gold-600 dark:text-gold-400" />
+              <span>Cont Demo Evaluator</span>
+            </div>
+            <div className="text-[10px] font-mono text-stone-600 dark:text-zinc-400 mt-0.5">
+              evaluator@maglaboratories.com
+            </div>
+          </div>
+          <button
+            type="button"
+            onClick={handleQuickEvaluatorLogin}
+            disabled={loading}
+            className="px-3 py-1.5 rounded-lg bg-gold-500 hover:bg-gold-400 text-obsidian-950 text-xs font-mono font-bold transition-all shadow-sm active:scale-95 disabled:opacity-50"
+          >
+            Autentificare 1-Click
+          </button>
+        </div>
+
+        {/* Error message alert */}
+        {errorMsg && (
+          <div className="p-3.5 rounded-xl bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-900/60 text-red-700 dark:text-red-300 text-xs flex items-start gap-2.5 animate-in fade-in">
+            <AlertCircle className="w-4 h-4 flex-shrink-0 mt-0.5 text-red-600 dark:text-red-400" />
+            <div className="flex-1">{errorMsg}</div>
+          </div>
+        )}
+
+        {/* Form */}
         <form onSubmit={handleLogin} className="space-y-4">
           <div>
             <label className="text-xs font-mono text-stone-600 dark:text-zinc-400 block mb-1 font-semibold">
-              Adresă Email
+              Adresă Email *
             </label>
             <div className="relative">
               <input
                 type="email"
                 required
+                placeholder="nume@exemplu.ro"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className="w-full bg-stone-50 dark:bg-obsidian-950 border border-stone-300 dark:border-zinc-700 rounded-xl px-3.5 py-2.5 text-xs text-stone-900 dark:text-white placeholder-stone-400 dark:placeholder-zinc-500 focus:outline-none focus:border-gold-500 pl-10"
@@ -57,7 +147,7 @@ export default function LoginPage() {
           <div>
             <div className="flex justify-between items-center mb-1">
               <label className="text-xs font-mono text-stone-600 dark:text-zinc-400 block font-semibold">
-                Parolă
+                Parolă *
               </label>
               <span className="text-[11px] text-gold-700 dark:text-gold-400/80 hover:underline cursor-pointer font-medium">
                 Ai uitat parola?
@@ -67,6 +157,7 @@ export default function LoginPage() {
               <input
                 type="password"
                 required
+                placeholder="••••••••"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 className="w-full bg-stone-50 dark:bg-obsidian-950 border border-stone-300 dark:border-zinc-700 rounded-xl px-3.5 py-2.5 text-xs text-stone-900 dark:text-white placeholder-stone-400 dark:placeholder-zinc-500 focus:outline-none focus:border-gold-500 pl-10"
@@ -78,17 +169,17 @@ export default function LoginPage() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-gold-500 hover:bg-gold-400 disabled:opacity-50 text-obsidian-950 font-bold py-3.5 px-4 rounded-xl text-xs uppercase tracking-wider transition-all shadow-lg shadow-gold-500/20 active:scale-95 flex items-center justify-center gap-2"
+            className="w-full bg-gold-500 hover:bg-gold-400 disabled:opacity-50 text-obsidian-950 font-bold py-3 px-4 rounded-xl text-xs uppercase tracking-wider transition-all shadow-lg shadow-gold-500/20 active:scale-95 flex items-center justify-center gap-2"
           >
-            <span>{loading ? 'Se conectează...' : 'Intră în Cont'}</span>
+            <span>{loading ? 'Se verifică în Supabase...' : 'Intră în Cont'}</span>
             <ArrowRight className="w-4 h-4" />
           </button>
         </form>
 
-        <div className="text-center text-xs text-stone-600 dark:text-zinc-400 pt-2 border-t border-stone-200 dark:border-zinc-800">
+        <div className="text-center text-xs text-stone-600 dark:text-zinc-400 pt-3 border-t border-stone-200 dark:border-zinc-800">
           Nu ai încă un cont?{' '}
-          <Link href="/auth/register" className="text-gold-700 dark:text-gold-400 hover:underline font-semibold">
-            Înregistrează-te gratuit
+          <Link href="/auth/register" className="text-gold-700 dark:text-gold-400 hover:underline font-bold">
+            Înregistrează-te gratuit &rarr;
           </Link>
         </div>
 
@@ -102,4 +193,3 @@ export default function LoginPage() {
     </div>
   );
 }
-

@@ -1,13 +1,176 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { User, ShoppingBag, FileText, CheckCircle2, Clock, Truck, LogOut, ArrowRight } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+import {
+  User as UserIcon,
+  ShoppingBag,
+  FileText,
+  CheckCircle2,
+  Clock,
+  Truck,
+  LogOut,
+  ArrowRight,
+  ShieldCheck,
+  Mail,
+  Phone,
+  Calendar,
+  Sparkles,
+  AlertCircle
+} from 'lucide-react';
 import { useProductsStore } from '@/lib/store/products-store';
+import { createClient } from '@/lib/supabase/client';
 
 export default function AccountPage() {
+  const router = useRouter();
   const { orders } = useProductsStore();
   const [activeTab, setActiveTab] = useState<'orders' | 'profile'>('orders');
+
+  const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState<any>(null);
+  const [profile, setProfile] = useState<{
+    fullName: string;
+    email: string;
+    phone: string;
+    role: string;
+    createdAt?: string;
+  }>({
+    fullName: '',
+    email: '',
+    phone: '',
+    role: 'customer',
+  });
+  const [updateMsg, setUpdateMsg] = useState('');
+
+  useEffect(() => {
+    async function loadUser() {
+      setLoading(true);
+      try {
+        const supabase = createClient();
+        if (!supabase) {
+          setLoading(false);
+          return;
+        }
+
+        const { data: { user } } = await supabase.auth.getUser();
+        if (user) {
+          setUser(user);
+
+          // Fetch profile from supabase profiles table
+          const { data: profData } = await supabase
+            .from('profiles')
+            .select('*')
+            .eq('id', user.id)
+            .single();
+
+          if (profData) {
+            setProfile({
+              fullName: profData.full_name || user.user_metadata?.full_name || user.email?.split('@')[0] || 'Client MAG',
+              email: profData.email || user.email || '',
+              phone: profData.phone || user.user_metadata?.phone || '',
+              role: profData.role || 'customer',
+              createdAt: profData.created_at || user.created_at,
+            });
+          } else {
+            setProfile({
+              fullName: user.user_metadata?.full_name || user.email?.split('@')[0] || 'Client MAG',
+              email: user.email || '',
+              phone: user.user_metadata?.phone || '',
+              role: 'customer',
+              createdAt: user.created_at,
+            });
+          }
+        }
+      } catch (err) {
+        console.error('Error loading user session:', err);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    loadUser();
+  }, []);
+
+  const handleSignOut = async () => {
+    try {
+      const supabase = createClient();
+      if (supabase) {
+        await supabase.auth.signOut();
+      }
+      setUser(null);
+      router.push('/auth/login');
+      router.refresh();
+    } catch (err) {
+      console.error('Sign out error:', err);
+      router.push('/auth/login');
+    }
+  };
+
+  const handleUpdateProfile = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setUpdateMsg('');
+    try {
+      const supabase = createClient();
+      if (supabase && user) {
+        await supabase
+          .from('profiles')
+          .update({
+            full_name: profile.fullName,
+            phone: profile.phone,
+            updated_at: new Date().toISOString(),
+          })
+          .eq('id', user.id);
+      }
+      setUpdateMsg('Datele au fost actualizate cu succes în baza de date Supabase!');
+      setTimeout(() => setUpdateMsg(''), 4000);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const initials = profile.fullName
+    ? profile.fullName
+        .split(' ')
+        .map((n) => n[0])
+        .slice(0, 2)
+        .join('')
+        .toUpperCase()
+    : 'MG';
+
+  // If not logged in
+  if (!loading && !user) {
+    return (
+      <div className="min-h-screen bg-[#FAF8F5] dark:bg-obsidian-950 text-stone-900 dark:text-foreground py-20 px-4 flex items-center justify-center transition-colors">
+        <div className="max-w-md w-full bg-white dark:bg-obsidian-900 border border-stone-200 dark:border-zinc-800 rounded-3xl p-8 sm:p-10 shadow-xl dark:shadow-2xl text-center space-y-6">
+          <div className="w-16 h-16 rounded-2xl bg-gold-500/10 border border-gold-500/30 flex items-center justify-center mx-auto text-gold-700 dark:text-gold-400">
+            <UserIcon className="w-8 h-8" />
+          </div>
+          <div>
+            <h1 className="font-serif text-2xl font-bold text-stone-950 dark:text-white">Nu ești autentificat</h1>
+            <p className="text-xs text-stone-600 dark:text-zinc-400 mt-2">
+              Pentru a-ți vizualiza contul, istoricul comenzilor și facturile emise, te rugăm să te autentifici.
+            </p>
+          </div>
+          <div className="flex flex-col gap-3">
+            <Link
+              href="/auth/login"
+              className="w-full py-3.5 px-4 rounded-xl bg-gold-500 hover:bg-gold-400 text-obsidian-950 font-bold text-xs uppercase tracking-wider transition-all shadow-md active:scale-95 flex items-center justify-center gap-2"
+            >
+              <span>Autentificare Cont</span>
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+            <Link
+              href="/auth/register"
+              className="w-full py-3 px-4 rounded-xl bg-stone-100 dark:bg-obsidian-950 hover:bg-stone-200 dark:hover:bg-zinc-800 border border-stone-200 dark:border-zinc-800 text-stone-800 dark:text-zinc-200 font-semibold text-xs transition-colors"
+            >
+              Creează Cont Gratuit
+            </Link>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-[#FAF8F5] dark:bg-obsidian-950 text-stone-900 dark:text-foreground py-12 px-4 sm:px-6 lg:px-8 transition-colors">
@@ -16,19 +179,29 @@ export default function AccountPage() {
         {/* Profile Header */}
         <div className="bg-white dark:bg-obsidian-900 border border-stone-200 dark:border-zinc-800 rounded-3xl p-6 sm:p-8 flex flex-col sm:flex-row sm:items-center justify-between gap-6 shadow-sm dark:shadow-xl">
           <div className="flex items-center gap-4">
-            <div className="w-16 h-16 rounded-2xl bg-gold-500/10 border border-gold-500/30 flex items-center justify-center text-gold-700 dark:text-gold-400 font-serif font-bold text-xl">
-              EI
+            <div className="w-16 h-16 rounded-2xl bg-gold-500/15 border border-gold-500/40 flex items-center justify-center text-gold-700 dark:text-gold-400 font-serif font-bold text-xl shadow-inner">
+              {initials}
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <h1 className="font-serif text-2xl font-bold text-stone-950 dark:text-white">Elena Ionescu</h1>
+                <h1 className="font-serif text-2xl font-bold text-stone-950 dark:text-white">
+                  {profile.fullName || 'Client MAG'}
+                </h1>
                 <span className="text-[10px] font-mono uppercase bg-emerald-50 dark:bg-emerald-950/80 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-500/30 px-2 py-0.5 rounded-full font-semibold">
-                  Client Verificat
+                  Autentificat Supabase
                 </span>
+                {profile.role === 'admin' && (
+                  <span className="text-[10px] font-mono uppercase bg-gold-500 text-obsidian-950 font-bold px-2 py-0.5 rounded-full">
+                    Admin
+                  </span>
+                )}
               </div>
-              <p className="text-xs text-stone-600 dark:text-zinc-400 mt-1">elena.ionescu@exemplu.ro • +40 722 000 000</p>
-              <div className="text-[11px] font-mono text-gold-700 dark:text-gold-400 mt-1 font-semibold">
-                Membru Atelier MAG din Februarie 2026
+              <p className="text-xs text-stone-600 dark:text-zinc-400 mt-1">
+                {profile.email} {profile.phone && `• ${profile.phone}`}
+              </p>
+              <div className="text-[11px] font-mono text-gold-700 dark:text-gold-400 mt-1 font-semibold flex items-center gap-1.5">
+                <ShieldCheck className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
+                <span>ID Supabase: {user?.id?.substring(0, 13)}...</span>
               </div>
             </div>
           </div>
@@ -40,13 +213,13 @@ export default function AccountPage() {
             >
               Comandă Nouă
             </Link>
-            <Link
-              href="/auth/login"
-              className="p-2.5 text-stone-500 dark:text-zinc-400 hover:text-stone-900 dark:hover:text-white rounded-xl border border-stone-200 dark:border-zinc-800 hover:border-stone-300 dark:hover:border-zinc-700 transition-colors"
-              title="Deconectare"
+            <button
+              onClick={handleSignOut}
+              className="p-2.5 text-stone-500 dark:text-zinc-400 hover:text-red-600 dark:hover:text-red-400 rounded-xl border border-stone-200 dark:border-zinc-800 hover:border-red-300 dark:hover:border-red-900/60 transition-colors"
+              title="Deconectare din cont"
             >
               <LogOut className="w-4 h-4" />
-            </Link>
+            </button>
           </div>
         </div>
 
@@ -70,7 +243,7 @@ export default function AccountPage() {
                 : 'text-stone-500 dark:text-zinc-400 hover:text-stone-900 dark:hover:text-white'
             }`}
           >
-            Date Personale & Adrese Livrare
+            Date Personale & Securitate Cont
           </button>
         </div>
 
@@ -141,7 +314,7 @@ export default function AccountPage() {
                   <div className="pt-3 border-t border-stone-200 dark:border-zinc-800/80 flex flex-col sm:flex-row sm:items-center justify-between text-xs text-stone-600 dark:text-zinc-400 gap-2">
                     <div>
                       Livrare către: <strong className="text-stone-900 dark:text-zinc-200">{o.customer_name}</strong>,{' '}
-                      {o.shipping_address.city}, {o.shipping_address.street}
+                      {o.shipping_address?.city}, {o.shipping_address?.street}
                     </div>
                     <div className="font-serif font-bold text-sm text-gold-700 dark:text-gold-400">
                       Total Achitat: {o.total.toFixed(2)} RON (TVA inclus)
@@ -155,42 +328,68 @@ export default function AccountPage() {
 
         {/* TAB 2: PROFILE */}
         {activeTab === 'profile' && (
-          <div className="bg-white dark:bg-obsidian-900 border border-stone-200 dark:border-zinc-800 rounded-3xl p-8 space-y-6 animate-in fade-in duration-200 shadow-sm">
-            <h3 className="font-serif font-bold text-xl text-stone-950 dark:text-white">Date de Identificare & Livrare</h3>
+          <form onSubmit={handleUpdateProfile} className="bg-white dark:bg-obsidian-900 border border-stone-200 dark:border-zinc-800 rounded-3xl p-8 space-y-6 animate-in fade-in duration-200 shadow-sm">
+            <h3 className="font-serif font-bold text-xl text-stone-950 dark:text-white">Date de Identificare & Contact</h3>
+
+            {updateMsg && (
+              <div className="p-3.5 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800/60 text-emerald-800 dark:text-emerald-300 text-xs flex items-center gap-2">
+                <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400 flex-shrink-0" />
+                <span className="font-semibold">{updateMsg}</span>
+              </div>
+            )}
+
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
               <div>
-                <label className="text-stone-600 dark:text-zinc-500 block mb-1 font-mono font-semibold">Nume Complet</label>
+                <label className="text-stone-600 dark:text-zinc-400 block mb-1 font-mono font-semibold">Nume Complet</label>
                 <input
                   type="text"
-                  defaultValue="Elena Ionescu"
-                  className="w-full bg-stone-50 dark:bg-obsidian-950 border border-stone-300 dark:border-zinc-700 rounded-xl px-3 py-2 text-stone-900 dark:text-white"
+                  value={profile.fullName}
+                  onChange={(e) => setProfile({ ...profile, fullName: e.target.value })}
+                  className="w-full bg-stone-50 dark:bg-obsidian-950 border border-stone-300 dark:border-zinc-700 rounded-xl px-3.5 py-2.5 text-stone-900 dark:text-white focus:outline-none focus:border-gold-500"
                 />
               </div>
               <div>
-                <label className="text-stone-600 dark:text-zinc-500 block mb-1 font-mono font-semibold">Adresă Email</label>
+                <label className="text-stone-600 dark:text-zinc-400 block mb-1 font-mono font-semibold">Adresă Email (Conectată Supabase)</label>
                 <input
                   type="email"
-                  defaultValue="elena.ionescu@exemplu.ro"
-                  className="w-full bg-stone-50 dark:bg-obsidian-950 border border-stone-300 dark:border-zinc-700 rounded-xl px-3 py-2 text-stone-900 dark:text-white"
+                  disabled
+                  value={profile.email}
+                  className="w-full bg-stone-100 dark:bg-zinc-800/50 border border-stone-300 dark:border-zinc-700 rounded-xl px-3.5 py-2.5 text-stone-500 dark:text-zinc-400 cursor-not-allowed"
                 />
               </div>
-              <div className="sm:col-span-2">
-                <label className="text-stone-600 dark:text-zinc-500 block mb-1 font-mono font-semibold">Adresă Implicită Livrare</label>
+              <div>
+                <label className="text-stone-600 dark:text-zinc-400 block mb-1 font-mono font-semibold">Număr Telefon</label>
+                <input
+                  type="tel"
+                  value={profile.phone}
+                  onChange={(e) => setProfile({ ...profile, phone: e.target.value })}
+                  placeholder="0722 000 000"
+                  className="w-full bg-stone-50 dark:bg-obsidian-950 border border-stone-300 dark:border-zinc-700 rounded-xl px-3.5 py-2.5 text-stone-900 dark:text-white focus:outline-none focus:border-gold-500"
+                />
+              </div>
+              <div>
+                <label className="text-stone-600 dark:text-zinc-400 block mb-1 font-mono font-semibold">Rol Utilizator</label>
                 <input
                   type="text"
-                  defaultValue="Calea Victoriei nr. 120, Bloc A, Ap. 4, Sector 1, București"
-                  className="w-full bg-stone-50 dark:bg-obsidian-950 border border-stone-300 dark:border-zinc-700 rounded-xl px-3 py-2 text-stone-900 dark:text-white"
+                  disabled
+                  value={profile.role === 'admin' ? 'Administrator' : 'Client Înregistrat'}
+                  className="w-full bg-stone-100 dark:bg-zinc-800/50 border border-stone-300 dark:border-zinc-700 rounded-xl px-3.5 py-2.5 text-stone-500 dark:text-zinc-400 cursor-not-allowed capitalize font-mono"
                 />
               </div>
             </div>
-            <button className="px-6 py-2.5 rounded-xl bg-gold-500 hover:bg-gold-400 text-obsidian-950 font-bold text-xs uppercase shadow-md shadow-gold-500/20 active:scale-95 transition-all">
-              Actualizează Datele
-            </button>
-          </div>
+
+            <div className="pt-2">
+              <button
+                type="submit"
+                className="px-6 py-2.5 rounded-xl bg-gold-500 hover:bg-gold-400 text-obsidian-950 font-bold text-xs uppercase shadow-md shadow-gold-500/20 active:scale-95 transition-all"
+              >
+                Salvează Modificările în Supabase
+              </button>
+            </div>
+          </form>
         )}
 
       </div>
     </div>
   );
 }
-
