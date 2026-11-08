@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import './globals.css';
 import { CartProvider } from '@/lib/store/cart-context';
 import { ThemeProvider } from '@/lib/store/theme-context';
+import { AuthProvider } from '@/lib/store/auth-context';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import CartDrawer from '@/components/layout/CartDrawer';
@@ -77,10 +78,12 @@ export default function RootLayout({
       <body className="min-h-screen flex flex-col font-sans antialiased">
         <ThemeProvider>
           <CartProvider>
-            <Navbar />
-            <main className="flex-1">{children}</main>
-            <CartDrawer />
-            <Footer />
+            <AuthProvider>
+              <Navbar />
+              <main className="flex-1">{children}</main>
+              <CartDrawer />
+              <Footer />
+            </AuthProvider>
           </CartProvider>
         </ThemeProvider>
       </body>

@@ -91,16 +91,16 @@ export default function VisualTimelineSlider() {
   const activeStage = STAGES[activeStageIndex];
 
   return (
-    <div className="bg-white dark:bg-obsidian-900 border border-stone-200 dark:border-gold-500/30 rounded-3xl p-6 sm:p-8 shadow-xl transition-all">
+    <div className="bg-white dark:bg-obsidian-900 border border-stone-200 dark:border-gold-500/30 rounded-2xl sm:rounded-3xl p-4 sm:p-8 shadow-xl transition-all">
       
       {/* Title & Badge */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-stone-200 dark:border-zinc-800">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4 pb-4 sm:pb-6 border-b border-stone-200 dark:border-zinc-800">
         <div>
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gold-500/15 border border-gold-500/40 text-gold-700 dark:text-gold-400 text-xs font-mono mb-2 font-semibold">
-            <Sparkles className="w-3.5 h-3.5" />
+          <div className="inline-flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 py-1 rounded-full bg-gold-500/15 border border-gold-500/40 text-gold-700 dark:text-gold-400 text-[10px] sm:text-xs font-mono mb-2 font-semibold">
+            <Sparkles className="w-3 sm:w-3.5 h-3 sm:h-3.5" />
             <span>SIMULATOR VIZUAL PE SĂPTĂMÂNI</span>
           </div>
-          <h3 className="font-serif text-2xl font-bold text-stone-950 dark:text-white">
+          <h3 className="font-serif text-xl sm:text-2xl font-bold text-stone-950 dark:text-white">
             Evoluția Densității Foliculare în Timp
           </h3>
           <p className="text-xs text-stone-600 dark:text-zinc-400 mt-1">
@@ -108,11 +108,11 @@ export default function VisualTimelineSlider() {
           </p>
         </div>
 
-        <div className="bg-stone-50 dark:bg-obsidian-950 px-4 py-2.5 rounded-xl border border-stone-200 dark:border-zinc-800 flex items-center gap-3 shadow-inner">
-          <Clock className="w-5 h-5 text-gold-600 dark:text-gold-400" />
+        <div className="bg-stone-50 dark:bg-obsidian-950 px-3 sm:px-4 py-2 sm:py-2.5 rounded-xl border border-stone-200 dark:border-zinc-800 flex items-center gap-2.5 sm:gap-3 shadow-inner self-start sm:self-auto">
+          <Clock className="w-4 h-4 sm:w-5 sm:h-5 text-gold-600 dark:text-gold-400 flex-shrink-0" />
           <div>
-            <div className="text-[10px] uppercase font-mono text-stone-500 dark:text-zinc-400">Etapa Selectată</div>
-            <div className="text-sm font-serif font-bold text-stone-900 dark:text-white">
+            <div className="text-[9px] sm:text-[10px] uppercase font-mono text-stone-500 dark:text-zinc-400">Etapa Selectată</div>
+            <div className="text-xs sm:text-sm font-serif font-bold text-stone-900 dark:text-white">
               {activeStage.label} ({activeStage.phaseName})
             </div>
           </div>
@@ -220,26 +220,26 @@ export default function VisualTimelineSlider() {
 
       {/* Interactive Timeline Slider Selector Buttons */}
       <div className="mt-8">
-        <div className="grid grid-cols-4 gap-2 sm:gap-4">
+        <div className="grid grid-cols-4 gap-1.5 sm:gap-4">
           {STAGES.map((stage, idx) => {
             const isActive = activeStageIndex === idx;
             return (
               <button
                 key={stage.week}
                 onClick={() => setActiveStageIndex(idx)}
-                className={`p-3 sm:p-4 rounded-2xl border text-center transition-all duration-200 active:scale-95 flex flex-col items-center justify-center gap-1 ${
+                className={`p-2 sm:p-4 rounded-xl sm:rounded-2xl border text-center transition-all duration-200 active:scale-95 flex flex-col items-center justify-center gap-0.5 sm:gap-1 ${
                   isActive
                     ? 'bg-gold-500 text-obsidian-950 border-gold-400 font-bold shadow-lg shadow-gold-500/20 scale-105'
                     : 'bg-stone-50 dark:bg-obsidian-950 border-stone-200 dark:border-zinc-800 text-stone-600 dark:text-zinc-400 hover:border-stone-300 dark:hover:border-zinc-700 hover:text-stone-900 dark:hover:text-white'
                 }`}
               >
-                <span className={`text-[11px] font-mono uppercase font-semibold ${isActive ? 'text-obsidian-950' : 'text-stone-500 dark:text-zinc-400'}`}>
+                <span className={`text-[9px] sm:text-[11px] font-mono uppercase font-semibold ${isActive ? 'text-obsidian-950' : 'text-stone-500 dark:text-zinc-400'}`}>
                   Etapa {idx + 1}
                 </span>
-                <span className="font-serif text-sm sm:text-base font-bold">
+                <span className="font-serif text-xs sm:text-base font-bold whitespace-nowrap">
                   {stage.label}
                 </span>
-                <span className={`text-[10px] font-mono ${isActive ? 'text-obsidian-900 font-bold' : 'text-gold-600 dark:text-gold-400 font-semibold'}`}>
+                <span className={`text-[9px] sm:text-[10px] font-mono whitespace-nowrap ${isActive ? 'text-obsidian-900 font-bold' : 'text-gold-600 dark:text-gold-400 font-semibold'}`}>
                   {stage.densityScore}% Densitate
                 </span>
               </button>
@@ -248,7 +248,7 @@ export default function VisualTimelineSlider() {
         </div>
 
         {/* Range Slider for granular control */}
-        <div className="mt-6 px-2">
+        <div className="mt-6 px-1 sm:px-2">
           <input
             type="range"
             min="0"
@@ -256,13 +256,13 @@ export default function VisualTimelineSlider() {
             step="1"
             value={activeStageIndex}
             onChange={(e) => setActiveStageIndex(Number(e.target.value))}
-            className="w-full h-2 bg-stone-200 dark:bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-gold-500"
+            className="w-full h-2.5 sm:h-2 bg-stone-200 dark:bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-gold-500"
           />
-          <div className="flex justify-between text-[11px] font-mono text-stone-500 dark:text-zinc-500 mt-2 font-medium">
-            <span>Săpt. 2 (Ancorare)</span>
-            <span>Săpt. 4 (Trezire)</span>
-            <span>Săpt. 8 (Densificare)</span>
-            <span>Săpt. 12 (Arhitectură Plină)</span>
+          <div className="flex justify-between text-[9px] sm:text-[11px] font-mono text-stone-500 dark:text-zinc-500 mt-2 font-medium">
+            <span>S2: Ancorare</span>
+            <span>S4: Trezire</span>
+            <span>S8: Densificare</span>
+            <span>S12: Plinătate</span>
           </div>
         </div>
       </div>

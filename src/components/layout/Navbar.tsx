@@ -23,6 +23,7 @@ import {
 } from 'lucide-react';
 import { useCart } from '@/lib/store/cart-context';
 import { useTheme } from '@/lib/store/theme-context';
+import { useAuth } from '@/lib/store/auth-context';
 import { INITIAL_PRODUCTS, INITIAL_CATEGORIES } from '@/lib/data';
 import { Product } from '@/lib/types';
 
@@ -30,6 +31,7 @@ export default function Navbar() {
   const router = useRouter();
   const { totalItemsCount, openCart } = useCart();
   const { theme, toggleTheme } = useTheme();
+  const { user, isAdmin } = useAuth();
 
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
@@ -212,13 +214,15 @@ export default function Navbar() {
               <span>ATELIER BUCUREȘTI</span>
             </Link>
 
-            <Link
-              href="/admin"
-              className="text-stone-600 dark:text-zinc-400 hover:text-gold-600 dark:hover:text-gold-400 flex items-center gap-1.5 text-xs font-mono transition-colors font-semibold"
-            >
-              <FlaskConical className="w-3.5 h-3.5 text-gold-600 dark:text-gold-400/80" />
-              <span>ADMIN</span>
-            </Link>
+            {isAdmin && (
+              <Link
+                href="/admin"
+                className="text-gold-700 dark:text-gold-400 hover:text-gold-600 flex items-center gap-1.5 text-xs font-mono transition-colors font-bold px-2.5 py-1 rounded-lg bg-gold-500/10 border border-gold-500/30"
+              >
+                <FlaskConical className="w-3.5 h-3.5 text-gold-600 dark:text-gold-400/80" />
+                <span>ADMIN</span>
+              </Link>
+            )}
           </nav>
 
           {/* Right Action Icons: Theme Toggle (desktop only), Search, Account, Cart */}
@@ -470,22 +474,29 @@ export default function Navbar() {
                   </Link>
 
                   <Link
-                    href="/account"
+                    href={user ? "/account" : "/auth/login"}
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className="text-xs text-stone-700 dark:text-zinc-300 hover:text-gold-600 dark:hover:text-gold-400 py-1 transition-colors flex items-center gap-2"
+                    className="text-xs text-stone-700 dark:text-zinc-300 hover:text-gold-600 dark:hover:text-gold-400 py-1 transition-colors flex items-center justify-between"
                   >
-                    <User className="w-3.5 h-3.5 text-stone-500 dark:text-zinc-400" />
-                    <span>Contul Meu & Facturi</span>
+                    <div className="flex items-center gap-2">
+                      <User className="w-3.5 h-3.5 text-stone-500 dark:text-zinc-400" />
+                      <span>{user ? "Contul Meu & Facturi" : "Autentificare / Înregistrare"}</span>
+                    </div>
+                    {user && (
+                      <span className="text-[10px] font-mono text-emerald-600 dark:text-emerald-400 font-semibold">Conectat</span>
+                    )}
                   </Link>
 
-                  <Link
-                    href="/admin"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className="text-xs text-stone-600 dark:text-zinc-400 hover:text-gold-600 dark:hover:text-gold-400 py-1 transition-colors font-mono flex items-center gap-2"
-                  >
-                    <FlaskConical className="w-3.5 h-3.5 text-gold-600 dark:text-gold-400/80" />
-                    <span>Panou Administrare</span>
-                  </Link>
+                  {isAdmin && (
+                    <Link
+                      href="/admin"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                      className="text-xs text-gold-700 dark:text-gold-400 hover:underline py-1.5 transition-colors font-mono flex items-center gap-2 font-bold bg-gold-500/10 px-2.5 rounded-lg border border-gold-500/30"
+                    >
+                      <FlaskConical className="w-3.5 h-3.5 text-gold-600 dark:text-gold-400/80" />
+                      <span>Panou Administrare (Admin Demo)</span>
+                    </Link>
+                  )}
                 </div>
               </div>
             </div>

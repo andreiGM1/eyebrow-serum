@@ -25,8 +25,10 @@ import { useProductsStore } from '@/lib/store/products-store';
 import { INITIAL_CATEGORIES } from '@/lib/data';
 import { OrderStatus, Product } from '@/lib/types';
 import StockBadge from '@/components/product/StockBadge';
+import { useAuth } from '@/lib/store/auth-context';
 
 export default function AdminPage() {
+  const { user, isAdmin, isLoading } = useAuth();
   const { products, orders, addProduct, updateProduct, deleteProduct, updateOrderStatus } =
     useProductsStore();
 
@@ -134,6 +136,55 @@ export default function AdminPage() {
       is_featured: true,
     });
   };
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-[#FAF8F5] dark:bg-obsidian-950 text-stone-900 dark:text-foreground py-20 px-4 flex items-center justify-center transition-colors">
+        <div className="text-center space-y-3">
+          <div className="w-10 h-10 border-2 border-gold-500 border-t-transparent rounded-full animate-spin mx-auto" />
+          <div className="text-xs font-mono text-stone-600 dark:text-zinc-400">Se verifică permisiunile de acces...</div>
+        </div>
+      </div>
+    );
+  }
+
+  if (!isAdmin) {
+    return (
+      <div className="min-h-screen bg-[#FAF8F5] dark:bg-obsidian-950 text-stone-900 dark:text-foreground py-20 px-4 flex items-center justify-center transition-colors">
+        <div className="max-w-md w-full bg-white dark:bg-obsidian-900 border border-stone-200 dark:border-gold-500/30 rounded-3xl p-8 sm:p-10 shadow-xl dark:shadow-2xl text-center space-y-6">
+          <div className="w-16 h-16 rounded-2xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center mx-auto text-amber-600 dark:text-amber-400">
+            <ShieldCheck className="w-8 h-8" />
+          </div>
+          <div>
+            <span className="text-[10px] font-mono uppercase bg-red-100 dark:bg-red-950/60 text-red-700 dark:text-red-400 border border-red-200 dark:border-red-900/60 px-2 py-0.5 rounded-full font-bold">
+              Acces Restricționat
+            </span>
+            <h1 className="font-serif text-2xl font-bold text-stone-950 dark:text-white mt-3">
+              Panou de Administrare Protejat
+            </h1>
+            <p className="text-xs text-stone-600 dark:text-zinc-400 mt-2 leading-relaxed">
+              Această secțiune este rezervată exclusiv contului demo evaluator (<strong>evaluator@maglaboratories.com</strong>) sau administratorilor autorizați.
+            </p>
+          </div>
+          <div className="flex flex-col gap-3">
+            <Link
+              href="/auth/login"
+              className="w-full py-3.5 px-4 rounded-xl bg-gold-500 hover:bg-gold-400 text-obsidian-950 font-bold text-xs uppercase tracking-wider transition-all shadow-md active:scale-95 flex items-center justify-center gap-2"
+            >
+              <span>Autentificare Cont Demo</span>
+              <ArrowLeft className="w-4 h-4 rotate-180" />
+            </Link>
+            <Link
+              href="/"
+              className="w-full py-3 px-4 rounded-xl bg-stone-100 dark:bg-obsidian-950 hover:bg-stone-200 dark:hover:bg-zinc-800 border border-stone-200 dark:border-zinc-800 text-stone-800 dark:text-zinc-200 font-semibold text-xs transition-colors"
+            >
+              Înapoi pe Pagina Principală
+            </Link>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-[#FAF8F5] dark:bg-obsidian-950 text-stone-900 dark:text-foreground py-10 px-4 sm:px-6 lg:px-8 transition-colors">

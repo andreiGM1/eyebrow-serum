@@ -3,8 +3,10 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { ShieldCheck, Leaf, FlaskConical, Award, Mail, CheckCircle2, Sparkles, Feather } from 'lucide-react';
+import { useAuth } from '@/lib/store/auth-context';
 
 export default function Footer() {
+  const { isAdmin } = useAuth();
   const [email, setEmail] = useState('');
   const [subscribed, setSubscribed] = useState(false);
 
@@ -164,11 +166,13 @@ export default function Footer() {
                   Cont & Istoric Facturi
                 </Link>
               </li>
-              <li>
-                <Link href="/admin" className="text-stone-500 dark:text-zinc-500 hover:text-stone-800 dark:hover:text-zinc-300 transition-colors font-mono">
-                  Panou Admin (Evaluare)
-                </Link>
-              </li>
+              {isAdmin && (
+                <li>
+                  <Link href="/admin" className="text-gold-600 dark:text-gold-400 hover:underline transition-colors font-mono">
+                    Panou Admin (Demo)
+                  </Link>
+                </li>
+              )}
             </ul>
           </div>
 

@@ -183,12 +183,6 @@ export default function LoginPage() {
           </Link>
         </div>
 
-        <div className="text-center">
-          <Link href="/admin" className="text-[11px] font-mono text-stone-500 dark:text-zinc-500 hover:text-stone-800 dark:hover:text-zinc-300">
-            Ești evaluator? Accesează direct Panoul Admin &rarr;
-          </Link>
-        </div>
-
       </div>
     </div>
   );

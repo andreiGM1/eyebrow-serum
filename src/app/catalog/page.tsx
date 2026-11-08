@@ -59,25 +59,25 @@ function CatalogContent() {
   };
 
   return (
-    <div className="min-h-screen bg-[#FAF8F5] dark:bg-obsidian-950 text-stone-900 dark:text-foreground py-12 px-4 sm:px-6 lg:px-8 transition-colors">
-      <div className="max-w-7xl mx-auto space-y-8">
+    <div className="min-h-screen bg-[#FAF8F5] dark:bg-obsidian-950 text-stone-900 dark:text-foreground py-8 sm:py-12 px-3 sm:px-6 lg:px-8 transition-colors">
+      <div className="max-w-7xl mx-auto space-y-6 sm:space-y-8">
         
         {/* Header */}
-        <div className="text-center max-w-3xl mx-auto space-y-3">
-          <span className="text-xs font-mono uppercase tracking-[0.25em] text-gold-700 dark:text-gold-400 font-semibold">
+        <div className="text-center max-w-3xl mx-auto space-y-2 sm:space-y-3">
+          <span className="text-[11px] sm:text-xs font-mono uppercase tracking-[0.2em] sm:tracking-[0.25em] text-gold-700 dark:text-gold-400 font-semibold">
             MAG Laboratories Bucharest • Catalog Oficial
           </span>
-          <h1 className="font-serif text-3xl sm:text-4xl font-bold text-stone-950 dark:text-white">
+          <h1 className="font-serif text-2xl sm:text-4xl font-bold text-stone-950 dark:text-white">
             Tratamente Botanice pentru Regenerarea Sprâncenelor
           </h1>
-          <p className="text-xs sm:text-sm text-stone-600 dark:text-zinc-400">
+          <p className="text-xs sm:text-sm text-stone-600 dark:text-zinc-400 max-w-xl mx-auto">
             Formule concentrate de lux, 100% active, realizate în micro-loturi proaspete în atelierul nostru.
           </p>
         </div>
 
         {/* Filter & Search Bar */}
         <div className="bg-white dark:bg-obsidian-900 border border-stone-200 dark:border-zinc-800 rounded-2xl p-4 sm:p-6 shadow-sm dark:shadow-xl space-y-4 transition-colors">
-          <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 gap-4 items-center">
+          <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 items-center">
             
             {/* Search input */}
             <div className="relative sm:col-span-2">
@@ -87,7 +87,7 @@ function CatalogContent() {
                 placeholder="Caută ser, accesoriu sau ingredient..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full bg-stone-50 dark:bg-obsidian-950 border border-stone-300 dark:border-zinc-800 rounded-xl pl-10 pr-4 py-2.5 text-xs text-stone-900 dark:text-white placeholder-stone-400 dark:placeholder-zinc-500 focus:outline-none focus:border-gold-500/60"
+                className="w-full bg-stone-50 dark:bg-obsidian-950 border border-stone-300 dark:border-zinc-800 rounded-xl pl-10 pr-4 py-2.5 text-xs sm:text-xs text-stone-900 dark:text-white placeholder-stone-400 dark:placeholder-zinc-500 focus:outline-none focus:border-gold-500/60"
               />
             </div>
 
@@ -123,11 +123,11 @@ function CatalogContent() {
             </div>
           </div>
 
-          {/* Categories Pill Tabs */}
-          <div className="flex flex-wrap items-center gap-2 pt-2 border-t border-stone-200 dark:border-zinc-800/80">
+          {/* Categories Pill Tabs (Horizontal swipeable on mobile) */}
+          <div className="flex items-center gap-2 pt-2 border-t border-stone-200 dark:border-zinc-800/80 overflow-x-auto no-scrollbar py-1 -mx-2 px-2 sm:mx-0 sm:px-0 sm:flex-wrap">
             <button
               onClick={() => setSelectedCategory('all')}
-              className={`px-3.5 py-1.5 rounded-full text-xs font-medium transition-all ${
+              className={`px-3.5 py-1.5 rounded-full text-xs font-medium whitespace-nowrap flex-shrink-0 transition-all ${
                 selectedCategory === 'all'
                   ? 'bg-gold-500 text-obsidian-950 font-bold shadow-md shadow-gold-500/20'
                   : 'bg-stone-100 dark:bg-obsidian-950 border border-stone-200 dark:border-zinc-800 text-stone-700 dark:text-zinc-400 hover:text-stone-950 dark:hover:text-white hover:border-stone-300 dark:hover:border-zinc-700'
@@ -140,7 +140,7 @@ function CatalogContent() {
               <button
                 key={cat.id}
                 onClick={() => setSelectedCategory(cat.slug)}
-                className={`px-3.5 py-1.5 rounded-full text-xs font-medium transition-all ${
+                className={`px-3.5 py-1.5 rounded-full text-xs font-medium whitespace-nowrap flex-shrink-0 transition-all ${
                   selectedCategory === cat.slug
                     ? 'bg-gold-500 text-obsidian-950 font-bold shadow-md shadow-gold-500/20'
                     : 'bg-stone-100 dark:bg-obsidian-950 border border-stone-200 dark:border-zinc-800 text-stone-700 dark:text-zinc-400 hover:text-stone-950 dark:hover:text-white hover:border-stone-300 dark:hover:border-zinc-700'
@@ -153,10 +153,10 @@ function CatalogContent() {
             {(selectedCategory !== 'all' || searchQuery || maxPrice < 500) && (
               <button
                 onClick={resetFilters}
-                className="ml-auto text-xs text-stone-500 dark:text-zinc-400 hover:text-red-500 dark:hover:text-red-400 flex items-center gap-1 font-mono transition-colors"
+                className="ml-auto text-xs text-stone-500 dark:text-zinc-400 hover:text-red-500 dark:hover:text-red-400 flex items-center gap-1 font-mono transition-colors whitespace-nowrap flex-shrink-0 pl-2"
               >
                 <RotateCcw className="w-3.5 h-3.5" />
-                <span>Resetează filtre</span>
+                <span>Resetează</span>
               </button>
             )}
           </div>

@@ -216,7 +216,7 @@ export default function CheckoutPage() {
           <div className="lg:col-span-2 space-y-6">
             
             {/* Step 1: Customer Contact */}
-            <div className="bg-white dark:bg-obsidian-900 border border-stone-200 dark:border-zinc-800 rounded-2xl p-6 shadow-sm dark:shadow-xl space-y-4">
+            <div className="bg-white dark:bg-obsidian-900 border border-stone-200 dark:border-zinc-800 rounded-2xl p-4 sm:p-6 shadow-sm dark:shadow-xl space-y-4">
               <h2 className="font-serif font-bold text-lg text-stone-950 dark:text-white flex items-center gap-2 pb-3 border-b border-stone-200 dark:border-zinc-800">
                 <User className="w-5 h-5 text-gold-600 dark:text-gold-400" />
                 <span>1. Date Client & Contact</span>
@@ -233,7 +233,7 @@ export default function CheckoutPage() {
                     placeholder="Elena Ionescu"
                     value={formData.fullName}
                     onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
-                    className="w-full bg-stone-50 dark:bg-obsidian-950 border border-stone-300 dark:border-zinc-700 rounded-xl px-3.5 py-2.5 text-xs text-stone-900 dark:text-white placeholder-stone-400 dark:placeholder-zinc-500 focus:outline-none focus:border-gold-500"
+                    className="w-full bg-stone-50 dark:bg-obsidian-950 border border-stone-300 dark:border-zinc-700 rounded-xl px-3.5 py-2.5 text-base sm:text-xs text-stone-900 dark:text-white placeholder-stone-400 dark:placeholder-zinc-500 focus:outline-none focus:border-gold-500"
                   />
                 </div>
 
@@ -247,7 +247,7 @@ export default function CheckoutPage() {
                     placeholder="0722 000 000"
                     value={formData.phone}
                     onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                    className="w-full bg-stone-50 dark:bg-obsidian-950 border border-stone-300 dark:border-zinc-700 rounded-xl px-3.5 py-2.5 text-xs text-stone-900 dark:text-white placeholder-stone-400 dark:placeholder-zinc-500 focus:outline-none focus:border-gold-500"
+                    className="w-full bg-stone-50 dark:bg-obsidian-950 border border-stone-300 dark:border-zinc-700 rounded-xl px-3.5 py-2.5 text-base sm:text-xs text-stone-900 dark:text-white placeholder-stone-400 dark:placeholder-zinc-500 focus:outline-none focus:border-gold-500"
                   />
                 </div>
 
@@ -261,14 +261,14 @@ export default function CheckoutPage() {
                     placeholder="elena.ionescu@exemplu.ro"
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    className="w-full bg-stone-50 dark:bg-obsidian-950 border border-stone-300 dark:border-zinc-700 rounded-xl px-3.5 py-2.5 text-xs text-stone-900 dark:text-white placeholder-stone-400 dark:placeholder-zinc-500 focus:outline-none focus:border-gold-500"
+                    className="w-full bg-stone-50 dark:bg-obsidian-950 border border-stone-300 dark:border-zinc-700 rounded-xl px-3.5 py-2.5 text-base sm:text-xs text-stone-900 dark:text-white placeholder-stone-400 dark:placeholder-zinc-500 focus:outline-none focus:border-gold-500"
                   />
                 </div>
               </div>
             </div>
 
             {/* Step 2: Shipping Address */}
-            <div className="bg-white dark:bg-obsidian-900 border border-stone-200 dark:border-zinc-800 rounded-2xl p-6 shadow-sm dark:shadow-xl space-y-4">
+            <div className="bg-white dark:bg-obsidian-900 border border-stone-200 dark:border-zinc-800 rounded-2xl p-4 sm:p-6 shadow-sm dark:shadow-xl space-y-4">
               <h2 className="font-serif font-bold text-lg text-stone-950 dark:text-white flex items-center gap-2 pb-3 border-b border-stone-200 dark:border-zinc-800">
                 <ShieldCheck className="w-5 h-5 text-gold-600 dark:text-gold-400" />
                 <span>2. Adresă de Livrare (Curier Rapid)</span>
@@ -285,7 +285,7 @@ export default function CheckoutPage() {
                     placeholder="Calea Victoriei nr. 120, Bloc A, Ap. 4"
                     value={formData.street}
                     onChange={(e) => setFormData({ ...formData, street: e.target.value })}
-                    className="w-full bg-stone-50 dark:bg-obsidian-950 border border-stone-300 dark:border-zinc-700 rounded-xl px-3.5 py-2.5 text-xs text-stone-900 dark:text-white placeholder-stone-400 dark:placeholder-zinc-500 focus:outline-none focus:border-gold-500"
+                    className="w-full bg-stone-50 dark:bg-obsidian-950 border border-stone-300 dark:border-zinc-700 rounded-xl px-3.5 py-2.5 text-base sm:text-xs text-stone-900 dark:text-white placeholder-stone-400 dark:placeholder-zinc-500 focus:outline-none focus:border-gold-500"
                   />
                 </div>
 
@@ -299,7 +299,7 @@ export default function CheckoutPage() {
                     placeholder="București"
                     value={formData.city}
                     onChange={(e) => setFormData({ ...formData, city: e.target.value })}
-                    className="w-full bg-stone-50 dark:bg-obsidian-950 border border-stone-300 dark:border-zinc-700 rounded-xl px-3.5 py-2.5 text-xs text-stone-900 dark:text-white placeholder-stone-400 dark:placeholder-zinc-500 focus:outline-none focus:border-gold-500"
+                    className="w-full bg-stone-50 dark:bg-obsidian-950 border border-stone-300 dark:border-zinc-700 rounded-xl px-3.5 py-2.5 text-base sm:text-xs text-stone-900 dark:text-white placeholder-stone-400 dark:placeholder-zinc-500 focus:outline-none focus:border-gold-500"
                   />
                 </div>
 
@@ -313,7 +313,7 @@ export default function CheckoutPage() {
                     placeholder="Sector 1"
                     value={formData.county}
                     onChange={(e) => setFormData({ ...formData, county: e.target.value })}
-                    className="w-full bg-stone-50 dark:bg-obsidian-950 border border-stone-300 dark:border-zinc-700 rounded-xl px-3.5 py-2.5 text-xs text-stone-900 dark:text-white placeholder-stone-400 dark:placeholder-zinc-500 focus:outline-none focus:border-gold-500"
+                    className="w-full bg-stone-50 dark:bg-obsidian-950 border border-stone-300 dark:border-zinc-700 rounded-xl px-3.5 py-2.5 text-base sm:text-xs text-stone-900 dark:text-white placeholder-stone-400 dark:placeholder-zinc-500 focus:outline-none focus:border-gold-500"
                   />
                 </div>
 
@@ -387,7 +387,7 @@ export default function CheckoutPage() {
             </div>
 
             {/* Step 3: Stripe Payment Element (Sandbox Mode) */}
-            <div className="bg-white dark:bg-obsidian-900 border border-stone-200 dark:border-gold-500/40 rounded-2xl p-6 shadow-sm dark:shadow-xl space-y-4">
+            <div className="bg-white dark:bg-obsidian-900 border border-stone-200 dark:border-gold-500/40 rounded-2xl p-4 sm:p-6 shadow-sm dark:shadow-xl space-y-4">
               <div className="flex items-center justify-between pb-3 border-b border-stone-200 dark:border-zinc-800">
                 <h2 className="font-serif font-bold text-lg text-stone-950 dark:text-white flex items-center gap-2">
                   <CreditCard className="w-5 h-5 text-gold-600 dark:text-gold-400" />
@@ -419,7 +419,7 @@ export default function CheckoutPage() {
                       required
                       value={cardNumber}
                       onChange={(e) => setCardNumber(e.target.value)}
-                      className="w-full bg-stone-50 dark:bg-obsidian-950 border border-stone-300 dark:border-zinc-700 rounded-xl px-3.5 py-2.5 text-xs text-stone-900 dark:text-white font-mono focus:outline-none focus:border-gold-500 pl-10"
+                      className="w-full bg-stone-50 dark:bg-obsidian-950 border border-stone-300 dark:border-zinc-700 rounded-xl px-3.5 py-2.5 text-base sm:text-xs text-stone-900 dark:text-white font-mono focus:outline-none focus:border-gold-500 pl-10"
                     />
                     <CreditCard className="w-4 h-4 text-stone-400 dark:text-zinc-500 absolute left-3.5 top-1/2 -translate-y-1/2" />
                   </div>
@@ -435,7 +435,7 @@ export default function CheckoutPage() {
                       required
                       value={cardExpiry}
                       onChange={(e) => setCardExpiry(e.target.value)}
-                      className="w-full bg-stone-50 dark:bg-obsidian-950 border border-stone-300 dark:border-zinc-700 rounded-xl px-3.5 py-2.5 text-xs text-stone-900 dark:text-white font-mono focus:outline-none focus:border-gold-500"
+                      className="w-full bg-stone-50 dark:bg-obsidian-950 border border-stone-300 dark:border-zinc-700 rounded-xl px-3.5 py-2.5 text-base sm:text-xs text-stone-900 dark:text-white font-mono focus:outline-none focus:border-gold-500"
                     />
                   </div>
 
@@ -448,7 +448,7 @@ export default function CheckoutPage() {
                       required
                       value={cardCvc}
                       onChange={(e) => setCardCvc(e.target.value)}
-                      className="w-full bg-stone-50 dark:bg-obsidian-950 border border-stone-300 dark:border-zinc-700 rounded-xl px-3.5 py-2.5 text-xs text-stone-900 dark:text-white font-mono focus:outline-none focus:border-gold-500"
+                      className="w-full bg-stone-50 dark:bg-obsidian-950 border border-stone-300 dark:border-zinc-700 rounded-xl px-3.5 py-2.5 text-base sm:text-xs text-stone-900 dark:text-white font-mono focus:outline-none focus:border-gold-500"
                     />
                   </div>
                 </div>
@@ -463,7 +463,7 @@ export default function CheckoutPage() {
                     placeholder="ELENA IONESCU"
                     value={cardName || formData.fullName}
                     onChange={(e) => setCardName(e.target.value)}
-                    className="w-full bg-stone-50 dark:bg-obsidian-950 border border-stone-300 dark:border-zinc-700 rounded-xl px-3.5 py-2.5 text-xs text-stone-900 dark:text-white uppercase focus:outline-none focus:border-gold-500"
+                    className="w-full bg-stone-50 dark:bg-obsidian-950 border border-stone-300 dark:border-zinc-700 rounded-xl px-3.5 py-2.5 text-base sm:text-xs text-stone-900 dark:text-white uppercase focus:outline-none focus:border-gold-500"
                   />
                 </div>
               </div>
