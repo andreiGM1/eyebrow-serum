@@ -189,15 +189,10 @@ erDiagram
 
 ## 7. Ghid de Publicare (Deployment pe Vercel + Supabase)
 
-### Pasul 1: Configurare Supabase Cloud
-1. Accesați [https://supabase.com/](https://supabase.com/) și creați un proiect nou gratuit (ex: `evergrow-mag`).
-2. În panoul Supabase, navigați la **SQL Editor**.
-3. Rulați scriptul din `supabase/schema.sql` pentru a crea tabelele, funcțiile, trigger-ele și politicile RLS.
-4. Rulați scriptul din `supabase/seed.sql` pentru a popula catalogul cu produsele, categoriile, cupoanele și recenziile inițiale.
-5. Din **Project Settings -> API**, copiați:
-   - `Project URL` -> `NEXT_PUBLIC_SUPABASE_URL`
-   - `anon / public key` -> `NEXT_PUBLIC_SUPABASE_ANON_KEY`
-   - `service_role key` -> `SUPABASE_SERVICE_ROLE_KEY`
+### Pasul 1: Configurare Supabase Cloud (Conectat & Populat)
+1. **Project ID:** `bywgvtsmcdvbknhtsblx` (Regiunea `eu-west-2` - London/Europa)
+2. **Project URL:** `https://bywgvtsmcdvbknhtsblx.supabase.co`
+3. Baza de date este complet populată cu cele 7 tabele (`profiles`, `categories`, `products`, `orders`, `order_items`, `coupons`, `reviews`), politicile RLS active și trigger-ele de stoc și facturare configurate.
 
 ### Pasul 2: Configurare Stripe Test Mode
 1. Accesați [https://dashboard.stripe.com/](https://dashboard.stripe.com/) și activați **Test Mode**.
@@ -208,11 +203,14 @@ erDiagram
 ### Pasul 3: Deployment pe Vercel (Configurat & Activ)
 1. Repository conectat: [https://github.com/andreiGM1/eyebrow-serum](https://github.com/andreiGM1/eyebrow-serum)
 2. **URL Producție Live:** [https://eyebrow-serum.vercel.app](https://eyebrow-serum.vercel.app)
-3. Variabilele de mediu configurate în Vercel:
+3. Variabilele de mediu configurate și active în Vercel:
    ```env
    NEXT_PUBLIC_SITE_URL=https://eyebrow-serum.vercel.app
-   NEXT_PUBLIC_SUPABASE_URL=https://xyz.supabase.co
-   NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGci...
+   NEXT_PUBLIC_SUPABASE_URL=https://bywgvtsmcdvbknhtsblx.supabase.co
+   NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ5d2d2dHNtY2R2YmtuaHRzYmx4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTQwODQzMDMsImV4cCI6MjEwOTY2MDMwM30.JJgRxGGWAt9N72T_YUfC8W8A-lerh2npEx4afRLnX30
+   SUPABASE_SERVICE_ROLE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+   ADMIN_EMAIL=admin@maglaboratories.com
+   ```
    SUPABASE_SERVICE_ROLE_KEY=eyJhbGci...
    STRIPE_SECRET_KEY=sk_test_...
    NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_test_...
