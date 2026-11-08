@@ -97,23 +97,33 @@ export default function LoginPage() {
         </div>
 
         {/* Quick Demo Pill for Evaluators */}
-        <div className="p-3.5 sm:p-4 rounded-2xl bg-gold-500/10 border border-gold-500/30 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-sm">
-          <div className="min-w-0">
-            <div className="text-xs font-serif font-bold text-stone-950 dark:text-white flex items-center gap-1.5">
-              <Sparkles className="w-3.5 h-3.5 text-gold-600 dark:text-gold-400 flex-shrink-0" />
-              <span>Cont Demo Evaluator</span>
+        <div className="p-4 rounded-2xl bg-gradient-to-br from-gold-500/15 via-gold-500/5 to-transparent border border-gold-500/35 shadow-sm space-y-3">
+          <div className="flex items-center justify-between gap-2">
+            <div className="flex items-center gap-2.5 min-w-0">
+              <div className="p-1.5 rounded-lg bg-gold-500/20 text-gold-600 dark:text-gold-400 flex-shrink-0">
+                <Sparkles className="w-4 h-4" />
+              </div>
+              <div className="min-w-0">
+                <div className="text-xs font-serif font-bold text-stone-950 dark:text-white">
+                  Cont Demo Evaluator
+                </div>
+                <div className="text-[11px] font-mono text-stone-600 dark:text-zinc-400 truncate">
+                  evaluator@maglaboratories.com
+                </div>
+              </div>
             </div>
-            <div className="text-[11px] font-mono text-stone-600 dark:text-zinc-400 mt-0.5 break-all sm:break-normal">
-              evaluator@maglaboratories.com
-            </div>
+            <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-gold-500/20 text-gold-800 dark:text-gold-300 border border-gold-500/30 whitespace-nowrap flex-shrink-0">
+              Instant
+            </span>
           </div>
+
           <button
             type="button"
             onClick={handleQuickEvaluatorLogin}
             disabled={loading}
-            className="w-full sm:w-auto px-4 py-2.5 sm:py-1.5 rounded-xl bg-gold-500 hover:bg-gold-400 text-obsidian-950 text-xs font-mono font-bold transition-all shadow-sm active:scale-95 disabled:opacity-50 text-center flex items-center justify-center gap-1.5 cursor-pointer touch-manipulation flex-shrink-0"
+            className="w-full py-2.5 px-4 rounded-xl bg-gold-500 hover:bg-gold-400 text-obsidian-950 text-xs font-mono font-bold transition-all shadow-md hover:shadow-gold-500/20 active:scale-[0.98] disabled:opacity-50 flex items-center justify-center gap-2 cursor-pointer touch-manipulation"
           >
-            <Sparkles className="w-3.5 h-3.5 text-obsidian-950 sm:hidden flex-shrink-0" />
+            <Sparkles className="w-3.5 h-3.5 text-obsidian-950 flex-shrink-0" />
             <span>Autentificare 1-Click</span>
           </button>
         </div>
