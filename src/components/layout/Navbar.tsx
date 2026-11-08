@@ -99,6 +99,11 @@ export default function Navbar() {
     }, 250);
   };
 
+  const handleCategoryNavClick = () => {
+    if (megaMenuTimeoutRef.current) clearTimeout(megaMenuTimeoutRef.current);
+    setIsMegaMenuOpen(false);
+  };
+
   return (
     <>
       {/* Top Notification Bar */}
@@ -149,7 +154,8 @@ export default function Navbar() {
             >
               <Link
                 href="/catalog"
-                className="flex items-center gap-1.5 text-stone-700 dark:text-zinc-300 hover:text-gold-600 dark:hover:text-gold-400 py-6 transition-colors group"
+                onClick={handleCategoryNavClick}
+                className="flex items-center gap-1.5 text-stone-700 dark:text-zinc-300 hover:text-gold-600 dark:hover:text-gold-400 py-6 transition-colors group cursor-pointer"
               >
                 <Layers className="w-4 h-4 text-stone-500 dark:text-zinc-400 group-hover:text-gold-600 dark:group-hover:text-gold-400 group-hover:rotate-12 transition-transform duration-300" />
                 <span>CATALOG PRODUSE</span>
@@ -166,8 +172,8 @@ export default function Navbar() {
                     </span>
                     <Link
                       href="/catalog"
-                      onClick={() => setIsMegaMenuOpen(false)}
-                      className="text-xs text-stone-700 dark:text-zinc-400 hover:text-gold-700 dark:hover:text-gold-400 flex items-center gap-1 group font-semibold"
+                      onClick={handleCategoryNavClick}
+                      className="text-xs text-stone-700 dark:text-zinc-400 hover:text-gold-700 dark:hover:text-gold-400 flex items-center gap-1 group font-semibold cursor-pointer"
                     >
                       Vezi tot catalogul <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
                     </Link>
@@ -177,8 +183,8 @@ export default function Navbar() {
                     <Link
                       key={cat.id}
                       href={`/catalog?category=${cat.slug}`}
-                      onClick={() => setIsMegaMenuOpen(false)}
-                      className="p-4 rounded-xl border border-stone-200 dark:border-zinc-800 hover:border-gold-500/50 bg-stone-50 dark:bg-obsidian-900 hover:bg-stone-100 dark:hover:bg-zinc-800/80 transition-all flex flex-col justify-between group shadow-sm"
+                      onClick={handleCategoryNavClick}
+                      className="p-4 rounded-xl border border-stone-200 dark:border-zinc-800 hover:border-gold-500/50 bg-stone-50 dark:bg-obsidian-900 hover:bg-stone-100 dark:hover:bg-zinc-800/80 transition-all flex flex-col justify-between group shadow-sm cursor-pointer"
                     >
                       <div>
                         <div className="text-sm font-serif font-bold text-stone-950 dark:text-zinc-100 group-hover:text-gold-700 dark:group-hover:text-gold-300 transition-colors flex items-center justify-between">

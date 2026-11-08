@@ -1,21 +1,36 @@
 'use client';
 
-import React, { useState, useMemo, Suspense } from 'react';
-import { useSearchParams } from 'next/navigation';
+import React, { useState, useMemo, useEffect, Suspense } from 'react';
+import { useSearchParams, useRouter } from 'next/navigation';
 import { Filter, SlidersHorizontal, ArrowUpDown, Search, RotateCcw } from 'lucide-react';
 import ProductCard from '@/components/product/ProductCard';
 import { INITIAL_PRODUCTS, INITIAL_CATEGORIES } from '@/lib/data';
 import { useProductsStore } from '@/lib/store/products-store';
 
 function CatalogContent() {
+  const router = useRouter();
   const searchParams = useSearchParams();
-  const initialCategory = searchParams.get('category') || 'all';
+  const categoryParam = searchParams.get('category') || 'all';
 
   const { products } = useProductsStore();
-  const [selectedCategory, setSelectedCategory] = useState<string>(initialCategory);
+  const [selectedCategory, setSelectedCategory] = useState<string>(categoryParam);
   const [searchQuery, setSearchQuery] = useState('');
   const [sortBy, setSortBy] = useState<'featured' | 'price-asc' | 'price-desc' | 'rating'>('featured');
   const [maxPrice, setMaxPrice] = useState<number>(500);
+
+  // Synchronize category filter whenever URL search params change (Header Mega-Menu, Mobile Drawer, Footer, etc.)
+  useEffect(() => {
+    setSelectedCategory(categoryParam);
+  }, [categoryParam]);
+
+  const handleCategorySelect = (slug: string) => {
+    setSelectedCategory(slug);
+    if (slug === 'all') {
+      router.push('/catalog', { scroll: false });
+    } else {
+      router.push(`/catalog?category=${slug}`, { scroll: false });
+    }
+  };
 
   // Filter & sort logic
   const filteredProducts = useMemo(() => {
@@ -56,6 +71,7 @@ function CatalogContent() {
     setSearchQuery('');
     setSortBy('featured');
     setMaxPrice(500);
+    router.push('/catalog', { scroll: false });
   };
 
   return (
@@ -126,8 +142,8 @@ function CatalogContent() {
           {/* Categories Pill Tabs (Horizontal swipeable on mobile) */}
           <div className="flex items-center gap-2 pt-2 border-t border-stone-200 dark:border-zinc-800/80 overflow-x-auto no-scrollbar py-1 -mx-2 px-2 sm:mx-0 sm:px-0 sm:flex-wrap">
             <button
-              onClick={() => setSelectedCategory('all')}
-              className={`px-3.5 py-1.5 rounded-full text-xs font-medium whitespace-nowrap flex-shrink-0 transition-all ${
+              onClick={() => handleCategorySelect('all')}
+              className={`px-3.5 py-1.5 rounded-full text-xs font-medium whitespace-nowrap flex-shrink-0 transition-all cursor-pointer ${
                 selectedCategory === 'all'
                   ? 'bg-gold-500 text-obsidian-950 font-bold shadow-md shadow-gold-500/20'
                   : 'bg-stone-100 dark:bg-obsidian-950 border border-stone-200 dark:border-zinc-800 text-stone-700 dark:text-zinc-400 hover:text-stone-950 dark:hover:text-white hover:border-stone-300 dark:hover:border-zinc-700'
@@ -139,8 +155,8 @@ function CatalogContent() {
             {INITIAL_CATEGORIES.map((cat) => (
               <button
                 key={cat.id}
-                onClick={() => setSelectedCategory(cat.slug)}
-                className={`px-3.5 py-1.5 rounded-full text-xs font-medium whitespace-nowrap flex-shrink-0 transition-all ${
+                onClick={() => handleCategorySelect(cat.slug)}
+                className={`px-3.5 py-1.5 rounded-full text-xs font-medium whitespace-nowrap flex-shrink-0 transition-all cursor-pointer ${
                   selectedCategory === cat.slug
                     ? 'bg-gold-500 text-obsidian-950 font-bold shadow-md shadow-gold-500/20'
                     : 'bg-stone-100 dark:bg-obsidian-950 border border-stone-200 dark:border-zinc-800 text-stone-700 dark:text-zinc-400 hover:text-stone-950 dark:hover:text-white hover:border-stone-300 dark:hover:border-zinc-700'
