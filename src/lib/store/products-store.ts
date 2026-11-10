@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { Product, Order, OrderStatus } from '@/lib/types';
 import { INITIAL_PRODUCTS, INITIAL_ORDERS } from '@/lib/data';
 
-const PRODUCTS_STORAGE_KEY = 'evergrow_products_v5';
+const PRODUCTS_STORAGE_KEY = 'evergrow_products_v6';
 const ORDERS_STORAGE_KEY = 'evergrow_orders_v2';
 
 export function getStoredProducts(): Product[] {
@@ -15,6 +15,7 @@ export function getStoredProducts(): Product[] {
     localStorage.removeItem('evergrow_products_v2');
     localStorage.removeItem('evergrow_products_v3');
     localStorage.removeItem('evergrow_products_v4');
+    localStorage.removeItem('evergrow_products_v5');
 
     const data = localStorage.getItem(PRODUCTS_STORAGE_KEY);
     if (data) {
