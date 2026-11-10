@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { Sparkles, X, Check, ShieldCheck, Mail, User, Lock, AlertCircle, ArrowRight } from 'lucide-react';
+import { Sparkles, X, Check, ShieldCheck, Mail, User, Lock, AlertCircle, ArrowRight, Info, Copy } from 'lucide-react';
 import { createClient } from '@/lib/supabase/client';
 
 interface SocialAuthButtonsProps {
@@ -21,6 +21,7 @@ export default function SocialAuthButtons({ onSuccess, redirectTo = '/account' }
   const [customEmail, setCustomEmail] = useState('');
   const [hideEmail, setHideEmail] = useState(true); // Apple Private Relay
   const [submittingModal, setSubmittingModal] = useState(false);
+  const [copied, setCopied] = useState(false);
 
   const handleSocialClick = async (provider: 'google' | 'apple') => {
     setLoadingProvider(provider);
@@ -260,11 +261,44 @@ export default function SocialAuthButtons({ onSuccess, redirectTo = '/account' }
                 )}
               </div>
               <h2 className="font-serif text-xl font-bold text-stone-950 dark:text-white">
-                {activeModal === 'google' ? 'Conectare cu Google' : 'Conectare cu Apple ID'}
+                {activeModal === 'google' ? 'Autentificare Google' : 'Autentificare Apple ID'}
               </h2>
               <p className="text-xs text-stone-600 dark:text-zinc-400">
-                Alege contul pentru a continua pe platforma MAG Laboratories.
+                Conectare securizată la contul tău de client MAG Laboratories.
               </p>
+            </div>
+
+            {/* Supabase OAuth Configuration Info Card */}
+            <div className="p-3.5 rounded-2xl bg-amber-500/10 border border-amber-500/30 text-amber-900 dark:text-amber-200 space-y-2 text-left">
+              <div className="flex items-center gap-1.5 font-bold font-mono text-[10px] uppercase text-amber-700 dark:text-amber-400">
+                <Info className="w-3.5 h-3.5 flex-shrink-0" />
+                <span>Integrare OAuth Nativă Supabase</span>
+              </div>
+              <p className="text-[11px] leading-relaxed text-stone-700 dark:text-zinc-300">
+                Redirecționarea nativă către <strong>{activeModal === 'google' ? 'accounts.google.com' : 'appleid.apple.com'}</strong> necesită înregistrarea unui Client ID în consola furnizorului.
+              </p>
+              <div className="space-y-1">
+                <span className="text-[10px] font-mono text-stone-500 dark:text-zinc-400 uppercase tracking-wider block">
+                  Redirect Callback URI pentru Supabase:
+                </span>
+                <div className="flex items-center justify-between gap-2 bg-stone-100 dark:bg-black/40 p-2 rounded-xl border border-stone-200 dark:border-zinc-800">
+                  <code className="text-[10px] font-mono text-stone-800 dark:text-zinc-300 truncate">
+                    https://bywgvtsmcdvbknhtsblx.supabase.co/auth/v1/callback
+                  </code>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      navigator.clipboard.writeText('https://bywgvtsmcdvbknhtsblx.supabase.co/auth/v1/callback');
+                      setCopied(true);
+                      setTimeout(() => setCopied(false), 2500);
+                    }}
+                    className="px-2.5 py-1 rounded-lg bg-gold-500 hover:bg-gold-400 text-obsidian-950 font-mono text-[10px] font-bold flex items-center gap-1 flex-shrink-0 cursor-pointer shadow-sm transition-all"
+                  >
+                    {copied ? <Check className="w-3 h-3 stroke-[3]" /> : <Copy className="w-3 h-3" />}
+                    <span>{copied ? 'Copiat' : 'Copiază'}</span>
+                  </button>
+                </div>
+              </div>
             </div>
 
             {/* Error Message */}
@@ -277,8 +311,8 @@ export default function SocialAuthButtons({ onSuccess, redirectTo = '/account' }
 
             {/* Quick 1-Click Selectable Profile */}
             <div className="space-y-2">
-              <label className="text-[11px] font-mono text-stone-500 dark:text-zinc-400 uppercase tracking-wider block">
-                Cont recomandat / instant
+              <label className="text-[11px] font-mono text-stone-500 dark:text-zinc-400 uppercase tracking-wider block text-left">
+                Testare Instantă / Conectare Rapidă (Supabase JWT)
               </label>
 
               <button
