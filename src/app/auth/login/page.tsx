@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { Lock, Mail, ArrowRight, ShieldCheck, AlertCircle, Sparkles } from 'lucide-react';
 import { createClient } from '@/lib/supabase/client';
+import SocialAuthButtons from '@/components/auth/SocialAuthButtons';
 
 export default function LoginPage() {
   const router = useRouter();
@@ -186,6 +187,9 @@ export default function LoginPage() {
             <ArrowRight className="w-4 h-4" />
           </button>
         </form>
+
+        {/* Social Authentication: Google & Apple */}
+        <SocialAuthButtons />
 
         <div className="text-center text-xs text-stone-600 dark:text-zinc-400 pt-3 border-t border-stone-200 dark:border-zinc-800">
           Nu ai încă un cont?{' '}
