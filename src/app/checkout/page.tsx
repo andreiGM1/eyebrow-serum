@@ -460,7 +460,7 @@ export default function CheckoutPage() {
                   <span>3. Plată Electronică Securizată (Stripe)</span>
                 </h2>
                 <span className="text-[11px] font-mono uppercase bg-gold-500/10 text-gold-700 dark:text-gold-300 border border-gold-500/30 px-2.5 py-0.5 rounded-full font-bold">
-                  Card Test Stripe & Apple Pay
+                  Card Bancar & Apple Pay
                 </span>
               </div>
 
@@ -644,14 +644,14 @@ export default function CheckoutPage() {
                 ) : (
                   <>
                     <Lock className="w-4 h-4" />
-                    <span>Plătește {total.toFixed(2)} RON cu Card de Test</span>
+                    <span>Plătește Securizat {total.toFixed(2)} RON</span>
                     <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                   </>
                 )}
               </button>
 
               <div className="text-center text-[10px] text-stone-500 dark:text-zinc-500 space-y-1 font-mono">
-                <p>Plată securizată 3D Secure / Stripe Test Environment</p>
+                <p>Plată securizată 3D Secure &bull; Criptare bancară SSL 256-bit</p>
                 <p>Factura fiscală va fi generată instant cu descărcare PDF</p>
               </div>
             </div>
