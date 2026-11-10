@@ -19,6 +19,7 @@ import {
 import { useCart } from '@/lib/store/cart-context';
 import { addOrderToStore } from '@/lib/store/products-store';
 import { Order, OrderItem } from '@/lib/types';
+import ApplePayButton from '@/components/checkout/ApplePayButton';
 
 export default function CheckoutPage() {
   const router = useRouter();
@@ -180,6 +181,71 @@ export default function CheckoutPage() {
       setErrorMsg('A apărut o problemă la autorizarea plății. Vă rugăm să reîncercați.');
       setIsProcessing(false);
     }
+  };
+
+  const handleApplePaySuccess = (details: {
+    payerName?: string;
+    payerEmail?: string;
+    payerPhone?: string;
+    paymentMethodId: string;
+  }) => {
+    setIsProcessing(true);
+
+    const orderNumberSeq = Math.floor(1000 + Math.random() * 9000);
+    const orderId = `ord-${Date.now()}`;
+    const invoiceNumber = 2000 + orderNumberSeq;
+
+    const orderItems: OrderItem[] = items.map((item, idx) => ({
+      id: `item-${Date.now()}-${idx}`,
+      order_id: orderId,
+      product_id: item.product.id,
+      product_name: item.product.name,
+      product_image: item.product.images[0] || '/images/mag-evergrow-bottle.png',
+      unit_price: item.product.price,
+      quantity: item.quantity,
+      total_price: item.product.price * item.quantity,
+    }));
+
+    const customerName = details.payerName || formData.fullName || 'Client Apple Pay';
+    const customerEmail = details.payerEmail || formData.email || 'client.applepay@icloud.com';
+    const customerPhone = details.payerPhone || formData.phone || '+40 722 000 888';
+
+    const newOrder: Order = {
+      id: orderId,
+      order_number: `MAG-2026-${orderNumberSeq}`,
+      invoice_series: 'MAG-EVG',
+      invoice_number: invoiceNumber,
+      user_id: 'usr-applepay-' + Date.now(),
+      status: 'paid',
+      payment_status: 'paid',
+      payment_intent_id: details.paymentMethodId || `pi_apple_pay_${Date.now()}`,
+      customer_name: customerName,
+      customer_email: customerEmail,
+      customer_phone: customerPhone,
+      shipping_address: {
+        fullName: customerName,
+        street: formData.street || 'Str. Nicolae Bălcescu 21 (Apple Pay Verified)',
+        city: formData.city || 'București',
+        county: formData.county || 'Sector 1',
+        postalCode: formData.postalCode || '010098',
+        country: formData.country || 'România',
+        phone: customerPhone,
+      },
+      subtotal,
+      discount_amount: discountAmount,
+      shipping_cost: shippingCost,
+      tax_amount: taxAmount,
+      total,
+      coupon_code: appliedCoupon ? appliedCoupon.code : undefined,
+      notes: formData.notes ? `${formData.notes} • Plată Apple Pay` : 'Plată securizată Apple Pay',
+      items: orderItems,
+      created_at: new Date().toISOString(),
+    };
+
+    addOrderToStore(newOrder);
+    sessionStorage.setItem('evergrow_last_order', JSON.stringify(newOrder));
+    clearCart();
+    router.push(`/checkout/success?order_id=${newOrder.id}`);
   };
 
   return (
@@ -387,14 +453,38 @@ export default function CheckoutPage() {
             </div>
 
             {/* Step 3: Stripe Payment Element (Sandbox Mode) */}
-            <div className="bg-white dark:bg-obsidian-900 border border-stone-200 dark:border-gold-500/40 rounded-2xl p-4 sm:p-6 shadow-sm dark:shadow-xl space-y-4">
+            <div className="bg-white dark:bg-obsidian-900 border border-stone-200 dark:border-gold-500/40 rounded-2xl p-4 sm:p-6 shadow-sm dark:shadow-xl space-y-5">
               <div className="flex items-center justify-between pb-3 border-b border-stone-200 dark:border-zinc-800">
                 <h2 className="font-serif font-bold text-lg text-stone-950 dark:text-white flex items-center gap-2">
                   <CreditCard className="w-5 h-5 text-gold-600 dark:text-gold-400" />
                   <span>3. Plată Electronică Securizată (Stripe)</span>
                 </h2>
                 <span className="text-[11px] font-mono uppercase bg-gold-500/10 text-gold-700 dark:text-gold-300 border border-gold-500/30 px-2.5 py-0.5 rounded-full font-bold">
-                  Card Test Stripe
+                  Card Test Stripe & Apple Pay
+                </span>
+              </div>
+
+              {/* Express Checkout: Apple Pay Button */}
+              <div className="space-y-2">
+                <div className="text-xs font-mono text-stone-600 dark:text-zinc-400 font-semibold flex items-center justify-between">
+                  <span>Plată Rapidă 1-Click:</span>
+                  <span className="text-[10px] text-emerald-600 dark:text-emerald-400 font-sans font-bold flex items-center gap-1">
+                    <CheckCircle2 className="w-3 h-3" />
+                    Apple Pay Activ
+                  </span>
+                </div>
+                <ApplePayButton
+                  totalAmount={total}
+                  onSuccess={handleApplePaySuccess}
+                  onError={(err) => setErrorMsg(err)}
+                />
+              </div>
+
+              {/* Divider */}
+              <div className="relative flex items-center justify-center my-4">
+                <div className="border-t border-stone-200 dark:border-zinc-800 w-full" />
+                <span className="bg-white dark:bg-obsidian-900 px-3 text-[11px] font-mono text-stone-500 dark:text-zinc-400 uppercase tracking-wider relative">
+                  sau completează manual datele cardului
                 </span>
               </div>
 
