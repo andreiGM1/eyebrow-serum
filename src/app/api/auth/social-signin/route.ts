@@ -14,11 +14,8 @@ export async function POST(request: Request) {
     }
 
     const cleanEmail = email.toLowerCase().trim();
-    const cleanName = fullName?.trim() || (provider === 'google' ? 'Utilizator Google' : 'Utilizator Apple');
-    const defaultAvatar =
-      provider === 'google'
-        ? (avatarUrl || 'https://lh3.googleusercontent.com/a/default-user')
-        : (avatarUrl || 'https://appleid.cdn-apple.com/static/bin/cb/appleid/dist/assets/favicon.ico');
+    const cleanName = fullName?.trim() || 'Utilizator Google';
+    const defaultAvatar = avatarUrl || 'https://lh3.googleusercontent.com/a/default-user';
 
     const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
     const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY || '';

@@ -197,7 +197,7 @@ export default function RegisterPage() {
           </button>
         </form>
 
-        {/* Social Authentication: Google & Apple */}
+        {/* Social Authentication: Google */}
         <SocialAuthButtons />
 
         <div className="text-center text-xs text-stone-600 dark:text-zinc-400 pt-3 border-t border-stone-200 dark:border-zinc-800">
