@@ -163,7 +163,7 @@ export default function AdminPage() {
               Panou de Administrare Protejat
             </h1>
             <p className="text-xs text-stone-600 dark:text-zinc-400 mt-2 leading-relaxed">
-              Această secțiune este rezervată exclusiv contului demo evaluator (<strong>evaluator@maglaboratories.com</strong>) sau administratorilor autorizați.
+              Această secțiune este rezervată exclusiv administratorilor autorizați MAG Laboratories.
             </p>
           </div>
           <div className="flex flex-col gap-3">
@@ -171,7 +171,7 @@ export default function AdminPage() {
               href="/auth/login"
               className="w-full py-3.5 px-4 rounded-xl bg-gold-500 hover:bg-gold-400 text-obsidian-950 font-bold text-xs uppercase tracking-wider transition-all shadow-md active:scale-95 flex items-center justify-center gap-2"
             >
-              <span>Autentificare Cont Demo</span>
+              <span>Autentificare Administrator</span>
               <ArrowLeft className="w-4 h-4 rotate-180" />
             </Link>
             <Link

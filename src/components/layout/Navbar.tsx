@@ -513,7 +513,7 @@ export default function Navbar() {
                       className="text-xs text-gold-700 dark:text-gold-400 hover:underline py-1.5 transition-colors font-mono flex items-center gap-2 font-bold bg-gold-500/10 px-2.5 rounded-lg border border-gold-500/30"
                     >
                       <FlaskConical className="w-3.5 h-3.5 text-gold-600 dark:text-gold-400/80" />
-                      <span>Panou Administrare (Admin Demo)</span>
+                      <span>Panou Administrare</span>
                     </Link>
                   )}
                 </div>

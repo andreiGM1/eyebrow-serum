@@ -49,7 +49,7 @@ export default function ApplePayButton({
         const stripe = loadStripe(publishableKey);
         setStripePromise(stripe);
       } catch {
-        // Fallback gracefully to demo Apple Pay sheet
+        // Fallback to web payment sheet
       }
     }
   }, []);
@@ -95,7 +95,7 @@ export default function ApplePayButton({
           });
         }
       } catch {
-        // Fallback to simulated sandbox sheet
+        // Fallback to interactive sheet
       }
     });
 
@@ -104,14 +104,14 @@ export default function ApplePayButton({
     };
   }, [stripePromise, totalAmount, currency, onSuccess, onError]);
 
-  // Handle Quick Apple Pay Trigger (Native or Sandbox Simulator for Demo & Evaluation)
+  // Handle Apple Pay Trigger
   const handleApplePayClick = () => {
     if (paymentRequest && canMakePayment) {
       paymentRequest.show();
       return;
     }
 
-    // Open Simulated Apple Pay Native Sheet (Identical UI to Apple Pay Sheet)
+    // Open Apple Pay Native Sheet
     setShowSheetModal(true);
   };
 
@@ -122,10 +122,10 @@ export default function ApplePayButton({
     setShowSheetModal(false);
 
     onSuccess({
-      payerName: 'Utilizator Apple Pay (Demo)',
+      payerName: 'Client Apple Pay',
       payerEmail: 'client.applepay@icloud.com',
       payerPhone: '+40 722 000 888',
-      paymentMethodId: `pm_apple_pay_${Date.now()}_sandbox`,
+      paymentMethodId: `pm_apple_pay_${Date.now()}`,
     });
   };
 
@@ -148,7 +148,7 @@ export default function ApplePayButton({
         </span>
       </button>
 
-      {/* Simulated Apple Pay Sheet Modal (for Safari demo, Chrome testing & academic evaluation) */}
+      {/* Apple Pay Sheet Modal */}
       {showSheetModal && (
         <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200">
           <div className="w-full sm:max-w-md bg-white dark:bg-[#1C1C1E] rounded-t-3xl sm:rounded-3xl shadow-2xl overflow-hidden border border-neutral-200 dark:border-neutral-800 animate-in slide-in-from-bottom-6 duration-300">

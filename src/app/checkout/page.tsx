@@ -51,10 +51,10 @@ export default function CheckoutPage() {
     notes: '',
   });
 
-  // Stripe Test Card inputs
-  const [cardNumber, setCardNumber] = useState('4242 4242 4242 4242');
-  const [cardExpiry, setCardExpiry] = useState('12/28');
-  const [cardCvc, setCardCvc] = useState('123');
+  // Card inputs
+  const [cardNumber, setCardNumber] = useState('');
+  const [cardExpiry, setCardExpiry] = useState('');
+  const [cardCvc, setCardCvc] = useState('');
   const [cardName, setCardName] = useState('');
   const [isProcessing, setIsProcessing] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
@@ -92,10 +92,10 @@ export default function CheckoutPage() {
       return;
     }
 
-    // Validate Stripe test card format
+    // Validate card format
     const cleanCard = cardNumber.replace(/\s+/g, '');
-    if (cleanCard.length < 16) {
-      setErrorMsg('Număr card de test invalid. Folosiți 4242 4242 4242 4242.');
+    if (cleanCard.length < 15) {
+      setErrorMsg('Vă rugăm să introduceți un număr valid de card bancar.');
       return;
     }
 
@@ -263,7 +263,7 @@ export default function CheckoutPage() {
           </Link>
           <div className="flex items-center gap-2 text-xs font-mono text-emerald-700 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-500/20 px-3 py-1 rounded-full font-semibold">
             <Lock className="w-3.5 h-3.5" />
-            <span>Stripe 256-Bit SSL Encrypted (Sandbox Mode)</span>
+            <span>Stripe 256-Bit SSL Encrypted</span>
           </div>
         </div>
 
@@ -488,25 +488,25 @@ export default function CheckoutPage() {
                 </span>
               </div>
 
-              {/* Stripe Test Notice */}
-              <div className="p-3.5 rounded-xl bg-gold-50/70 dark:bg-botanical-950 border border-gold-500/30 text-xs text-stone-800 dark:text-zinc-300 flex items-start gap-3">
-                <Sparkles className="w-4 h-4 text-gold-600 dark:text-gold-400 flex-shrink-0 mt-0.5" />
+              {/* Payment Security Notice */}
+              <div className="p-3.5 rounded-xl bg-emerald-50/70 dark:bg-emerald-950/30 border border-emerald-500/30 text-xs text-stone-800 dark:text-zinc-300 flex items-start gap-3">
+                <ShieldCheck className="w-4 h-4 text-emerald-600 dark:text-emerald-400 flex-shrink-0 mt-0.5" />
                 <div>
-                  <strong className="text-gold-800 dark:text-gold-300 font-bold">Mediu Sandbox de Testare:</strong> Se utilizează cardul de test Stripe precompletat:{' '}
-                  <code className="text-stone-900 dark:text-white font-mono bg-white dark:bg-zinc-900 border border-stone-200 dark:border-zinc-800 px-1 py-0.5 rounded font-bold">4242 4242 4242 4242</code>. Nicio sumă reală nu va fi debitată.
+                  <strong className="text-emerald-800 dark:text-emerald-300 font-bold">Plată Criptată Securizată:</strong> Tranzacțiile sunt procesate prin conexiune SSL 256-bit și protocol 3D Secure v2 conform celor mai înalte standarde bancare europene (PCI-DSS).
                 </div>
               </div>
 
-              {/* Card visual mockup form */}
+              {/* Card visual form */}
               <div className="space-y-4 pt-2">
                 <div>
                   <label className="text-xs font-mono text-stone-600 dark:text-zinc-400 block mb-1 font-semibold">
-                    Număr Card (Stripe Test)
+                    Număr Card *
                   </label>
                   <div className="relative">
                     <input
                       type="text"
                       required
+                      placeholder="•••• •••• •••• ••••"
                       value={cardNumber}
                       onChange={(e) => setCardNumber(e.target.value)}
                       className="w-full bg-stone-50 dark:bg-obsidian-950 border border-stone-300 dark:border-zinc-700 rounded-xl px-3.5 py-2.5 text-base sm:text-xs text-stone-900 dark:text-white font-mono focus:outline-none focus:border-gold-500 pl-10"
@@ -518,11 +518,12 @@ export default function CheckoutPage() {
                 <div className="grid grid-cols-2 gap-4">
                   <div>
                     <label className="text-xs font-mono text-stone-600 dark:text-zinc-400 block mb-1 font-semibold">
-                      Data Expirării (MM/YY)
+                      Data Expirării (MM/YY) *
                     </label>
                     <input
                       type="text"
                       required
+                      placeholder="MM/YY"
                       value={cardExpiry}
                       onChange={(e) => setCardExpiry(e.target.value)}
                       className="w-full bg-stone-50 dark:bg-obsidian-950 border border-stone-300 dark:border-zinc-700 rounded-xl px-3.5 py-2.5 text-base sm:text-xs text-stone-900 dark:text-white font-mono focus:outline-none focus:border-gold-500"

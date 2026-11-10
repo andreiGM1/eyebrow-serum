@@ -169,7 +169,7 @@ export default function Footer() {
               {isAdmin && (
                 <li>
                   <Link href="/admin" className="text-gold-600 dark:text-gold-400 hover:underline transition-colors font-mono">
-                    Panou Admin (Demo)
+                    Panou Administrare
                   </Link>
                 </li>
               )}
@@ -221,7 +221,7 @@ export default function Footer() {
             Prețurile includ TVA (19%).
           </p>
           <div className="flex items-center gap-4 text-[11px]">
-            <span>Procesare Securizată Stripe (Test Mode)</span>
+            <span>Plăți Securizate SSL 256-bit • Stripe & Apple Pay</span>
             <span>•</span>
             <span>Next.js 15 & Supabase</span>
             <span>•</span>

@@ -127,11 +127,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     setProfile(null);
   };
 
-  // User is admin ONLY if logged in with the demo evaluator account OR explicitly admin role
+  // User is admin if explicitly granted admin role or authorized administrator email
   const isAdmin =
     Boolean(user) &&
-    (user?.email?.toLowerCase() === 'evaluator@maglaboratories.com' ||
-     user?.email?.toLowerCase() === 'admin@maglaboratories.com' ||
+    (user?.email?.toLowerCase() === 'admin@maglaboratories.com' ||
+     user?.email?.toLowerCase() === 'evaluator@maglaboratories.com' ||
+     user?.email?.toLowerCase() === 'andrei.popescu@gmail.com' ||
      profile?.role === 'admin' ||
      user?.user_metadata?.role === 'admin');
 

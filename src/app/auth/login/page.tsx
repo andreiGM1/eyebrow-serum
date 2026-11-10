@@ -53,32 +53,6 @@ export default function LoginPage() {
     }
   };
 
-  const handleQuickEvaluatorLogin = async () => {
-    setEmail('evaluator@maglaboratories.com');
-    setPassword('ParolaEvaluator2026!');
-    setLoading(true);
-    setErrorMsg('');
-
-    try {
-      const supabase = createClient();
-      if (!supabase) throw new Error('Serviciul Supabase nu este disponibil.');
-
-      const { data, error } = await supabase.auth.signInWithPassword({
-        email: 'evaluator@maglaboratories.com',
-        password: 'ParolaEvaluator2026!',
-      });
-
-      if (error) throw error;
-
-      router.push('/account');
-      router.refresh();
-    } catch (err: any) {
-      setErrorMsg(err.message || 'Eroare la autentificarea contului demo.');
-    } finally {
-      setLoading(false);
-    }
-  };
-
   return (
     <div className="min-h-screen bg-[#FAF8F5] dark:bg-obsidian-950 text-stone-900 dark:text-foreground py-16 px-4 flex items-center justify-center transition-colors">
       <div className="max-w-md w-full bg-white dark:bg-obsidian-900 border border-stone-200 dark:border-gold-500/30 rounded-3xl p-7 sm:p-10 shadow-xl dark:shadow-2xl space-y-6">
@@ -95,38 +69,6 @@ export default function LoginPage() {
           <p className="text-xs text-stone-600 dark:text-zinc-400">
             Conectat în timp real la Supabase Auth. Poți folosi orice adresă de email.
           </p>
-        </div>
-
-        {/* Quick Demo Pill for Evaluators */}
-        <div className="p-4 rounded-2xl bg-gradient-to-br from-gold-500/15 via-gold-500/5 to-transparent border border-gold-500/35 shadow-sm space-y-3">
-          <div className="flex items-center justify-between gap-2">
-            <div className="flex items-center gap-2.5 min-w-0">
-              <div className="p-1.5 rounded-lg bg-gold-500/20 text-gold-600 dark:text-gold-400 flex-shrink-0">
-                <Sparkles className="w-4 h-4" />
-              </div>
-              <div className="min-w-0">
-                <div className="text-xs font-serif font-bold text-stone-950 dark:text-white">
-                  Cont Demo Evaluator
-                </div>
-                <div className="text-[11px] font-mono text-stone-600 dark:text-zinc-400 truncate">
-                  evaluator@maglaboratories.com
-                </div>
-              </div>
-            </div>
-            <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-gold-500/20 text-gold-800 dark:text-gold-300 border border-gold-500/30 whitespace-nowrap flex-shrink-0">
-              Instant
-            </span>
-          </div>
-
-          <button
-            type="button"
-            onClick={handleQuickEvaluatorLogin}
-            disabled={loading}
-            className="w-full py-2.5 px-4 rounded-xl bg-gold-500 hover:bg-gold-400 text-obsidian-950 text-xs font-mono font-bold transition-all shadow-md hover:shadow-gold-500/20 active:scale-[0.98] disabled:opacity-50 flex items-center justify-center gap-2 cursor-pointer touch-manipulation"
-          >
-            <Sparkles className="w-3.5 h-3.5 text-obsidian-950 flex-shrink-0" />
-            <span>Autentificare 1-Click</span>
-          </button>
         </div>
 
         {/* Error message alert */}
