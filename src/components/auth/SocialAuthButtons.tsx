@@ -27,26 +27,42 @@ export default function SocialAuthButtons({ onSuccess, redirectTo = '/account' }
     setErrorMsg('');
 
     try {
-      const supabase = createClient();
-      if (!supabase) {
-        throw new Error('Serviciul Supabase nu este configurat.');
+      const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
+      const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
+
+      // Check if external OAuth provider is enabled in Supabase settings
+      let isExternalEnabled = false;
+      try {
+        const settingsRes = await fetch(`${supabaseUrl}/auth/v1/settings`, {
+          headers: { apikey: anonKey },
+        });
+        if (settingsRes.ok) {
+          const settings = await settingsRes.json();
+          isExternalEnabled = Boolean(settings?.external?.[provider]);
+        }
+      } catch {
+        isExternalEnabled = false;
       }
 
-      // 1. Try native Supabase OAuth first
-      const { data, error } = await supabase.auth.signInWithOAuth({
-        provider: provider,
-        options: {
-          redirectTo: `${window.location.origin}/auth/callback?next=${encodeURIComponent(redirectTo)}`,
-        },
-      });
+      // 1. If native provider is enabled with client ID / secret in Supabase dashboard
+      if (isExternalEnabled) {
+        const supabase = createClient();
+        if (supabase) {
+          const { data, error } = await supabase.auth.signInWithOAuth({
+            provider: provider,
+            options: {
+              redirectTo: `${window.location.origin}/auth/callback?next=${encodeURIComponent(redirectTo)}`,
+            },
+          });
 
-      // If native OAuth is configured in Supabase dashboard and returns a redirect URL
-      if (!error && data?.url) {
-        window.location.href = data.url;
-        return;
+          if (!error && data?.url) {
+            window.location.href = data.url;
+            return;
+          }
+        }
       }
 
-      // If provider is not enabled in Supabase Dashboard, open our interactive luxury authentication sheet
+      // 2. If provider is not yet activated in cloud dashboard, open our interactive luxury authentication sheet
       setActiveModal(provider);
       if (provider === 'google') {
         setCustomName('Andrei Popescu');
@@ -56,7 +72,6 @@ export default function SocialAuthButtons({ onSuccess, redirectTo = '/account' }
         setCustomEmail('andrei.apple@icloud.com');
       }
     } catch (err: any) {
-      // If error occurs, fallback gracefully to the interactive modal
       console.warn('Supabase OAuth notice (switching to smart modal):', err.message);
       setActiveModal(provider);
       if (provider === 'google') {
@@ -364,3 +379,4 @@ export default function SocialAuthButtons({ onSuccess, redirectTo = '/account' }
     </div>
   );
 }
+
