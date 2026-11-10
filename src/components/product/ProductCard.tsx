@@ -35,14 +35,25 @@ export default function ProductCard({ product }: ProductCardProps) {
       
       {/* Top Image Section */}
       <div className="relative aspect-square w-full overflow-hidden bg-stone-100 dark:bg-zinc-950">
-        <Link href={`/product/${product.slug}`} className="block w-full h-full">
+        <Link href={`/product/${product.slug}`} className="block w-full h-full relative">
           <Image
             src={product.images[0] || '/images/mag-evergrow-bottle.png'}
             alt={product.name}
             fill
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            className="object-cover object-center group-hover:scale-105 transition-transform duration-500 ease-out"
+            className={`object-cover object-center transition-all duration-500 ease-out ${
+              product.images[1] ? 'group-hover:opacity-0 group-hover:scale-105' : 'group-hover:scale-105'
+            }`}
           />
+          {product.images[1] && (
+            <Image
+              src={product.images[1]}
+              alt={`${product.name} - Prezentare Deschis`}
+              fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              className="object-cover object-center scale-105 opacity-0 group-hover:opacity-100 transition-all duration-500 ease-out"
+            />
+          )}
         </Link>
 
         {/* Badges Container */}

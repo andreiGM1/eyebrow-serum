@@ -51,7 +51,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     stock: 45,
     sku: 'MAG-EVG-003',
     volume: '3 ml / 0.10 fl. oz. (90 de zile)',
-    images: ['/images/mag-evergrow-bottle.png'],
+    images: ['/images/mag-evergrow-bottle.png', '/images/mag-evergrow-open.jpg'],
     active_ingredients: [
       {
         name: 'Ricinus Communis Seed Oil (Ulei Virgin de Ricin)',
@@ -110,7 +110,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     stock: 28,
     sku: 'MAG-EVG-NIT-005',
     volume: '5 ml (120 de zile)',
-    images: ['/images/night-elixir.jpg'],
+    images: ['/images/night-elixir.jpg', '/images/night-elixir-open.jpg'],
     active_ingredients: [
       {
         name: 'Tripeptide-1 & Biotinoyl Tripeptide',
@@ -160,7 +160,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     stock: 6, // Shows "Stoc redus" badge!
     sku: 'MAG-ACC-DRL-01',
     volume: '1 bucată sterilă cu carcasă de protecție',
-    images: ['/images/dermaroller.jpg'],
+    images: ['/images/dermaroller.jpg', '/images/dermaroller-detail.jpg'],
     active_ingredients: [],
     full_inci: 'Titan de grad chirurgical, mâner ergonomic polimer medical hipoalergenic.',
     usage_instructions: [
@@ -193,7 +193,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     stock: 120,
     sku: 'MAG-ACC-MBR-50',
     volume: '50 bucăți ambalate individual',
-    images: ['/images/microbrush.jpg'],
+    images: ['/images/microbrush.jpg', '/images/microbrush-detail.jpg'],
     active_ingredients: [],
     full_inci: 'Fibre sintetice medicale lint-free, mâner biodegradabil.',
     usage_instructions: [
@@ -225,7 +225,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     stock: 35,
     sku: 'MAG-BND-DUO-02',
     volume: '2 x 3 ml (180 de zile de aplicare)',
-    images: ['/images/duo-pack.jpg'],
+    images: ['/images/duo-pack.jpg', '/images/duo-pack-open.jpg'],
     active_ingredients: [
       {
         name: 'Ricinus Communis & Rosmarinus Complex',
@@ -269,7 +269,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     stock: 18,
     sku: 'MAG-BND-KIT-03',
     volume: 'Set complet 3 produse premium în cutie cadou de lux',
-    images: ['/images/complete-kit.jpg'],
+    images: ['/images/complete-kit.jpg', '/images/complete-kit-open.jpg'],
     active_ingredients: [
       {
         name: 'Protocol Complet MAG Atelier',
@@ -308,7 +308,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     stock: 40,
     sku: 'MAG-CLN-OIL-100',
     volume: '100 ml cu pompiță dozatoare de precizie',
-    images: ['/images/cleansing-oil.jpg'],
+    images: ['/images/cleansing-oil.jpg', '/images/cleansing-oil-texture.jpg'],
     active_ingredients: [
       {
         name: 'Prunus Amygdalus Dulcis (Sweet Almond Oil)',
@@ -353,7 +353,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     stock: 0, // Out of stock example!
     sku: 'MAG-CLN-FOM-150',
     volume: '150 ml flacon spumant',
-    images: ['/images/micellar-foam.jpg'],
+    images: ['/images/micellar-foam.jpg', '/images/micellar-foam-texture.jpg'],
     active_ingredients: [
       {
         name: 'Rosa Damascena Flower Water',

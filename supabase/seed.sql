@@ -34,7 +34,7 @@ VALUES
         45,
         'MAG-EVG-003',
         '3 ml / 0.10 fl. oz. (90 de zile)',
-        ARRAY['/images/mag-evergrow-bottle.png', '/images/serum-texture.jpg'],
+        ARRAY['/images/mag-evergrow-bottle.png', '/images/mag-evergrow-open.jpg'],
         '[
             {"name": "Ricinus Communis Seed Oil (Ulei Virgin de Ricin)", "pct": "Concentrație optimă 85-90% acid ricinoleic", "role": "Penetrează teaca foliculară, sigilează cuticula și previne pierderea apei trans-foliculare."},
             {"name": "Rosmarinus Officinalis Leaf Oil (Ulei de Rozmarin)", "pct": "Distilat cu abur", "role": "Stimulează microcirculația capilară la nivelul rădăcinii și trezește foliculii dorminzi."},
@@ -74,7 +74,7 @@ VALUES
         28,
         'MAG-EVG-NIT-005',
         '5 ml (120 de zile)',
-        ARRAY['/images/night-elixir.jpg', '/images/mag-evergrow-bottle.png'],
+        ARRAY['/images/night-elixir.jpg', '/images/night-elixir-open.jpg'],
         '[
             {"name": "Tripeptide-1 & Biotinoyl Tripeptide", "pct": "Complex bio-peptidic", "role": "Stimulează ancorarea structurală a rădăcinii de laminină."},
             {"name": "Bio-Caffeine Extract", "pct": "Micronizat", "role": "Neutralizează efectul local al DHT și stimulează prelungirea fazei de creștere."},
@@ -109,7 +109,7 @@ VALUES
         60,
         'MAG-ACC-DRL-01',
         '1 bucată sterilă cu carcasă de protecție',
-        ARRAY['/images/dermaroller.jpg'],
+        ARRAY['/images/dermaroller.jpg', '/images/dermaroller-detail.jpg'],
         '[]'::jsonb,
         'Titan de grad chirurgical, mâner ergonomic polimer medical hipoalergenic.',
         ARRAY[
@@ -140,7 +140,7 @@ VALUES
         120,
         'MAG-ACC-MBR-50',
         '50 bucăți ambalate individual',
-        ARRAY['/images/microbrush.jpg'],
+        ARRAY['/images/microbrush.jpg', '/images/microbrush-detail.jpg'],
         '[]'::jsonb,
         'Fibre sintetice medicale lint-free, mâner biodegradabil.',
         ARRAY[
@@ -170,7 +170,7 @@ VALUES
         35,
         'MAG-BND-DUO-02',
         '2 x 3 ml (180 de zile de aplicare)',
-        ARRAY['/images/duo-pack.jpg', '/images/mag-evergrow-bottle.png'],
+        ARRAY['/images/duo-pack.jpg', '/images/duo-pack-open.jpg'],
         '[
             {"name": "Ricinus Communis & Rosmarinus Complex", "pct": "Puritate 100%", "role": "Nutriție celulară pe termen lung."},
             {"name": "Golden Jojoba & Tocopherol", "pct": "Bio-lipid", "role": "Menținerea elasticității cuticulei pe parcursul celor două cicluri de creștere."}
@@ -203,7 +203,7 @@ VALUES
         18,
         'MAG-BND-KIT-03',
         'Set complet 3 produse premium în cutie cadou de lux',
-        ARRAY['/images/complete-kit.jpg', '/images/mag-evergrow-bottle.png'],
+        ARRAY['/images/complete-kit.jpg', '/images/complete-kit-open.jpg'],
         '[
             {"name": "Protocol Complet MAG Atelier", "pct": "Tratament Sinergic", "role": "Pregătește, stimulează mecanic și infuzează nutrienți biologici activi."}
         ]'::jsonb,
@@ -236,7 +236,7 @@ VALUES
         40,
         'MAG-CLN-OIL-100',
         '100 ml cu pompiță dozatoare de precizie',
-        ARRAY['/images/cleansing-oil.jpg'],
+        ARRAY['/images/cleansing-oil.jpg', '/images/cleansing-oil-texture.jpg'],
         '[
             {"name": "Prunus Amygdalus Dulcis (Sweet Almond Oil)", "pct": "Presat la rece", "role": "Dizolvă machiajul și catifelează pielea sensibilă a pleoapei."},
             {"name": "Anthemis Nobilis (Chamomile) Flower Oil", "pct": "Extract pur", "role": "Calmează roșeața și iritațiile din jurul ochilor."}
@@ -268,9 +268,9 @@ VALUES
         99.00,
         NULL,
         50,
-        'MAG-CLN-F协M-150',
+        'MAG-CLN-FOM-150',
         '150 ml flacon spumant',
-        ARRAY['/images/micellar-foam.jpg'],
+        ARRAY['/images/micellar-foam.jpg', '/images/micellar-foam-texture.jpg'],
         '[
             {"name": "Rosa Damascena Flower Water", "pct": "Hidrolat 100% pur", "role": "Tonifiază și calmează pielea fină supraorbitală."},
             {"name": "Decyl Glucoside & Betaine", "pct": "Surfactant derivat din porumb", "role": "Curățare extra-blândă biodegradabilă."}
