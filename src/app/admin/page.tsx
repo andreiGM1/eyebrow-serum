@@ -112,7 +112,7 @@ export default function AdminPage() {
       slug,
       images: ['/images/mag-evergrow-bottle.png'],
       active_ingredients: [],
-      full_inci: 'Formulă cosmetică laborator MAG Bucharest.',
+      full_inci: 'Formulă cosmetică EVERGREEN & ISLE Atelier.',
       usage_instructions: ['Aplicați pe sprâncene seara.'],
       benefits: ['Densitate accelerată', 'Formulă activă'],
       rating: 5.0,
@@ -163,7 +163,7 @@ export default function AdminPage() {
               Panou de Administrare Protejat
             </h1>
             <p className="text-xs text-stone-600 dark:text-zinc-400 mt-2 leading-relaxed">
-              Această secțiune este rezervată exclusiv administratorilor autorizați MAG Laboratories.
+              Această secțiune este rezervată exclusiv administratorilor autorizați EVERGREEN &amp; ISLE.
             </p>
           </div>
           <div className="flex flex-col gap-3">
@@ -200,7 +200,7 @@ export default function AdminPage() {
               <span className="text-xs font-mono text-stone-500 dark:text-zinc-500">role = &apos;admin&apos;</span>
             </div>
             <h1 className="font-serif text-3xl font-bold text-stone-950 dark:text-white mt-1">
-              Panou Administrare • MAG Laboratories
+              Panou Administrare • EVERGREEN &amp; ISLE
             </h1>
             <p className="text-xs text-stone-600 dark:text-zinc-400 mt-1">
               Gestiune completă a catalogului de produse, comenzi, stocuri și clienți înregistrați.
@@ -568,7 +568,7 @@ export default function AdminPage() {
             <div>
               <h2 className="font-serif font-bold text-xl text-stone-950 dark:text-white">Listă Clienți Înregistrați</h2>
               <p className="text-xs text-stone-600 dark:text-zinc-400 mt-0.5">
-                Baza de date a clienților cu comenzi plasate pe platforma Evergrow.
+                Baza de date a clienților cu comenzi plasate pe platforma EVERGREEN &amp; ISLE.
               </p>
             </div>
 
@@ -627,7 +627,7 @@ export default function AdminPage() {
                   <input
                     type="text"
                     required
-                    placeholder="Ex: MAG Complex Keratin Fortifier 4ml"
+                    placeholder="Ex: EVERGREEN &amp; ISLE Keratin Fortifier 4ml"
                     value={newProductForm.name}
                     onChange={(e) => setNewProductForm({ ...newProductForm, name: e.target.value })}
                     className="w-full bg-stone-50 dark:bg-obsidian-950 border border-stone-300 dark:border-zinc-700 rounded-xl px-3 py-2 text-xs text-stone-900 dark:text-white focus:outline-none focus:border-gold-500"
@@ -659,7 +659,7 @@ export default function AdminPage() {
                     <input
                       type="text"
                       required
-                      placeholder="MAG-KER-004"
+                      placeholder="EVI-KER-004"
                       value={newProductForm.sku}
                       onChange={(e) => setNewProductForm({ ...newProductForm, sku: e.target.value })}
                       className="w-full bg-stone-50 dark:bg-obsidian-950 border border-stone-300 dark:border-zinc-700 rounded-xl px-3 py-2 text-xs text-stone-900 dark:text-white uppercase font-mono focus:outline-none focus:border-gold-500"

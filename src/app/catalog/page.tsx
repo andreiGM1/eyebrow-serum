@@ -80,8 +80,8 @@ function CatalogContent() {
         
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto space-y-2 sm:space-y-3">
-          <span className="text-[11px] sm:text-xs font-mono uppercase tracking-[0.2em] sm:tracking-[0.25em] text-gold-700 dark:text-gold-400 font-semibold">
-            MAG Laboratories Bucharest • Catalog Oficial
+          <span className="text-[11px] sm:text-xs font-mono uppercase tracking-[0.2em] sm:tracking-[0.25em] text-teal-800 dark:text-teal-400 font-semibold">
+            EVERGREEN &amp; ISLE • NATURAL SKINCARE
           </span>
           <h1 className="font-serif text-2xl sm:text-4xl font-bold text-stone-950 dark:text-white">
             Tratamente Botanice pentru Regenerarea Sprâncenelor
@@ -194,11 +194,11 @@ function CatalogContent() {
               Niciun produs nu corespunde filtrelor selectate
             </h3>
             <p className="text-xs text-stone-600 dark:text-zinc-400 mt-2 max-w-sm mx-auto">
-              Încearcă să resetezi căutarea sau filtrele de preț pentru a descoperi întreaga gamă Evergrow.
+              Încearcă să resetezi căutarea sau filtrele de preț pentru a descoperi întreaga gamă EVERGREEN &amp; ISLE.
             </p>
             <button
               onClick={resetFilters}
-              className="mt-6 px-5 py-2 rounded-full bg-gold-500 hover:bg-gold-400 text-obsidian-950 font-bold text-xs uppercase transition-colors"
+              className="mt-6 px-5 py-2 rounded-full bg-teal-800 hover:bg-teal-700 text-white font-bold text-xs uppercase transition-colors shadow-md"
             >
               Resetează Toate Filtrele
             </button>

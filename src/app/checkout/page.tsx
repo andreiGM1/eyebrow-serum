@@ -122,8 +122,8 @@ export default function CheckoutPage() {
 
       const newOrder: Order = {
         id: orderId,
-        order_number: `MAG-2026-${orderNumberSeq}`,
-        invoice_series: 'MAG-EVG',
+        order_number: `EVI-2026-${orderNumberSeq}`,
+        invoice_series: 'EVI-SER',
         invoice_number: invoiceNumber,
         user_id: 'usr-guest-' + Date.now(),
         status: 'paid', // Marked paid immediately upon card processing
@@ -212,8 +212,8 @@ export default function CheckoutPage() {
 
     const newOrder: Order = {
       id: orderId,
-      order_number: `MAG-2026-${orderNumberSeq}`,
-      invoice_series: 'MAG-EVG',
+      order_number: `EVI-2026-${orderNumberSeq}`,
+      invoice_series: 'EVI-SER',
       invoice_number: invoiceNumber,
       user_id: 'usr-applepay-' + Date.now(),
       status: 'paid',
@@ -429,7 +429,7 @@ export default function CheckoutPage() {
                       </label>
                       <input
                         type="text"
-                        placeholder="Ex: MAG Aesthetic Clinic SRL"
+                        placeholder="Ex: Evergreen Aesthetics SRL"
                         value={formData.companyName}
                         onChange={(e) => setFormData({ ...formData, companyName: e.target.value })}
                         className="w-full bg-stone-50 dark:bg-obsidian-950 border border-stone-300 dark:border-zinc-700 rounded-xl px-3 py-2 text-xs text-stone-900 dark:text-white focus:outline-none focus:border-gold-500"

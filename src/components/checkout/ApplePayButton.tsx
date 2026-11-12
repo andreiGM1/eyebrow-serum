@@ -66,7 +66,7 @@ export default function ApplePayButton({
           country: 'RO',
           currency: currency.toLowerCase(),
           total: {
-            label: 'MAG EVERGROW Atelier',
+            label: 'EVERGREEN & ISLE Atelier',
             amount: Math.round(totalAmount * 100),
           },
           requestPayerName: true,
@@ -176,7 +176,7 @@ export default function ApplePayButton({
                 <div>
                   <div className="text-xs text-neutral-500 dark:text-neutral-400">Comerciant</div>
                   <div className="text-sm font-semibold text-neutral-900 dark:text-white font-serif">
-                    MAG Laboratories • EVERGROW
+                    EVERGREEN &amp; ISLE • NATURAL SKINCARE
                   </div>
                 </div>
                 <div className="text-right">

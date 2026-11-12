@@ -40,16 +40,16 @@ export const INITIAL_PRODUCTS: Product[] = [
     id: 'p1111111-1111-1111-1111-111111111111',
     slug: 'mag-evergrow-lash-brow-serum-3ml',
     category_id: 'c1111111-1111-1111-1111-111111111111',
-    name: 'MAG EVERGROW Lash & Brow Growth Serum (3 ml)',
-    subtitle: 'Complex Lipidic Bioactiv 100% Natural • Fără Prostaglandine • Atelier București',
+    name: 'EVERGREEN & ISLE Lash & Brow Growth Serum (3 ml)',
+    subtitle: 'Complex Lipidic Bioactiv 100% Natural • Fără Prostaglandine • Natural Skincare Atelier',
     description:
-      'Formulat în micro-laboratorul nostru din inima Bucureștiului, MAG EVERGROW este un elixir concentrat de botanice pure presate la rece și vitamine protectoare celulare. Conceput special pentru persoanele care refuză compromisurile legate de sănătatea ochilor, acest ser auriu creează micro-mediul ideal pentru regenerarea arcurilor rare și întărirea rezistenței mecanice a firului de păr.\n\nFiecare micro-picătură pătrunde direct în teaca rădăcinii foliculare, refăcând sebumul natural și sigilând solzii cuticulei fragile. Prin aplicare nocturnă consecventă, sprâncenele rare își recapătă plinătatea arhitecturală, iar linia genelor devine fortificată împotriva ruperii cauzate de machiaj sau extensii.',
+      'Formulat cu pasiune pentru puritate botanică, EVERGREEN & ISLE este un elixir concentrat de ingrediente active pure presate la rece și vitamine protectoare celulare. Conceput special pentru persoanele care refuză compromisurile legate de sănătatea ochilor, acest ser auriu creează micro-mediul ideal pentru regenerarea arcurilor rare și întărirea rezistenței mecanice a firului de păr.\n\nFiecare micro-picătură pătrunde direct în teaca rădăcinii foliculare, refăcând sebumul natural și sigilând solzii cuticulei fragile. Prin aplicare nocturnă consecventă, sprâncenele rare își recapătă plinătatea arhitecturală, iar linia genelor devine fortificată împotriva ruperii cauzate de machiaj sau extensii.',
     short_description:
       'Ser 100% natural, prostaglandin-free, cu ulei virgin de ricin presat la rece, rozmarin mediteranean și vitamina E. Ciclu complet de 90 de zile.',
     price: 195.0,
     compare_at_price: 245.0,
     stock: 45,
-    sku: 'MAG-EVG-003',
+    sku: 'EVI-SRM-003',
     volume: '3 ml / 0.10 fl. oz. (90 de zile)',
     images: ['/images/mag-evergrow-bottle.png', '/images/mag-evergrow-open.jpg'],
     active_ingredients: [
@@ -99,7 +99,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     id: 'p2222222-2222-2222-2222-222222222222',
     slug: 'mag-evergrow-night-intensive-elixir-5ml',
     category_id: 'c1111111-1111-1111-1111-111111111111',
-    name: 'MAG EVERGROW Night Intensive Follicle Elixir (5 ml)',
+    name: 'EVERGREEN & ISLE Night Intensive Follicle Elixir (5 ml)',
     subtitle: 'Formulă Nocturnă Avansată cu Tri-Peptide Botanice și Cafeină Bio',
     description:
       'Versiunea nocturnă de intensitate triplă este destinată sprâncenelor agresate de pensat excesiv, microblading nereușit sau laminări repetate. Îmbogățită cu peptide de cupru vegetale și cafeină bioactivă, infuzează foliculul pe durata fazei anagene de somn adânc.',
@@ -108,7 +108,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     price: 249.0,
     compare_at_price: 299.0,
     stock: 28,
-    sku: 'MAG-EVG-NIT-005',
+    sku: 'EVI-NIT-005',
     volume: '5 ml (120 de zile)',
     images: ['/images/night-elixir.jpg', '/images/night-elixir-open.jpg'],
     active_ingredients: [
@@ -149,16 +149,16 @@ export const INITIAL_PRODUCTS: Product[] = [
     id: 'p3333333-3333-3333-3333-333333333333',
     slug: 'mag-precision-dermaroller-025',
     category_id: 'c2222222-2222-2222-2222-222222222222',
-    name: 'Dermaroller Micro-Needle 0.25mm & Pieptene Aurit MAG',
+    name: 'Dermaroller Micro-Needle 0.25mm & Pieptene EVERGREEN & ISLE',
     subtitle: 'Titan Grad Chirurgical • Stimulare Transdermică Non-Invazivă',
     description:
-      'Creat conform celor mai riguroase specificații de cabinet estetic, dermarollerul MAG cu 540 de micro-ace din titan de 0.25 mm stimulează producția naturală de colagen și mărește absorbția bioactivă a serului Evergrow de până la 4 ori.',
+      'Creat conform celor mai riguroase specificații de cabinet estetic, dermarollerul EVERGREEN & ISLE cu 540 de micro-ace din titan de 0.25 mm stimulează producția naturală de colagen și mărește absorbția bioactivă a serului de până la 4 ori.',
     short_description:
       'Instrument steril de stimulare a microcirculației pentru amplificarea penetrării serului.',
     price: 89.0,
     compare_at_price: 119.0,
     stock: 6, // Shows "Stoc redus" badge!
-    sku: 'MAG-ACC-DRL-01',
+    sku: 'EVI-ACC-DRL-01',
     volume: '1 bucată sterilă cu carcasă de protecție',
     images: ['/images/dermaroller.jpg', '/images/dermaroller-detail.jpg'],
     active_ingredients: [],
@@ -166,7 +166,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     usage_instructions: [
       'Dezinfectează rola cu alcool sanitar înainte de fiecare utilizare.',
       'Rulați ușor de 4-5 ori orizontal și vertical pe arcada sprâncenei, fără presiune dureroasă.',
-      'Aplicați serul MAG EVERGROW imediat după micro-rulare.',
+      'Aplicați serul EVERGREEN & ISLE imediat după micro-rulare.',
     ],
     benefits: [
       'Micro-ace sigure de 0.25mm create special pentru zona delicată a feței',
@@ -182,16 +182,16 @@ export const INITIAL_PRODUCTS: Product[] = [
     id: 'p4444444-4444-4444-4444-444444444444',
     slug: 'mag-microbrush-applicator-pack',
     category_id: 'c2222222-2222-2222-2222-222222222222',
-    name: 'Set 50 Aplicatoare Micro-Brush Sterilizate de Laborator',
+    name: 'Set 50 Aplicatoare Micro-Brush Sterilizate EVERGREEN & ISLE',
     subtitle: 'Vârfuri Micro-Fibrofibrilare Non-Absorbante pentru Precizie Milimetrică',
     description:
-      'Pachet igienic de 50 de aplicatoare de unică folosință concepute special pentru dozajul exact al serului MAG Evergrow, prevenind irosirea sau contaminarea produsului.',
+      'Pachet igienic de 50 de aplicatoare de unică folosință concepute special pentru dozajul exact al serului EVERGREEN & ISLE, prevenind irosirea sau contaminarea produsului.',
     short_description:
       'Aplicatoare de precizie farmaceutică pentru igienă maximă și dozaj milimetric.',
     price: 49.0,
     compare_at_price: null,
     stock: 120,
-    sku: 'MAG-ACC-MBR-50',
+    sku: 'EVI-ACC-MBR-50',
     volume: '50 bucăți ambalate individual',
     images: ['/images/microbrush.jpg', '/images/microbrush-detail.jpg'],
     active_ingredients: [],
@@ -214,16 +214,16 @@ export const INITIAL_PRODUCTS: Product[] = [
     id: 'p5555555-5555-5555-5555-555555555555',
     slug: 'mag-evergrow-duo-pack-6-months',
     category_id: 'c3333333-3333-3333-3333-333333333333',
-    name: 'Duo Pack MAG EVERGROW – Tratament Complet 6 Luni (2 x 3 ml)',
+    name: 'EVERGREEN & ISLE Duo Pack – Tratament Complet 6 Luni (2 x 3 ml)',
     subtitle: 'Pachetul Bestseller Recomandat pentru Arcuri Complete & Gene Alungite',
     description:
       'Ciclul biologic complet de înnoire a foliculilor necesită între 12 și 24 de săptămâni. Duo Pack asigură tratamentul neîntrerupt pe parcursul a 180 de zile la un preț preferențial, garantând densitatea și grosimea structurală maximă a firelor nou crescute.',
     short_description:
-      'Două flacoane MAG EVERGROW (2x 3 ml) pentru o transformare completă de 6 luni. Economisești 15%.',
+      'Două flacoane EVERGREEN & ISLE (2x 3 ml) pentru o transformare completă de 6 luni. Economisești 15%.',
     price: 330.0,
     compare_at_price: 390.0,
     stock: 35,
-    sku: 'MAG-BND-DUO-02',
+    sku: 'EVI-BND-DUO-02',
     volume: '2 x 3 ml (180 de zile de aplicare)',
     images: ['/images/duo-pack.jpg', '/images/duo-pack-open.jpg'],
     active_ingredients: [
@@ -258,21 +258,21 @@ export const INITIAL_PRODUCTS: Product[] = [
     id: 'p6666666-6666-6666-6666-666666666666',
     slug: 'mag-atelier-regeneration-complete-kit',
     category_id: 'c3333333-3333-3333-3333-333333333333',
-    name: 'Kit Regenerare Completă Atelier MAG (Serum + Dermaroller + Ulei Curățare)',
-    subtitle: 'Rutina Completă Clinico-Botanică: Pregătire, Stimulare & Hrănire Foliculară',
+    name: 'Kit Regenerare Completă EVERGREEN & ISLE (Serum + Dermaroller + Ulei)',
+    subtitle: 'Rutina Completă Botanică: Pregătire, Stimulare & Hrănire Foliculară',
     description:
-      'Protocolul integral creat de chimiștii MAG din București. Conține serul Evergrow 3 ml, Dermarollerul cu titan 0.25mm și Uleiul Demachiant Botanică Pură 100 ml. Oferă toți pașii necesari pentru deblocarea porilor, stimularea mecanică a circulației și hrănirea profundă cu lipide bioactive.',
+      'Protocolul integral creat de EVERGREEN & ISLE. Conține serul bioactiv 3 ml, Dermarollerul cu titan 0.25mm și Uleiul Demachiant Botanică Pură 100 ml. Oferă toți pașii necesari pentru deblocarea porilor, stimularea mecanică a circulației și hrănirea profundă cu lipide active.',
     short_description:
-      'Pachetul complet de excelență: Demachiere delicată + Micro-stimulare + Ser activ Evergrow. Economisești 20%.',
+      'Pachetul complet de excelență: Demachiere delicată + Micro-stimulare + Ser activ EVERGREEN & ISLE. Economisești 20%.',
     price: 389.0,
     compare_at_price: 480.0,
     stock: 18,
-    sku: 'MAG-BND-KIT-03',
+    sku: 'EVI-BND-KIT-03',
     volume: 'Set complet 3 produse premium în cutie cadou de lux',
     images: ['/images/complete-kit.jpg', '/images/complete-kit-open.jpg'],
     active_ingredients: [
       {
-        name: 'Protocol Complet MAG Atelier',
+        name: 'Protocol Complet EVERGREEN & ISLE',
         pct: 'Tratament Sinergic',
         role: 'Pregătește, stimulează mecanic și infuzează nutrienți biologici activi.',
       },
@@ -281,11 +281,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     usage_instructions: [
       'Pasul 1: Curăță ochii cu Uleiul Demachiant Botanică Pură.',
       'Pasul 2 (de 2x/săptămână): Stimulează arcada cu Dermarollerul 0.25mm.',
-      'Pasul 3: Aplică serul MAG EVERGROW pe întreaga linie a sprâncenelor și genelor.',
+      'Pasul 3: Aplică serul EVERGREEN & ISLE pe întreaga linie a sprâncenelor și genelor.',
     ],
     benefits: [
-      'Protocol clinic demonstrat cu rată de succes de 94%',
-      'Include ambalajul cadou Signature MAG negru mat cu detalii aurite',
+      'Protocol demonstrat cu rată ridicată de satisfacție',
+      'Include ambalajul cadou Signature EVERGREEN & ISLE cu finisaj natural',
       'Economie de 91 RON față de produsele achiziționate separat',
     ],
     rating: 5.0,
@@ -300,13 +300,13 @@ export const INITIAL_PRODUCTS: Product[] = [
     name: 'Ulei Demachiant Botanică Pură fără Emulgatori Sintetici (100 ml)',
     subtitle: 'Uleiuri Presate la Rece de Migdale Dulci, Jojoba & Mușețel Roman',
     description:
-      'Demachiant hipoalergenic conceput special pentru zona ochilor. Dizolvă chiar și cel mai rezistent rimel waterproof fără a smulge sau slăbi rădăcinile sprâncenelor și genelor. Lasă o peliculă protectoare hidratantă fără a bloca porii.',
+      'Demachiant hipoalergenic conceput special pentru zona ochilor de către EVERGREEN & ISLE. Dizolvă chiar și machiajul rezistent fără a slăbi rădăcinile sprâncenelor și genelor. Lasă o peliculă protectoare hidratantă fără a bloca porii.',
     short_description:
       'Demachiere ultra-blândă pe bază de lipide pure, formulată special pentru protecția foliculilor.',
     price: 119.0,
     compare_at_price: 139.0,
     stock: 40,
-    sku: 'MAG-CLN-OIL-100',
+    sku: 'EVI-CLN-OIL-100',
     volume: '100 ml cu pompiță dozatoare de precizie',
     images: ['/images/cleansing-oil.jpg', '/images/cleansing-oil-texture.jpg'],
     active_ingredients: [
@@ -343,15 +343,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     slug: 'mag-micellar-gentle-foam-150ml',
     category_id: 'c4444444-4444-4444-4444-444444444444',
     name: 'Spumă Micelară Calmantă cu Apă de Trandafir & Peptide (150 ml)',
-    subtitle: 'Curățare Spumantă Echilibrată la pH 5.5 cu Hidrolat Pur de Trandafir Românesc',
+    subtitle: 'Curățare Spumantă Echilibrată la pH 5.5 cu Hidrolat Pur de Trandafir',
     description:
-      'O spumă aerată și mătăsoasă creată pentru rutina de dimineață sau după demachierea cu ulei. Curăță impuritățile nocturne fără să distrugă bariera lipidică naturală esențială dezvoltării foliculilor noi.',
+      'O spumă aerată și mătăsoasă creată de EVERGREEN & ISLE pentru rutina zilnică. Curăță impuritățile fără să distrugă bariera lipidică naturală esențială dezvoltării foliculilor noi.',
     short_description:
       'Spumă lejeră la pH fiziologic 5.5 pentru igiena zilnică a sprâncenelor și genelor.',
     price: 99.0,
     compare_at_price: null,
     stock: 0, // Out of stock example!
-    sku: 'MAG-CLN-FOM-150',
+    sku: 'EVI-CLN-FOM-150',
     volume: '150 ml flacon spumant',
     images: ['/images/micellar-foam.jpg', '/images/micellar-foam-texture.jpg'],
     active_ingredients: [
@@ -396,7 +396,7 @@ export const INITIAL_COUPONS: Coupon[] = [
   },
   {
     id: 'cp2',
-    code: 'EVERGROW20',
+    code: 'EVERGREEN20',
     discount_percent: 20,
     discount_amount: 0,
     min_order_amount: 200,
@@ -419,7 +419,7 @@ export const INITIAL_REVIEWS: Review[] = [
     user_name: 'Elena R. (București)',
     rating: 5,
     comment:
-      'Folosesc serul Evergrow de 6 săptămâni. Golurile din colțul intern al sprâncenelor, unde pensam agresiv încă din liceu, s-au umplut complet cu fire noi și viguroase! Nu ustură deloc ochii.',
+      'Folosesc serul Evergreen & Isle de 6 săptămâni. Golurile din colțul intern al sprâncenelor, unde pensam agresiv încă din liceu, s-au umplut complet cu fire noi și viguroase! Nu ustură deloc ochii.',
     verified_purchase: true,
     created_at: '2026-02-14T10:30:00Z',
   },
@@ -429,7 +429,7 @@ export const INITIAL_REVIEWS: Review[] = [
     user_name: 'Andreea M. (Cluj-Napoca)',
     rating: 5,
     comment:
-      'Cel mai mare plus pentru mine este că NU conține prostaglandine sintetice! Am avut experiențe groaznice cu alte mărci care mi-au înnegrit pleoapele. MAG Evergrow este aur curat!',
+      'Cel mai mare plus pentru mine este că NU conține prostaglandine sintetice! Am avut experiențe groaznice cu alte mărci care mi-au înnegrit pleoapele. Evergreen & Isle este o adevărată minune botanică!',
     verified_purchase: true,
     created_at: '2026-02-18T14:15:00Z',
   },
@@ -449,7 +449,7 @@ export const INITIAL_REVIEWS: Review[] = [
     user_name: 'Ioana V. (Iași)',
     rating: 5,
     comment:
-      'Am comandat Duo Pack pentru a face cura completă de 6 luni recomandată de laborator. Rezultatele sunt spectaculoase, nu mai am nevoie deloc de creion de sprâncene!',
+      'Am comandat Duo Pack pentru a face cura completă de 6 luni recomandată de Evergreen & Isle. Rezultatele sunt spectaculoase, nu mai am nevoie deloc de creion de sprâncene!',
     verified_purchase: true,
     created_at: '2026-03-01T16:20:00Z',
   },
@@ -468,13 +468,13 @@ export const INITIAL_REVIEWS: Review[] = [
 export const INITIAL_ORDERS: Order[] = [
   {
     id: 'ord-1001',
-    order_number: 'MAG-2026-1001',
-    invoice_series: 'MAG-EVG',
+    order_number: 'EVI-2026-1001',
+    invoice_series: 'EVI-SER',
     invoice_number: 1001,
     user_id: 'usr-client-1001',
     status: 'paid',
     payment_status: 'paid',
-    payment_intent_id: 'pi_evergrow_live_1001',
+    payment_intent_id: 'pi_evergreen_live_1001',
     customer_name: 'Andreea Popescu',
     customer_email: 'andreea.popescu@example.ro',
     customer_phone: '+40 722 123 456',
@@ -498,7 +498,7 @@ export const INITIAL_ORDERS: Order[] = [
         id: 'item-1',
         order_id: 'ord-1001',
         product_id: 'p1111111-1111-1111-1111-111111111111',
-        product_name: 'MAG EVERGROW Lash & Brow Growth Serum (3 ml)',
+        product_name: 'EVERGREEN & ISLE Lash & Brow Growth Serum (3 ml)',
         product_image: '/images/mag-evergrow-bottle.png',
         unit_price: 195.0,
         quantity: 1,
@@ -509,13 +509,13 @@ export const INITIAL_ORDERS: Order[] = [
   },
   {
     id: 'ord-1002',
-    order_number: 'MAG-2026-1002',
-    invoice_series: 'MAG-EVG',
+    order_number: 'EVI-2026-1002',
+    invoice_series: 'EVI-SER',
     invoice_number: 1002,
     user_id: 'usr-client-1002',
     status: 'processing',
     payment_status: 'paid',
-    payment_intent_id: 'pi_evergrow_live_1002',
+    payment_intent_id: 'pi_evergreen_live_1002',
     customer_name: 'Dr. Mihai Radu',
     customer_email: 'mihai.radu@clinica-derm.ro',
     customer_phone: '+40 745 987 654',
@@ -550,7 +550,7 @@ export const INITIAL_ORDERS: Order[] = [
         id: 'item-2',
         order_id: 'ord-1002',
         product_id: 'p6666666-6666-6666-6666-666666666666',
-        product_name: 'Kit Regenerare Completă Atelier MAG (Serum + Dermaroller + Ulei Curățare)',
+        product_name: 'Kit Regenerare Completă EVERGREEN & ISLE (Serum + Dermaroller + Ulei)',
         product_image: '/images/complete-kit.jpg',
         unit_price: 389.0,
         quantity: 1,

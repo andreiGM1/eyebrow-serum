@@ -8,23 +8,24 @@ import Footer from '@/components/layout/Footer';
 import CartDrawer from '@/components/layout/CartDrawer';
 
 export const metadata: Metadata = {
-  title: 'MAG EVERGROW | Seruri Regenerare & Creștere Sprâncene | Atelier București',
+  title: 'EVERGREEN & ISLE | Natural Skincare & Botanical Brow Care',
   description:
-    'Formulat la Laboratoarele MAG din București. Descoperă EVERGROW: ser de lux 100% natural, prostaglandin-free, cu ulei virgin de ricin, rozmarin și vitamina E.',
+    'EVERGREEN & ISLE • Natural Skincare. Tratamente bioactive 100% naturale, fără prostaglandine, formulate cu lipide presate la rece, rozmarin mediteranean și vitamina E pură.',
   keywords: [
+    'EVERGREEN & ISLE',
+    'natural skincare',
     'ser crestere sprancene',
-    'MAG evergrow',
     'eyebrow growth serum',
-    'cosmetice curate bucuresti',
+    'cosmetice curate',
     'ser sprancene fara prostaglandine',
     'ulei ricin rozmarin sprancene',
   ],
-  authors: [{ name: 'MAG Laboratories Bucharest' }],
-  metadataBase: new URL('https://maglaboratories.com'),
+  authors: [{ name: 'EVERGREEN & ISLE Natural Skincare' }],
+  metadataBase: new URL('https://eyebrow-serum.vercel.app'),
   openGraph: {
-    title: 'MAG EVERGROW Lash & Brow Growth Serum (3 ml)',
+    title: 'EVERGREEN & ISLE | Natural Skincare & Lash & Brow Care',
     description:
-      'Tratament lipidic bioactiv de lux pentru sprâncene și gene pline. Fără hormoni sintetici. Made in Romania.',
+      'Tratament lipidic bioactiv de lux pentru sprâncene și gene pline. Fără hormoni sintetici. 100% natural.',
     images: ['/images/mag-evergrow-bottle.png'],
     type: 'website',
   },
@@ -33,19 +34,19 @@ export const metadata: Metadata = {
 const jsonLdData = {
   '@context': 'https://schema.org/',
   '@type': 'Product',
-  name: 'MAG EVERGROW Lash & Brow Growth Serum (3 ml)',
-  image: ['https://maglaboratories.com/images/mag-evergrow-bottle.png'],
+  name: 'EVERGREEN & ISLE Lash & Brow Growth Serum (3 ml)',
+  image: ['https://eyebrow-serum.vercel.app/images/mag-evergrow-bottle.png'],
   description:
-    'A luxury 100% natural, cold-pressed lash and brow growth serum compounded in Bucharest, Romania. Formulated without synthetic prostaglandins, parabens, or artificial fillers.',
-  sku: 'MAG-EVG-003',
-  mpn: 'MAG003RO',
+    'A luxury 100% natural, cold-pressed lash and brow growth serum by EVERGREEN & ISLE Natural Skincare. Formulated without synthetic prostaglandins, parabens, or artificial fillers.',
+  sku: 'EVI-SRM-003',
+  mpn: 'EVI003RO',
   brand: {
     '@type': 'Brand',
-    name: 'MAG Laboratories',
+    name: 'EVERGREEN & ISLE',
   },
   manufacturer: {
     '@type': 'Organization',
-    name: 'MAG Laboratories Bucharest',
+    name: 'EVERGREEN & ISLE Natural Skincare',
     address: {
       '@type': 'PostalAddress',
       addressLocality: 'Bucharest',
@@ -54,7 +55,7 @@ const jsonLdData = {
   },
   offers: {
     '@type': 'Offer',
-    url: 'https://maglaboratories.com/catalog',
+    url: 'https://eyebrow-serum.vercel.app/catalog',
     priceCurrency: 'RON',
     price: '195.00',
     itemCondition: 'https://schema.org/NewCondition',

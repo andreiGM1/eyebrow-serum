@@ -31,7 +31,7 @@ export default function ProductCard({ product }: ProductCardProps) {
   };
 
   return (
-    <div className="group relative bg-white dark:bg-obsidian-900 border border-stone-200 dark:border-zinc-800/80 hover:border-gold-500/50 rounded-2xl overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-gold-500/10 flex flex-col justify-between shadow-sm">
+    <div className="group relative bg-white dark:bg-obsidian-900 border border-stone-200 dark:border-zinc-800/80 hover:border-teal-700/50 dark:hover:border-teal-400/50 rounded-2xl overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-teal-900/10 flex flex-col justify-between shadow-sm">
       
       {/* Top Image Section */}
       <div className="relative aspect-square w-full overflow-hidden bg-stone-100 dark:bg-zinc-950">
@@ -59,8 +59,8 @@ export default function ProductCard({ product }: ProductCardProps) {
         {/* Badges Container */}
         <div className="absolute top-3 left-3 flex flex-col gap-1.5 items-start pointer-events-none">
           {product.badge && (
-            <span className="px-2.5 py-1 rounded-md text-[10px] font-mono font-bold tracking-wider uppercase bg-gold-500 text-obsidian-950 shadow-md flex items-center gap-1">
-              <Sparkles className="w-3 h-3" />
+            <span className="px-2.5 py-1 rounded-md text-[10px] font-mono font-bold tracking-wider uppercase bg-teal-800 text-white dark:bg-teal-700 shadow-md flex items-center gap-1">
+              <Sparkles className="w-3 h-3 text-teal-200" />
               <span>{product.badge}</span>
             </span>
           )}
@@ -81,8 +81,8 @@ export default function ProductCard({ product }: ProductCardProps) {
           href={`/product/${product.slug}`}
           className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center pointer-events-none"
         >
-          <span className="px-4 py-2 rounded-full bg-obsidian-950/90 border border-gold-500/60 text-gold-300 text-xs font-medium flex items-center gap-1.5 shadow-xl transform translate-y-3 group-hover:translate-y-0 transition-transform duration-300">
-            <Eye className="w-3.5 h-3.5" />
+          <span className="px-4 py-2 rounded-full bg-obsidian-950/90 border border-teal-500/60 text-teal-200 text-xs font-medium flex items-center gap-1.5 shadow-xl transform translate-y-3 group-hover:translate-y-0 transition-transform duration-300">
+            <Eye className="w-3.5 h-3.5 text-teal-300" />
             Vezi Detalii & Ingrediente
           </span>
         </Link>
@@ -93,13 +93,13 @@ export default function ProductCard({ product }: ProductCardProps) {
         <div>
           {/* Reviews Rating */}
           <div className="flex items-center gap-1.5 mb-2">
-            <div className="flex text-gold-500">
+            <div className="flex text-amber-500">
               {[...Array(5)].map((_, i) => (
                 <Star
                   key={i}
                   className={`w-3.5 h-3.5 ${
                     i < Math.floor(product.rating)
-                      ? 'fill-gold-500 text-gold-500'
+                      ? 'fill-amber-500 text-amber-500'
                       : 'text-stone-300 dark:text-zinc-600'
                   }`}
                 />
@@ -112,7 +112,7 @@ export default function ProductCard({ product }: ProductCardProps) {
 
           {/* Product Title */}
           <Link href={`/product/${product.slug}`}>
-            <h3 className="font-serif font-semibold text-base text-stone-900 dark:text-zinc-100 group-hover:text-gold-600 dark:group-hover:text-gold-400 transition-colors line-clamp-1">
+            <h3 className="font-serif font-semibold text-base text-stone-900 dark:text-zinc-100 group-hover:text-teal-800 dark:group-hover:text-teal-300 transition-colors line-clamp-1">
               {product.name}
             </h3>
           </Link>
@@ -128,9 +128,9 @@ export default function ProductCard({ product }: ProductCardProps) {
               {product.active_ingredients.slice(0, 3).map((ing, idx) => (
                 <span
                   key={idx}
-                  className="text-[9px] px-1.5 py-0.5 rounded bg-gold-500/10 text-stone-700 dark:text-zinc-300 border border-gold-500/25 font-mono flex items-center gap-1 font-medium"
+                  className="text-[9px] px-1.5 py-0.5 rounded bg-teal-800/10 text-teal-950 dark:text-teal-200 border border-teal-700/20 font-mono flex items-center gap-1 font-medium"
                 >
-                  <Feather className="w-2.5 h-2.5 text-gold-600 dark:text-gold-400" />
+                  <Feather className="w-2.5 h-2.5 text-teal-700 dark:text-teal-400" />
                   <span>{ing.name.split('(')[0].trim()}</span>
                 </span>
               ))}
@@ -167,7 +167,7 @@ export default function ProductCard({ product }: ProductCardProps) {
                   ? 'bg-stone-200 dark:bg-zinc-800 text-stone-400 dark:text-zinc-500 cursor-not-allowed border border-stone-300 dark:border-zinc-700/40'
                   : isAdded
                   ? 'bg-emerald-600 text-white shadow-emerald-500/20'
-                  : 'bg-gold-500 hover:bg-gold-400 text-obsidian-950 font-semibold shadow-gold-500/20'
+                  : 'bg-teal-800 hover:bg-teal-700 text-white dark:bg-teal-700 dark:hover:bg-teal-600 font-semibold shadow-teal-900/20'
               }`}
               aria-label="Adaugă în coș"
             >

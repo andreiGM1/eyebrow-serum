@@ -66,7 +66,7 @@ export default function AccountPage() {
 
           if (profData) {
             setProfile({
-              fullName: profData.full_name || user.user_metadata?.full_name || user.email?.split('@')[0] || 'Client MAG',
+              fullName: profData.full_name || user.user_metadata?.full_name || user.email?.split('@')[0] || 'Membru Evergreen & Isle',
               email: profData.email || user.email || '',
               phone: profData.phone || user.user_metadata?.phone || '',
               role: profData.role || 'customer',
@@ -74,7 +74,7 @@ export default function AccountPage() {
             });
           } else {
             setProfile({
-              fullName: user.user_metadata?.full_name || user.email?.split('@')[0] || 'Client MAG',
+              fullName: user.user_metadata?.full_name || user.email?.split('@')[0] || 'Membru Evergreen & Isle',
               email: user.email || '',
               phone: user.user_metadata?.phone || '',
               role: 'customer',
@@ -193,7 +193,7 @@ export default function AccountPage() {
             <div>
               <div className="flex flex-wrap items-center gap-2">
                 <h1 className="font-serif text-2xl font-bold text-stone-950 dark:text-white">
-                  {profile.fullName || 'Client MAG'}
+                  {profile.fullName || 'Membru Evergreen & Isle'}
                 </h1>
                 
                 {/* Social Auth Provider Badge */}
@@ -277,7 +277,7 @@ export default function AccountPage() {
                 <ShoppingBag className="w-12 h-12 text-stone-400 dark:text-zinc-600 mx-auto mb-3" />
                 <h3 className="font-serif text-lg font-bold text-stone-950 dark:text-white">Nu ai nicio comandă plasată</h3>
                 <p className="text-xs text-stone-600 dark:text-zinc-400 mt-1 max-w-sm mx-auto">
-                  Explorează catalogul și alege serul MAG EVERGROW pentru un tratament natural de 90 de zile.
+                  Explorează catalogul și alege tratamentele botanice EVERGREEN &amp; ISLE pentru regenerare naturală.
                 </p>
                 <Link
                   href="/catalog"

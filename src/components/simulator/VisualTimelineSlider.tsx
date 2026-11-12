@@ -171,7 +171,7 @@ export default function VisualTimelineSlider() {
           <div className="flex items-center justify-between mb-4">
             <span className="text-xs font-mono uppercase text-gold-800 dark:text-gold-400 bg-gold-500/20 px-2.5 py-1 rounded border border-gold-500/40 flex items-center gap-1.5 font-bold">
               <Feather className="w-3 h-3 text-gold-700 dark:text-gold-400" />
-              <span>{activeStage.label} (Tratament MAG)</span>
+              <span>{activeStage.label} (Tratament EVERGREEN &amp; ISLE)</span>
             </span>
             <span className="text-xs font-mono text-emerald-600 dark:text-emerald-400 font-bold">
               Densitate: {activeStage.densityScore}%

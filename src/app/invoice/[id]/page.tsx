@@ -92,24 +92,24 @@ export default function InvoicePage({ params }: InvoicePageProps) {
         {/* Invoice Header */}
         <div className="flex flex-col sm:flex-row justify-between items-start pb-8 border-b-2 border-zinc-900 gap-6">
           <div>
-            <div className="flex items-center gap-2">
-              <span className="text-2xl sm:text-3xl font-serif font-black tracking-widest text-zinc-950">
-                MAG
+            <div className="flex flex-col items-start">
+              <span className="text-xl sm:text-2xl font-serif font-black tracking-[0.16em] text-[#143D36]">
+                EVERGREEN &amp; ISLE
               </span>
-              <span className="text-[10px] font-mono uppercase bg-zinc-900 text-white px-2 py-0.5 rounded tracking-widest">
-                LABORATORIES
+              <span className="text-[9px] uppercase tracking-[0.25em] text-[#658777] font-sans font-medium">
+                NATURAL SKINCARE
               </span>
             </div>
-            <p className="text-xs uppercase font-serif tracking-widest text-zinc-600 mt-1">
-              Atelier Botanique Bucharest
+            <p className="text-xs uppercase font-serif tracking-widest text-zinc-600 mt-2">
+              Atelier Botanique
             </p>
             <div className="text-[11px] text-zinc-600 mt-3 space-y-0.5">
-              <p><strong>MAG LABORATORIES BUCHAREST SRL</strong></p>
+              <p><strong>EVERGREEN &amp; ISLE SKINCARE SRL</strong></p>
               <p>C.I.F. / C.U.I.: <strong>RO48921820</strong></p>
               <p>Nr. Reg. Com.: J40/12450/2021</p>
               <p>Sediul: Calea Victoriei nr. 142, Sector 1, București</p>
               <p>IBAN: RO49 BTRL 0000 1234 5678 90XX • Banca Transilvania</p>
-              <p>Email: atelier@maglaboratories.com • Tel: +40 21 987 6543</p>
+              <p>Email: contact@evergreenandisle.com</p>
             </div>
           </div>
 
@@ -249,7 +249,7 @@ export default function InvoicePage({ params }: InvoicePageProps) {
           <div className="text-[11px] text-zinc-500 max-w-sm space-y-1">
             <p>Factura este valabilă fără semnătură și ștampilă conform Codului Fiscal, Art. 319 (29).</p>
             <p>Produsele cosmetice au o valabilitate de 24 luni sigilate / 6 luni de la deschidere (PAO).</p>
-            <p className="font-mono text-zinc-600">MAG LABORATORIES BUCHAREST • Atelier Clean Chemistry</p>
+            <p className="font-mono text-zinc-600">EVERGREEN &amp; ISLE • Pure Natural Skincare Atelier</p>
           </div>
 
           <div className="w-full sm:w-72 space-y-2 text-xs">
@@ -281,7 +281,7 @@ export default function InvoicePage({ params }: InvoicePageProps) {
         <div className="mt-12 pt-6 border-t border-zinc-200 flex justify-between text-[11px] text-zinc-500 font-mono">
           <div>
             <span>Întocmit de:</span>
-            <p className="font-bold text-zinc-900 mt-1">Departament Financiar MAG</p>
+            <p className="font-bold text-zinc-900 mt-1">Departament Financiar EVERGREEN &amp; ISLE</p>
           </div>
           <div className="text-right">
             <span>Semnătură de primire:</span>

@@ -3,21 +3,27 @@
 @tailwind utilities;
 
 :root {
-  --background: #FAF8F5;
-  --foreground: #181A19;
+  --background: #FAF7F2;
+  --foreground: #142824;
   --card-bg: #FFFFFF;
-  --card-border: rgba(197, 160, 60, 0.28);
-  --card-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05);
-  --gold-accent: #B08B35;
+  --card-border: rgba(35, 90, 82, 0.22);
+  --card-shadow: 0 4px 20px -2px rgba(19, 55, 50, 0.06);
+  --teal-accent: #1E574E;
+  --teal-light: #4A9C8E;
+  --sage-accent: #658777;
+  --gold-accent: #C5A03C;
 }
 
 html.dark {
-  --background: #0B0E0D;
-  --foreground: #F5F3EC;
-  --card-bg: #121816;
-  --card-border: rgba(197, 160, 60, 0.2);
-  --card-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
-  --gold-accent: #C5A03C;
+  --background: #071513;
+  --foreground: #EDF5F2;
+  --card-bg: #0C1E1B;
+  --card-border: rgba(90, 167, 154, 0.25);
+  --card-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.55);
+  --teal-accent: #4A9C8E;
+  --teal-light: #7AC0B4;
+  --sage-accent: #8DAFA0;
+  --gold-accent: #DFC28F;
 }
 
 @layer base {
@@ -39,11 +45,11 @@ html.dark {
   background: var(--background);
 }
 ::-webkit-scrollbar-thumb {
-  background: #C5A03C;
+  background: #276F64;
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #B08B35;
+  background: #1E574E;
 }
 
 /* Print styles for Fiscal Invoices */
@@ -104,27 +110,55 @@ html.dark {
 }
 
 .shimmer-text {
-  background: linear-gradient(90deg, #C5A03C 0%, #FFF2B2 50%, #C5A03C 100%);
+  background: linear-gradient(90deg, #1E574E 0%, #7AC0B4 50%, #1E574E 100%);
   background-size: 200% auto;
   color: transparent;
   -webkit-background-clip: text;
   animation: shimmer 4s linear infinite;
 }
 
+.teal-gradient-text {
+  background: linear-gradient(135deg, #133732 0%, #1E574E 50%, #388B7E 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+html.dark .teal-gradient-text {
+  background: linear-gradient(135deg, #E8F5F2 0%, #8AC4B8 50%, #4A9C8E 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.evergreen-gradient-text {
+  background: linear-gradient(135deg, #0F2E2A 0%, #1B4F47 50%, #4F9F92 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+html.dark .evergreen-gradient-text {
+  background: linear-gradient(135deg, #FFFFFF 0%, #AFD9D0 50%, #7FBEB2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.teal-gradient-bg {
+  background: linear-gradient(135deg, #133732 0%, #1E574E 50%, #276F64 100%);
+}
+
 .gold-gradient-text {
-  background: linear-gradient(135deg, #B58A28 0%, #996F1B 50%, #78530B 100%);
+  background: linear-gradient(135deg, #1A443D 0%, #2A6F64 50%, #5AA79A 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 html.dark .gold-gradient-text {
-  background: linear-gradient(135deg, #FFF7D6 0%, #E6CA85 50%, #B89035 100%);
+  background: linear-gradient(135deg, #F0F7F5 0%, #A0D6CB 50%, #5AA79A 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .gold-gradient-bg {
-  background: linear-gradient(135deg, #DFC28F 0%, #C5A03C 50%, #9E7E2C 100%);
+  background: linear-gradient(135deg, #1E574E 0%, #276F64 50%, #388B7E 100%);
 }
 
 /* Glassmorphism utilities */

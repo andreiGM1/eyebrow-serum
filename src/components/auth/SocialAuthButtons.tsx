@@ -221,7 +221,7 @@ export default function SocialAuthButtons({ onSuccess, redirectTo = '/account' }
                 Autentificare Google
               </h2>
               <p className="text-xs text-stone-600 dark:text-zinc-400">
-                Conectare securizată la contul tău de client MAG Laboratories.
+                Conectare securizată la contul tău de client EVERGREEN &amp; ISLE.
               </p>
             </div>
 

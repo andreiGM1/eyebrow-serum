@@ -42,9 +42,9 @@ export default function RoutineResult({ answers, onReset }: RoutineResultProps) 
   if (answers.density === 'overplucked' || answers.history === 'waxed_often') {
     primaryProductId = 'p6666666-6666-6666-6666-666666666666'; // Kit Atelier Complet
     secondaryProductId = '';
-    routineTitle = 'Protocol Intensiv de Reconstrucție Arhitecturală Atelier MAG';
+    routineTitle = 'Protocol Intensiv de Reconstrucție Arhitecturală EVERGREEN & ISLE';
     targetWeeks = 16;
-    discountCode = 'EVERGROW20';
+    discountCode = 'EVERGREEN20';
     discountPercent = 20;
   } else if (answers.density === 'thinning') {
     primaryProductId = 'p2222222-2222-2222-2222-222222222222'; // Night intensive elixir
@@ -92,7 +92,7 @@ export default function RoutineResult({ answers, onReset }: RoutineResultProps) 
             {routineTitle}
           </h2>
           <p className="text-xs text-stone-600 dark:text-zinc-400 mt-1 max-w-xl">
-            Pe baza profilului tău (sensibilitate {answers.sensitivity}, profil {answers.density}), laboratorul MAG din București a calculat dozajul ideal pentru rezultate maxime.
+            Pe baza profilului tău (sensibilitate {answers.sensitivity}, profil {answers.density}), atelierul EVERGREEN &amp; ISLE a calculat dozajul ideal pentru rezultate maxime.
           </p>
         </div>
 
@@ -215,7 +215,7 @@ export default function RoutineResult({ answers, onReset }: RoutineResultProps) 
               </div>
               <div className="flex items-center gap-2">
                 <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
-                <span>Include ghidul tipărit de aplicare al Atelierului MAG București</span>
+                <span>Include ghidul tipărit de aplicare EVERGREEN &amp; ISLE</span>
               </div>
             </div>
           </div>

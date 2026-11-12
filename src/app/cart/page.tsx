@@ -65,7 +65,7 @@ export default function CartPage() {
           </div>
           <h1 className="font-serif text-2xl font-bold text-stone-950 dark:text-white">Coșul Tău este Gol</h1>
           <p className="text-xs text-stone-600 dark:text-zinc-400 mt-2 leading-relaxed">
-            Nu ai adăugat încă niciun produs în coș. Explorează gama MAG Evergrow formulată în laboratorul din București.
+            Nu ai adăugat încă niciun produs în coș. Explorează gama botanică pură EVERGREEN &amp; ISLE.
           </p>
           <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
             <Link

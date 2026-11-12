@@ -1,86 +1,86 @@
 import React from 'react';
 import Link from 'next/link';
-import { FlaskConical, ShieldCheck, Leaf, Award, ArrowRight } from 'lucide-react';
+import { Leaf, Award, ShieldCheck, ArrowRight, Sparkles } from 'lucide-react';
 
 export default function AboutPage() {
   return (
-    <div className="min-h-screen bg-[#FAF8F5] dark:bg-obsidian-950 text-stone-900 dark:text-foreground py-16 px-4 sm:px-6 lg:px-8 transition-colors">
+    <div className="min-h-screen bg-[#FAF7F2] dark:bg-obsidian-950 text-stone-900 dark:text-foreground py-16 px-4 sm:px-6 lg:px-8 transition-colors">
       <div className="max-w-4xl mx-auto space-y-12">
         
         {/* Header */}
         <div className="text-center space-y-4">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gold-500/10 border border-gold-500/30 text-gold-700 dark:text-gold-300 text-xs font-mono font-semibold">
-            <FlaskConical className="w-3.5 h-3.5 text-gold-600 dark:text-gold-400" />
-            <span>MANIFESTUL MAG LABORATORIES • BUCUREȘTI</span>
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-800/10 border border-teal-700/30 text-teal-900 dark:text-teal-300 text-xs font-mono font-semibold">
+            <Leaf className="w-3.5 h-3.5 text-teal-700 dark:text-teal-400" />
+            <span>MANIFESTUL EVERGREEN &amp; ISLE • NATURAL SKINCARE</span>
           </div>
 
           <h1 className="font-serif text-3xl sm:text-5xl font-bold text-stone-950 dark:text-white">
-            Atelierul de Precizie Botanică
+            Filosofia Purității Botanice
           </h1>
 
-          <p className="text-sm sm:text-base text-stone-600 dark:text-zinc-300 leading-relaxed max-w-2xl mx-auto">
-            În inima Bucureștiului, MAG creează formulări curate de înaltă performanță cosmetică,
-            la intersecția dintre tradiția farmaceutică europeană și biologia celulară modernă a foliculului pilos.
+          <p className="text-sm sm:text-base text-stone-700 dark:text-zinc-300 leading-relaxed max-w-2xl mx-auto">
+            La EVERGREEN &amp; ISLE, creăm formulări curate de înaltă performanță cosmetică,
+            dedicate regenerării armonioase a sprâncenelor și pielii prin forța plantelor și a lipidelor active presate la rece.
           </p>
         </div>
 
         {/* The 3 Pillars */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 pt-4">
-          <div className="bg-white dark:bg-obsidian-900 border border-stone-200 dark:border-zinc-800 p-6 rounded-2xl space-y-3 shadow-sm">
-            <div className="w-10 h-10 rounded-xl bg-gold-500/10 border border-gold-500/30 flex items-center justify-center text-gold-600 dark:text-gold-400">
-              <FlaskConical className="w-5 h-5" />
+          <div className="bg-white dark:bg-obsidian-900 border border-stone-200 dark:border-zinc-800 p-6 rounded-2xl space-y-3 shadow-sm hover:border-teal-700/40 transition-colors">
+            <div className="w-10 h-10 rounded-xl bg-teal-800/10 border border-teal-700/30 flex items-center justify-center text-teal-800 dark:text-teal-400">
+              <Sparkles className="w-5 h-5" />
             </div>
             <h3 className="font-serif font-bold text-base text-stone-950 dark:text-white">Micro-Loturi Artizanale</h3>
             <p className="text-xs text-stone-600 dark:text-zinc-400 leading-relaxed">
-              Refuzăm liniile de producție de masă. Fiecare flacon MAG EVERGROW este compus, presat la rece și verificat individual în laboratorul nostru pentru a preveni oxidarea compușilor volatili.
+              Refuzăm producția industrială de masă. Fiecare flacon EVERGREEN &amp; ISLE este realizat cu grijă în loturi mici, presat la rece și verificat cu strictețe pentru a păstra compușii activi integri.
             </p>
           </div>
 
-          <div className="bg-white dark:bg-obsidian-900 border border-stone-200 dark:border-zinc-800 p-6 rounded-2xl space-y-3 shadow-sm">
-            <div className="w-10 h-10 rounded-xl bg-gold-500/10 border border-gold-500/30 flex items-center justify-center text-gold-600 dark:text-gold-400">
+          <div className="bg-white dark:bg-obsidian-900 border border-stone-200 dark:border-zinc-800 p-6 rounded-2xl space-y-3 shadow-sm hover:border-teal-700/40 transition-colors">
+            <div className="w-10 h-10 rounded-xl bg-teal-800/10 border border-teal-700/30 flex items-center justify-center text-teal-800 dark:text-teal-400">
               <Leaf className="w-5 h-5" />
             </div>
-            <h3 className="font-serif font-bold text-base text-stone-950 dark:text-white">Zero Compromis Curat</h3>
+            <h3 className="font-serif font-bold text-base text-stone-950 dark:text-white">Zero Compromis Sintetic</h3>
             <p className="text-xs text-stone-600 dark:text-zinc-400 leading-relaxed">
-              Formulăm fără prostaglandine sintetice, siliconi, sulfați, parabeni, ftalați, conservanți industriali sau parfumuri artificiale. 100% ingrediente biologic active.
+              Formulăm fără prostaglandine sintetice, siliconi, sulfați, parabeni, ftalați, conservanți industriali sau parfumuri artificiale. 100% ingrediente biologic compatibile.
             </p>
           </div>
 
-          <div className="bg-white dark:bg-obsidian-900 border border-stone-200 dark:border-zinc-800 p-6 rounded-2xl space-y-3 shadow-sm">
-            <div className="w-10 h-10 rounded-xl bg-gold-500/10 border border-gold-500/30 flex items-center justify-center text-gold-600 dark:text-gold-400">
+          <div className="bg-white dark:bg-obsidian-900 border border-stone-200 dark:border-zinc-800 p-6 rounded-2xl space-y-3 shadow-sm hover:border-teal-700/40 transition-colors">
+            <div className="w-10 h-10 rounded-xl bg-teal-800/10 border border-teal-700/30 flex items-center justify-center text-teal-800 dark:text-teal-400">
               <Award className="w-5 h-5" />
             </div>
             <h3 className="font-serif font-bold text-base text-stone-950 dark:text-white">Regulament European</h3>
             <p className="text-xs text-stone-600 dark:text-zinc-400 leading-relaxed">
-              Formulat strict în conformitate cu Regulamentul European privind Produsele Cosmetice (CE) Nr. 1223/2009 și standardele GMP ISO 22716.
+              Formulat strict în conformitate cu Regulamentul European privind Produsele Cosmetice (CE) Nr. 1223/2009 și standardele internaționale de bune practici.
             </p>
           </div>
         </div>
 
         {/* Narrative Section */}
-        <div className="bg-white dark:bg-obsidian-900 border border-stone-200 dark:border-gold-500/20 rounded-3xl p-8 sm:p-10 space-y-6 shadow-sm dark:shadow-xl">
+        <div className="bg-white dark:bg-obsidian-900 border border-stone-200 dark:border-teal-700/30 rounded-3xl p-8 sm:p-10 space-y-6 shadow-sm dark:shadow-xl">
           <h2 className="font-serif text-2xl font-bold text-stone-950 dark:text-white">
-            De ce am creat MAG EVERGROW?
+            De ce am creat EVERGREEN &amp; ISLE?
           </h2>
           <div className="space-y-4 text-xs sm:text-sm text-stone-700 dark:text-zinc-300 leading-relaxed">
             <p>
-              Piața internațională a serurilor pentru gene și sprâncene a fost dominată în ultimul deceniu de analogi sintetici de prostaglandine (bimatoprost, isopropyl cloprostenate). Deși produceau alungire rapidă prin forțare medicamentoasă, aceste substanțe au declanșat reacții adverse documentate oftalmologic: hiperpigmentarea ireversibilă a irisului, cearcăne întunecate profunde și atrofie a grăsimii orbitale.
+              Piața tradițională a serurilor pentru gene și sprâncene a fost mult timp dominată de analogi sintetici de prostaglandine (bimatoprost, isopropyl cloprostenate). Deși produceau alungire rapidă prin forțare medicamentoasă, aceste substanțe au declanșat adesea reacții adverse documentate: hiperpigmentarea pleoapelor, cearcăne întunecate și iritații.
             </p>
             <p>
-              Echipa noastră de chimiști cosmetici din București a dezvoltat o abordare complet diferită: activarea nativă a tecii foliculare prin nutriție lipidică profundă. Prin utilizarea unui raport optim de acid ricinoleic din ricin virgin nerafinat, combinat cu stimulatorul microcirculator de rozmarin distilat cu abur și esteri de jojoba ce mimică sebumul uman, MAG EVERGROW trezește rădăcinile dorminde în mod fiziologic și durabil.
+              La EVERGREEN &amp; ISLE, am dezvoltat o abordare complet naturală: activarea fiziologică a foliculului prin nutriție botanică profundă. Prin combinarea acidului ricinoleic din ricin virgin nerafinat, a uleiului esențial de rozmarin distilat cu abur și a esterilor biomimetici de jojoba, formulările noastre trezesc rădăcinile într-un mod sustenabil, sigur și respectuos cu tenul tău.
             </p>
           </div>
 
           <div className="pt-4 border-t border-stone-200 dark:border-zinc-800 flex flex-col sm:flex-row items-center justify-between gap-4">
             <div className="text-xs font-mono text-stone-500 dark:text-zinc-400">
-              Laborator & Punct de Lucru: Calea Victoriei nr. 142, București, România
+              EVERGREEN &amp; ISLE • Pure Botanical Skincare Atelier
             </div>
 
             <Link
               href="/catalog"
-              className="px-6 py-3 rounded-xl bg-gold-500 hover:bg-gold-400 text-obsidian-950 font-bold text-xs uppercase tracking-wider transition-colors shadow-md shadow-gold-500/20 active:scale-95"
+              className="px-6 py-3 rounded-xl bg-teal-800 hover:bg-teal-700 text-white font-bold text-xs uppercase tracking-wider transition-colors shadow-md shadow-teal-900/20 active:scale-95"
             >
-              Explorează Catalogul &rarr;
+              Explorează Colecția &rarr;
             </Link>
           </div>
         </div>
@@ -89,4 +89,3 @@ export default function AboutPage() {
     </div>
   );
 }
-
