@@ -13,6 +13,7 @@ import {
   Feather,
   Leaf,
   Compass,
+  Heart,
 } from 'lucide-react';
 import { INITIAL_PRODUCTS, INITIAL_CATEGORIES } from '@/lib/data';
 import ProductCard from '@/components/product/ProductCard';
@@ -55,15 +56,13 @@ export default function HomePage() {
 
             {/* Main Headline */}
             <h1 className="font-serif text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-stone-950 dark:text-white leading-[1.15]">
-              Puritate Botanică. <br />
-              <span className="teal-gradient-text">Armonie Naturală.</span>
+              Sprâncene Mai Dese. <br />
+              <span className="teal-gradient-text">Fără Chimicale. Fără Iritații.</span>
             </h1>
 
-            {/* Sub-headline / Copy */}
+            {/* Sub-headline / Copy for 30-65 demographic */}
             <p className="text-sm sm:text-base text-stone-700 dark:text-zinc-200 max-w-xl mx-auto lg:mx-0 leading-relaxed font-normal">
-              Tratament bioactiv 100% natural cu lipide active presate la rece și extracte botanice pure,
-              formulat în micro-loturi. Trezește foliculii dorminzi și redă densitatea arhitecturală a sprâncenelor,
-              fără hormoni sintetici și fără riscul hiperpigmentării pleoapelor.
+              Tratament botanic 100% pur creat special pentru femeile care vor să reactiveze foliculii afectați de pensat excesiv sau trecerea anilor. Cu ulei virgin de ricin presat la rece, rozmarin și esteri de jojoba, fără prostaglandine sintetice și fără riscul pătării pleoapelor.
             </p>
 
             {/* Action CTAs */}
@@ -89,7 +88,7 @@ export default function HomePage() {
             <div className="pt-6 border-t border-stone-200 dark:border-zinc-800/80 grid grid-cols-3 gap-2 sm:gap-4 text-left max-w-md mx-auto lg:mx-0">
               <div className="group">
                 <span className="font-serif text-lg sm:text-2xl font-bold text-stone-900 dark:text-white block group-hover:text-teal-700 dark:group-hover:text-teal-300 transition-colors">100%</span>
-                <span className="text-[10px] sm:text-[11px] font-mono text-stone-600 dark:text-zinc-400">Lipide Active (Fără Apă)</span>
+                <span className="text-[10px] sm:text-[11px] font-mono text-stone-600 dark:text-zinc-400">Extracte Pure (Fără Apă)</span>
               </div>
               <div className="group">
                 <span className="font-serif text-lg sm:text-2xl font-bold text-teal-700 dark:text-teal-400 block">0%</span>
@@ -136,6 +135,55 @@ export default function HomePage() {
                 <span className="font-mono text-[10px] uppercase tracking-wider text-teal-200">100% Bioactiv &amp; Vegan</span>
                 <span className="text-[10px] font-mono text-stone-300">Pure Botanical</span>
               </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      {/* CLARITY STRIP: Creat Special pentru Femei 30-65 Ani */}
+      <section className="py-8 bg-white/90 dark:bg-obsidian-900/90 border-b border-stone-200 dark:border-zinc-800 transition-colors">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-3 gap-6 text-stone-800 dark:text-zinc-200">
+          
+          <div className="flex items-center gap-4 p-2">
+            <div className="w-12 h-12 rounded-2xl bg-teal-800/10 border border-teal-700/20 flex items-center justify-center text-teal-800 dark:text-teal-300 flex-shrink-0">
+              <Heart className="w-6 h-6" />
+            </div>
+            <div>
+              <h3 className="font-serif font-bold text-sm sm:text-base text-stone-950 dark:text-white">
+                Blând cu Ochii Sensibili
+              </h3>
+              <p className="text-xs text-stone-600 dark:text-zinc-400 mt-0.5">
+                Zero prostaglandine. Fără usturime și fără pleoape înnegrite.
+              </p>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-4 p-2">
+            <div className="w-12 h-12 rounded-2xl bg-teal-800/10 border border-teal-700/20 flex items-center justify-center text-teal-800 dark:text-teal-300 flex-shrink-0">
+              <Droplets className="w-6 h-6" />
+            </div>
+            <div>
+              <h3 className="font-serif font-bold text-sm sm:text-base text-stone-950 dark:text-white">
+                Masaj Roll-On cu Bilă de Inox
+              </h3>
+              <p className="text-xs text-stone-600 dark:text-zinc-400 mt-0.5">
+                Răcoritor la atingere. Aplicare precisă în 30 de secunde pe seară.
+              </p>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-4 p-2">
+            <div className="w-12 h-12 rounded-2xl bg-teal-800/10 border border-teal-700/20 flex items-center justify-center text-teal-800 dark:text-teal-300 flex-shrink-0">
+              <ShieldCheck className="w-6 h-6 text-emerald-600 dark:text-emerald-400" />
+            </div>
+            <div>
+              <h3 className="font-serif font-bold text-sm sm:text-base text-stone-950 dark:text-white">
+                Garanție &amp; Plată la Livrare
+              </h3>
+              <p className="text-xs text-stone-600 dark:text-zinc-400 mt-0.5">
+                Retur 30 zile fără bătăi de cap. Plată securizată cu cardul sau ramburs.
+              </p>
             </div>
           </div>
 

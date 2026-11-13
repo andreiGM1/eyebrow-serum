@@ -52,13 +52,13 @@ export default function ProductGallery({ images, productName }: ProductGalleryPr
 
         {/* Floating Badges */}
         <div className="absolute top-4 left-4 flex flex-col gap-2 pointer-events-none">
-          <div className="px-3 py-1 rounded-full bg-white/90 dark:bg-obsidian-950/80 backdrop-blur-md border border-stone-300 dark:border-gold-500/30 text-[11px] font-mono text-gold-700 dark:text-gold-300 flex items-center gap-1.5 shadow-lg font-semibold">
-            <Sparkles className="w-3.5 h-3.5 text-gold-600 dark:text-gold-400" />
-            <span>100% Active Lipid Matrix</span>
+          <div className="px-3 py-1 rounded-full bg-white/95 dark:bg-obsidian-950/85 backdrop-blur-md border border-teal-700/30 dark:border-teal-500/30 text-[11px] font-mono text-teal-900 dark:text-teal-200 flex items-center gap-1.5 shadow-lg font-semibold">
+            <Sparkles className="w-3.5 h-3.5 text-teal-700 dark:text-teal-400" />
+            <span>100% Extracte Botanice Pure</span>
           </div>
-          <div className="px-3 py-1 rounded-full bg-white/90 dark:bg-obsidian-950/80 backdrop-blur-md border border-stone-300 dark:border-zinc-700/50 text-[11px] font-mono text-stone-800 dark:text-zinc-300 flex items-center gap-1.5 shadow-lg font-semibold">
+          <div className="px-3 py-1 rounded-full bg-white/95 dark:bg-obsidian-950/85 backdrop-blur-md border border-stone-300 dark:border-zinc-700/50 text-[11px] font-mono text-stone-800 dark:text-zinc-200 flex items-center gap-1.5 shadow-lg font-semibold">
             <ShieldCheck className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
-            <span>Prostaglandin-Free</span>
+            <span>Fără Prostaglandine</span>
           </div>
         </div>
 
@@ -77,7 +77,7 @@ export default function ProductGallery({ images, productName }: ProductGalleryPr
               onClick={() => setSelectedIndex(idx)}
               className={`relative w-20 h-20 rounded-xl overflow-hidden bg-stone-100 dark:bg-zinc-950 border-2 transition-all flex-shrink-0 ${
                 selectedIndex === idx
-                  ? 'border-gold-500 shadow-md shadow-gold-500/10'
+                  ? 'border-teal-700 dark:border-teal-400 shadow-md shadow-teal-900/15'
                   : 'border-stone-200 dark:border-zinc-800 opacity-60 hover:opacity-100'
               }`}
             >
@@ -92,11 +92,11 @@ export default function ProductGallery({ images, productName }: ProductGalleryPr
         </div>
       )}
 
-      {/* Laboratory Guarantee Strip */}
-      <div className="p-3.5 rounded-xl bg-[#EAE4D7] dark:bg-botanical-950/80 border border-stone-300 dark:border-gold-500/20 text-xs text-stone-800 dark:text-zinc-300 flex items-center justify-between">
+      {/* Guarantee Strip */}
+      <div className="p-3.5 rounded-xl bg-[#EFF6F3] dark:bg-teal-950/40 border border-teal-700/20 text-xs text-stone-800 dark:text-zinc-200 flex items-center justify-between">
         <span className="flex items-center gap-2">
-          <Droplets className="w-4 h-4 text-gold-600 dark:text-gold-400" />
-          <span>Formulă fără apă, fără diluanți • Presat la rece</span>
+          <Droplets className="w-4 h-4 text-teal-700 dark:text-teal-400" />
+          <span className="font-medium">Formulă fără apă, fără diluanți • Presat la rece</span>
         </span>
         <span className="text-[10px] font-mono text-gold-700 dark:text-gold-400 font-bold uppercase">
           ISO 22716 GMP
