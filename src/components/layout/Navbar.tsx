@@ -107,10 +107,11 @@ export default function Navbar() {
   return (
     <>
       {/* Top Notification Bar */}
-      <div className="bg-[#EAEFEA] dark:bg-[#071714] border-b border-teal-900/10 dark:border-teal-500/20 text-[10px] sm:text-xs py-1.5 sm:py-2 px-3 sm:px-4 text-center text-teal-950 dark:text-teal-200 font-sans tracking-tight sm:tracking-wider uppercase flex items-center justify-center gap-1.5 sm:gap-2 transition-colors">
+      <div className="bg-[#EAEFEA] dark:bg-[#071714] border-b border-teal-900/10 dark:border-teal-500/20 text-[10px] sm:text-xs py-1.5 sm:py-2 px-3 sm:px-4 text-center text-teal-950 dark:text-teal-200 font-sans tracking-tight sm:tracking-wider uppercase flex items-center justify-center gap-1.5 sm:gap-2 transition-colors overflow-hidden">
         <span className="w-1.5 h-1.5 rounded-full bg-teal-600 dark:bg-teal-400 animate-ping flex-shrink-0" />
-        <span className="font-medium">
-          LIVRARE GRATUITĂ ÎN TOATĂ ROMÂNIA LA COMENZI PESTE 200 RON • FORMULE BOTANICE 100% PURE
+        <span className="font-medium truncate sm:whitespace-normal">
+          <span className="inline sm:hidden">LIVRARE GRATUITĂ PESTE 200 RON • 100% BOTANIC PUR</span>
+          <span className="hidden sm:inline">LIVRARE GRATUITĂ ÎN TOATĂ ROMÂNIA LA COMENZI PESTE 200 RON • FORMULE BOTANICE 100% PURE</span>
         </span>
       </div>
 
@@ -121,19 +122,19 @@ export default function Navbar() {
           {/* Mobile Menu Button - Accessible 44px+ touch target with instant response */}
           <button
             onClick={() => setIsMobileMenuOpen(true)}
-            className="lg:hidden min-w-[44px] min-h-[44px] flex items-center justify-center p-2.5 rounded-xl border border-stone-200/80 dark:border-zinc-800 bg-stone-50/80 dark:bg-obsidian-900 text-stone-800 dark:text-zinc-200 hover:text-teal-600 dark:hover:text-teal-400 hover:border-teal-500/40 active:scale-95 active:bg-teal-500/10 focus:outline-none transition-all shadow-sm touch-manipulation cursor-pointer"
+            className="lg:hidden min-w-[44px] min-h-[44px] flex items-center justify-center p-2.5 rounded-xl border border-stone-200/80 dark:border-zinc-800 bg-stone-50/80 dark:bg-obsidian-900 text-stone-800 dark:text-zinc-200 hover:text-teal-600 dark:hover:text-teal-400 hover:border-teal-500/40 active:scale-95 active:bg-teal-500/10 focus:outline-none transition-all shadow-sm touch-manipulation cursor-pointer flex-shrink-0"
             aria-label="Deschide Meniul Principal"
             title="Meniu"
           >
             <Menu className="w-5 h-5 text-stone-800 dark:text-zinc-200" />
           </button>
 
-          {/* Brand Logo */}
-          <Link href="/" className="flex flex-col items-start group">
-            <span className="text-lg sm:text-2xl font-serif tracking-[0.16em] sm:tracking-[0.2em] font-bold text-[#143D36] dark:text-[#E8F3F0] group-hover:text-teal-600 dark:group-hover:text-teal-300 transition-colors">
+          {/* Brand Logo - Responsive sizing preventing overflow on 360px viewports */}
+          <Link href="/" className="flex flex-col items-start group min-w-0 flex-shrink">
+            <span className="text-base sm:text-2xl font-serif tracking-[0.14em] sm:tracking-[0.2em] font-bold text-[#143D36] dark:text-[#E8F3F0] group-hover:text-teal-600 dark:group-hover:text-teal-300 transition-colors truncate">
               EVERGREEN &amp; ISLE
             </span>
-            <span className="text-[8px] sm:text-[9.5px] uppercase tracking-[0.28em] sm:tracking-[0.32em] text-[#658777] dark:text-[#8EAE9E] font-sans font-medium mt-0.5">
+            <span className="text-[7.5px] sm:text-[9.5px] uppercase tracking-[0.25em] sm:tracking-[0.32em] text-[#658777] dark:text-[#8EAE9E] font-sans font-medium mt-0.5 truncate">
               NATURAL SKINCARE
             </span>
           </Link>
@@ -244,10 +245,10 @@ export default function Navbar() {
               )}
             </button>
 
-            {/* Search Trigger */}
+            {/* Search Trigger - 44px accessible touch target */}
             <button
               onClick={handleOpenSearch}
-              className="p-2 sm:p-2.5 text-stone-700 dark:text-zinc-300 hover:text-teal-800 dark:hover:text-teal-300 transition-colors rounded-full hover:bg-stone-100 dark:hover:bg-zinc-800/50"
+              className="min-w-[44px] min-h-[44px] flex items-center justify-center p-2.5 text-stone-700 dark:text-zinc-300 hover:text-teal-800 dark:hover:text-teal-300 transition-colors rounded-full hover:bg-stone-100 dark:hover:bg-zinc-800/50 active:scale-95 touch-manipulation cursor-pointer"
               aria-label="Căutare produse"
             >
               <Search className="w-5 h-5 sm:w-4 sm:h-4" />
@@ -256,21 +257,21 @@ export default function Navbar() {
             {/* Account Icon */}
             <Link
               href="/account"
-              className="p-2.5 text-stone-700 dark:text-zinc-300 hover:text-teal-800 dark:hover:text-teal-300 transition-colors rounded-full hover:bg-stone-100 dark:hover:bg-zinc-800/50 hidden sm:flex"
+              className="min-w-[44px] min-h-[44px] items-center justify-center p-2.5 text-stone-700 dark:text-zinc-300 hover:text-teal-800 dark:hover:text-teal-300 transition-colors rounded-full hover:bg-stone-100 dark:hover:bg-zinc-800/50 hidden sm:flex"
               aria-label="Contul meu"
             >
               <User className="w-4 h-4" />
             </Link>
 
-            {/* Cart Drawer Trigger */}
+            {/* Cart Drawer Trigger - 44px thumb target with badge */}
             <button
               onClick={openCart}
-              className="relative p-2 sm:p-2.5 bg-teal-800/10 hover:bg-teal-800/20 border border-teal-800/30 text-stone-900 dark:text-zinc-100 rounded-full transition-all shadow-sm group"
+              className="relative min-w-[44px] min-h-[44px] flex items-center justify-center p-2.5 bg-teal-800/10 hover:bg-teal-800/20 border border-teal-800/30 text-stone-900 dark:text-zinc-100 rounded-full transition-all shadow-sm group active:scale-95 touch-manipulation cursor-pointer"
               aria-label="Coș de cumpărături"
             >
               <ShoppingBag className="w-5 h-5 sm:w-4 sm:h-4 text-teal-800 dark:text-teal-300 group-hover:scale-110 transition-transform" />
               {totalItemsCount > 0 && (
-                <span className="absolute -top-1 -right-1 bg-teal-800 dark:bg-teal-500 text-white dark:text-obsidian-950 text-[10px] font-bold w-4 h-4 sm:w-5 sm:h-5 rounded-full flex items-center justify-center shadow-lg border border-white dark:border-obsidian-950 animate-bounce">
+                <span className="absolute -top-1 -right-1 bg-teal-800 dark:bg-teal-500 text-white dark:text-obsidian-950 text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center shadow-lg border border-white dark:border-obsidian-950 animate-bounce">
                   {totalItemsCount}
                 </span>
               )}
@@ -392,7 +393,7 @@ export default function Navbar() {
               </div>
               <button
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="min-w-[38px] min-h-[38px] flex items-center justify-center p-2 rounded-xl text-stone-500 dark:text-zinc-400 hover:text-stone-900 dark:hover:text-white hover:bg-stone-100 dark:hover:bg-zinc-800 transition-all active:scale-95 touch-manipulation cursor-pointer"
+                className="min-w-[44px] min-h-[44px] flex items-center justify-center p-2.5 rounded-xl text-stone-500 dark:text-zinc-400 hover:text-stone-900 dark:hover:text-white hover:bg-stone-100 dark:hover:bg-zinc-800 transition-all active:scale-95 touch-manipulation cursor-pointer"
                 aria-label="Închide meniul"
               >
                 <X className="w-5 h-5" />

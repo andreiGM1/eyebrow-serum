@@ -82,17 +82,17 @@ export default function CartDrawer() {
       />
 
       <div className="fixed inset-y-0 right-0 max-w-full flex pl-0 sm:pl-10">
-        <div className="w-screen max-w-md bg-white dark:bg-obsidian-900 border-l border-stone-200 dark:border-teal-700/30 shadow-2xl flex flex-col justify-between text-stone-900 dark:text-zinc-100 transition-colors">
+        <div className="w-screen max-w-md h-[100dvh] bg-white dark:bg-obsidian-900 border-l border-stone-200 dark:border-teal-700/30 shadow-2xl flex flex-col justify-between text-stone-900 dark:text-zinc-100 transition-colors">
           
           {/* Header */}
-          <div className="p-6 border-b border-stone-200 dark:border-zinc-800 flex items-center justify-between">
+          <div className="p-4 sm:p-6 border-b border-stone-200 dark:border-zinc-800 flex items-center justify-between">
             <div className="flex items-center gap-2">
               <ShoppingBag className="w-5 h-5 text-teal-800 dark:text-teal-400" />
-              <h2 className="font-serif font-bold text-lg text-stone-900 dark:text-white">Coșul Tău de Cumpărături</h2>
+              <h2 className="font-serif font-bold text-base sm:text-lg text-stone-900 dark:text-white">Coșul Tău de Cumpărături</h2>
             </div>
             <button
               onClick={closeCart}
-              className="p-1 text-stone-500 dark:text-zinc-400 hover:text-stone-900 dark:hover:text-white rounded-lg transition-colors"
+              className="min-w-[44px] min-h-[44px] flex items-center justify-center p-2.5 text-stone-500 dark:text-zinc-400 hover:text-stone-900 dark:hover:text-white rounded-xl hover:bg-stone-100 dark:hover:bg-zinc-800 transition-colors active:scale-95 touch-manipulation"
               aria-label="Închide coșul"
             >
               <X className="w-5 h-5" />
@@ -167,10 +167,10 @@ export default function CartDrawer() {
                         </Link>
                         <button
                           onClick={() => removeItem(product.id)}
-                          className="text-stone-400 hover:text-red-500 dark:text-zinc-500 dark:hover:text-red-400 transition-colors p-1"
+                          className="min-w-[40px] min-h-[40px] flex items-center justify-center text-stone-400 hover:text-red-500 dark:text-zinc-500 dark:hover:text-red-400 transition-colors p-2 rounded-lg hover:bg-stone-100 dark:hover:bg-zinc-800 active:scale-95 touch-manipulation"
                           aria-label="Șterge produs"
                         >
-                          <Trash2 className="w-3.5 h-3.5" />
+                          <Trash2 className="w-4 h-4" />
                         </button>
                       </div>
                       <div className="text-[11px] text-stone-500 dark:text-zinc-400 font-mono mt-0.5">
@@ -179,25 +179,25 @@ export default function CartDrawer() {
                     </div>
 
                     <div className="flex items-center justify-between mt-3">
-                      {/* Quantity Controls */}
-                      <div className="flex items-center border border-stone-300 dark:border-zinc-700 rounded-md bg-stone-50 dark:bg-zinc-900/80">
+                      {/* Quantity Controls - Thumb-friendly 40px+ */}
+                      <div className="flex items-center border border-stone-300 dark:border-zinc-700 rounded-lg bg-stone-50 dark:bg-zinc-900/80">
                         <button
                           onClick={() => updateQuantity(product.id, quantity - 1)}
-                          className="px-2 py-1 text-stone-600 dark:text-zinc-300 hover:text-stone-900 dark:hover:text-white hover:bg-stone-200 dark:hover:bg-zinc-800 transition-colors"
+                          className="min-w-[40px] min-h-[40px] flex items-center justify-center p-2 text-stone-600 dark:text-zinc-300 hover:text-stone-900 dark:hover:text-white hover:bg-stone-200 dark:hover:bg-zinc-800 transition-colors active:scale-95 touch-manipulation"
                           aria-label="Scade cantitate"
                         >
-                          <Minus className="w-3 h-3" />
+                          <Minus className="w-3.5 h-3.5" />
                         </button>
-                        <span className="px-2 text-xs font-mono font-medium text-stone-900 dark:text-white min-w-6 text-center font-bold">
+                        <span className="px-2 text-xs font-mono font-bold text-stone-900 dark:text-white min-w-6 text-center">
                           {quantity}
                         </span>
                         <button
                           onClick={() => updateQuantity(product.id, quantity + 1)}
                           disabled={quantity >= product.stock}
-                          className="px-2 py-1 text-stone-600 dark:text-zinc-300 hover:text-stone-900 dark:hover:text-white hover:bg-stone-200 dark:hover:bg-zinc-800 disabled:opacity-40 transition-colors"
+                          className="min-w-[40px] min-h-[40px] flex items-center justify-center p-2 text-stone-600 dark:text-zinc-300 hover:text-stone-900 dark:hover:text-white hover:bg-stone-200 dark:hover:bg-zinc-800 disabled:opacity-40 transition-colors active:scale-95 touch-manipulation"
                           aria-label="Crește cantitate"
                         >
-                          <Plus className="w-3 h-3" />
+                          <Plus className="w-3.5 h-3.5" />
                         </button>
                       </div>
 
@@ -213,9 +213,9 @@ export default function CartDrawer() {
             )}
           </div>
 
-          {/* Footer & Order Summary */}
+          {/* Footer & Order Summary with Safe Area */}
           {items.length > 0 && (
-            <div className="p-6 bg-stone-50 dark:bg-obsidian-950 border-t border-stone-200 dark:border-zinc-800 space-y-4">
+            <div className="p-5 sm:p-6 pb-[calc(1.25rem+env(safe-area-inset-bottom,0px))] bg-stone-50 dark:bg-obsidian-950 border-t border-stone-200 dark:border-zinc-800 space-y-4">
               
               {/* Voucher Code Form */}
               <div className="space-y-1.5">
@@ -227,7 +227,7 @@ export default function CartDrawer() {
                     </span>
                     <button
                       onClick={removeCoupon}
-                      className="text-stone-500 hover:text-red-500 dark:text-zinc-400 dark:hover:text-red-400 text-xs font-mono underline"
+                      className="min-h-[40px] px-2 text-stone-500 hover:text-red-500 dark:text-zinc-400 dark:hover:text-red-400 text-xs font-mono underline flex items-center"
                     >
                       Elimină
                     </button>
@@ -239,11 +239,11 @@ export default function CartDrawer() {
                       placeholder="Cod cupon (ex: EVERGREEN20)"
                       value={couponCodeInput}
                       onChange={(e) => setCouponCodeInput(e.target.value)}
-                      className="flex-1 bg-white dark:bg-obsidian-900 border border-stone-300 dark:border-zinc-700 rounded-lg px-3 py-1.5 text-xs text-stone-900 dark:text-white placeholder-stone-400 dark:placeholder-zinc-500 uppercase focus:outline-none focus:border-teal-700"
+                      className="flex-1 bg-white dark:bg-obsidian-900 border border-stone-300 dark:border-zinc-700 rounded-xl px-3 py-2.5 text-base sm:text-xs text-stone-900 dark:text-white placeholder-stone-400 dark:placeholder-zinc-500 uppercase focus:outline-none focus:border-teal-700"
                     />
                     <button
                       type="submit"
-                      className="px-3 py-1.5 bg-stone-200 hover:bg-stone-300 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-stone-800 dark:text-zinc-200 text-xs rounded-lg transition-colors font-semibold"
+                      className="min-h-[44px] px-3.5 py-2 bg-stone-200 hover:bg-stone-300 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-stone-800 dark:text-zinc-200 text-xs rounded-xl transition-colors font-semibold active:scale-95 touch-manipulation"
                     >
                       Aplică
                     </button>
@@ -301,7 +301,7 @@ export default function CartDrawer() {
                     closeCart();
                     router.push('/checkout');
                   }}
-                  className="w-full bg-teal-800 hover:bg-teal-700 text-white font-bold py-3 px-4 rounded-xl text-xs uppercase tracking-wider transition-all shadow-lg flex items-center justify-center gap-2 group"
+                  className="w-full min-h-[48px] bg-teal-800 hover:bg-teal-700 text-white font-bold py-3.5 px-4 rounded-xl text-xs uppercase tracking-wider transition-all shadow-lg flex items-center justify-center gap-2 group active:scale-95 touch-manipulation"
                 >
                   <span>Finalizează Comanda</span>
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -311,7 +311,7 @@ export default function CartDrawer() {
                   <Link
                     href="/cart"
                     onClick={closeCart}
-                    className="text-xs text-stone-500 dark:text-zinc-400 hover:text-teal-800 dark:hover:text-teal-300 underline"
+                    className="inline-block py-2 text-xs text-stone-500 dark:text-zinc-400 hover:text-teal-800 dark:hover:text-teal-300 underline touch-manipulation"
                   >
                     Vezi pagina detaliată a coșului
                   </Link>

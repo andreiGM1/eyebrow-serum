@@ -162,7 +162,7 @@ export default function ProductCard({ product }: ProductCardProps) {
             <button
               onClick={handleAddToCart}
               disabled={product.stock <= 0}
-              className={`px-3.5 py-2.5 rounded-xl font-medium text-xs flex items-center gap-1.5 transition-all duration-200 active:scale-95 shadow-md ${
+              className={`min-h-[44px] px-4 py-2.5 rounded-xl font-medium text-xs flex items-center gap-1.5 transition-all duration-200 active:scale-95 shadow-md touch-manipulation cursor-pointer ${
                 product.stock <= 0
                   ? 'bg-stone-200 dark:bg-zinc-800 text-stone-400 dark:text-zinc-500 cursor-not-allowed border border-stone-300 dark:border-zinc-700/40'
                   : isAdded

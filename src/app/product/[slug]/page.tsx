@@ -149,14 +149,14 @@ export default function ProductDetailPage({ params }: ProductDetailPageProps) {
   ];
 
   return (
-    <div className="min-h-screen bg-[#FAF7F2] dark:bg-obsidian-950 text-stone-900 dark:text-foreground transition-colors selection:bg-teal-800 selection:text-white">
+    <div className="min-h-screen bg-[#FAF7F2] dark:bg-obsidian-950 text-stone-900 dark:text-foreground transition-colors selection:bg-teal-800 selection:text-white pb-24 sm:pb-0">
       
       {/* ─────────────────────────────────────────────────────────────
-          1. APPLE-STYLE STICKY SUB-NAV / DOCK (Reveals on Scroll)
+          1. APPLE-STYLE STICKY SUB-NAV / DOCK (Desktop / Tablet top bar)
          ───────────────────────────────────────────────────────────── */}
       <aside
         aria-label="Bara rapidă produs"
-        className={`fixed top-16 sm:top-20 inset-x-0 z-40 bg-white/95 dark:bg-obsidian-900/95 backdrop-blur-md border-b border-stone-200 dark:border-teal-700/30 shadow-md transition-all duration-300 ${
+        className={`hidden sm:block fixed top-16 sm:top-20 inset-x-0 z-40 bg-white/95 dark:bg-obsidian-900/95 backdrop-blur-md border-b border-stone-200 dark:border-teal-700/30 shadow-md transition-all duration-300 ${
           showStickyBar ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0 pointer-events-none'
         }`}
       >
@@ -356,7 +356,7 @@ export default function ProductDetailPage({ params }: ProductDetailPageProps) {
                     setSelectedProduct(singleSerum);
                     setQuantity(1);
                   }}
-                  className={`p-3.5 rounded-2xl border text-left transition-all flex flex-col justify-between ${
+                  className={`min-h-[68px] p-3.5 rounded-2xl border text-left transition-all flex flex-col justify-between active:scale-[0.98] touch-manipulation cursor-pointer ${
                     selectedProduct.id === singleSerum.id
                       ? 'border-teal-800 bg-teal-800/10 dark:bg-teal-400/10 shadow-sm ring-1 ring-teal-800'
                       : 'border-stone-200 dark:border-zinc-800 bg-white dark:bg-obsidian-900 hover:border-stone-300'
@@ -382,7 +382,7 @@ export default function ProductDetailPage({ params }: ProductDetailPageProps) {
                     setSelectedProduct(duoPack);
                     setQuantity(1);
                   }}
-                  className={`p-3.5 rounded-2xl border text-left transition-all flex flex-col justify-between relative ${
+                  className={`min-h-[68px] p-3.5 rounded-2xl border text-left transition-all flex flex-col justify-between relative active:scale-[0.98] touch-manipulation cursor-pointer ${
                     selectedProduct.id === duoPack.id
                       ? 'border-teal-800 bg-teal-800/10 dark:bg-teal-400/10 shadow-sm ring-1 ring-teal-800'
                       : 'border-stone-200 dark:border-zinc-800 bg-white dark:bg-obsidian-900 hover:border-stone-300'
@@ -411,7 +411,7 @@ export default function ProductDetailPage({ params }: ProductDetailPageProps) {
                     setSelectedProduct(completeKit);
                     setQuantity(1);
                   }}
-                  className={`p-3.5 rounded-2xl border text-left transition-all flex flex-col justify-between ${
+                  className={`min-h-[68px] p-3.5 rounded-2xl border text-left transition-all flex flex-col justify-between active:scale-[0.98] touch-manipulation cursor-pointer ${
                     selectedProduct.id === completeKit.id
                       ? 'border-teal-800 bg-teal-800/10 dark:bg-teal-400/10 shadow-sm ring-1 ring-teal-800'
                       : 'border-stone-200 dark:border-zinc-800 bg-white dark:bg-obsidian-900 hover:border-stone-300'
@@ -437,22 +437,22 @@ export default function ProductDetailPage({ params }: ProductDetailPageProps) {
             <div className="pt-2 space-y-4">
               <div className="flex items-center gap-3">
                 
-                {/* Stepper */}
-                <div className="flex items-center border border-stone-300 dark:border-zinc-700 rounded-xl bg-white dark:bg-obsidian-900 px-3 py-2.5 shadow-sm">
+                {/* Stepper with 44px+ touch targets */}
+                <div className="flex items-center border border-stone-300 dark:border-zinc-700 rounded-xl bg-white dark:bg-obsidian-900 px-2 py-1 shadow-sm">
                   <button
                     onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                    className="p-1 text-stone-500 hover:text-stone-900 dark:text-zinc-400 dark:hover:text-white transition-colors"
+                    className="min-w-[44px] min-h-[44px] flex items-center justify-center p-2 text-stone-600 hover:text-stone-900 dark:text-zinc-300 dark:hover:text-white transition-colors active:scale-95 touch-manipulation"
                     aria-label="Scade cantitate"
                   >
                     <Minus className="w-4 h-4" />
                   </button>
-                  <span className="px-4 text-sm font-mono font-bold text-stone-900 dark:text-white min-w-8 text-center">
+                  <span className="px-3 text-sm font-mono font-bold text-stone-900 dark:text-white min-w-8 text-center">
                     {quantity}
                   </span>
                   <button
                     onClick={() => setQuantity(Math.min(selectedProduct.stock, quantity + 1))}
                     disabled={quantity >= selectedProduct.stock}
-                    className="p-1 text-stone-500 hover:text-stone-900 dark:text-zinc-400 dark:hover:text-white disabled:opacity-30 transition-colors"
+                    className="min-w-[44px] min-h-[44px] flex items-center justify-center p-2 text-stone-600 hover:text-stone-900 dark:text-zinc-300 dark:hover:text-white disabled:opacity-30 transition-colors active:scale-95 touch-manipulation"
                     aria-label="Crește cantitate"
                   >
                     <Plus className="w-4 h-4" />
@@ -861,7 +861,7 @@ export default function ProductDetailPage({ params }: ProductDetailPageProps) {
                       placeholder="Ex: Elena D., 46 ani, București"
                       value={newReviewAuthor}
                       onChange={(e) => setNewReviewAuthor(e.target.value)}
-                      className="w-full bg-white dark:bg-obsidian-900 border border-stone-300 dark:border-zinc-700 rounded-xl px-3 py-2.5 text-xs text-stone-900 dark:text-white placeholder-stone-400 focus:outline-none focus:border-teal-800"
+                      className="w-full bg-white dark:bg-obsidian-900 border border-stone-300 dark:border-zinc-700 rounded-xl px-3.5 py-2.5 text-base sm:text-xs text-stone-900 dark:text-white placeholder-stone-400 focus:outline-none focus:border-teal-800"
                     />
                   </div>
                   <div>
@@ -871,7 +871,7 @@ export default function ProductDetailPage({ params }: ProductDetailPageProps) {
                     <select
                       value={newReviewRating}
                       onChange={(e) => setNewReviewRating(Number(e.target.value))}
-                      className="w-full bg-white dark:bg-obsidian-900 border border-stone-300 dark:border-zinc-700 rounded-xl px-3 py-2.5 text-xs text-stone-900 dark:text-white focus:outline-none focus:border-teal-800"
+                      className="w-full bg-white dark:bg-obsidian-900 border border-stone-300 dark:border-zinc-700 rounded-xl px-3.5 py-2.5 text-base sm:text-xs text-stone-900 dark:text-white focus:outline-none focus:border-teal-800"
                     >
                       <option value="5">★★★★★ (5 stele - Excelent)</option>
                       <option value="4">★★★★☆ (4 stele - Foarte bun)</option>
@@ -890,13 +890,13 @@ export default function ProductDetailPage({ params }: ProductDetailPageProps) {
                     placeholder="Cum a răspuns arcada ta? Ai observat fire noi? Cum se simte bila rece de inox?"
                     value={newReviewComment}
                     onChange={(e) => setNewReviewComment(e.target.value)}
-                    className="w-full bg-white dark:bg-obsidian-900 border border-stone-300 dark:border-zinc-700 rounded-xl p-3 text-xs text-stone-900 dark:text-white placeholder-stone-400 focus:outline-none focus:border-teal-800"
+                    className="w-full bg-white dark:bg-obsidian-900 border border-stone-300 dark:border-zinc-700 rounded-xl p-3 text-base sm:text-xs text-stone-900 dark:text-white placeholder-stone-400 focus:outline-none focus:border-teal-800"
                   />
                 </div>
 
                 <button
                   type="submit"
-                  className="px-6 py-2.5 rounded-xl bg-teal-800 hover:bg-teal-700 text-white font-bold text-xs uppercase tracking-wider transition-colors shadow-md"
+                  className="min-h-[44px] px-6 py-2.5 rounded-xl bg-teal-800 hover:bg-teal-700 text-white font-bold text-xs uppercase tracking-wider transition-colors shadow-md active:scale-95 touch-manipulation"
                 >
                   Publică Recenzia
                 </button>
@@ -939,10 +939,10 @@ export default function ProductDetailPage({ params }: ProductDetailPageProps) {
       )}
 
       {/* ─────────────────────────────────────────────────────────────
-          9. STICKY MOBILE BOTTOM BUY DOCK (Thumb-Friendly on Phones)
+          9. STICKY MOBILE BOTTOM BUY DOCK (Thumb-Friendly with Safe Area)
          ───────────────────────────────────────────────────────────── */}
       <div
-        className={`fixed bottom-0 inset-x-0 z-40 bg-white/95 dark:bg-obsidian-950/95 backdrop-blur-md border-t border-stone-200 dark:border-zinc-800 p-3 sm:hidden transition-all duration-300 ${
+        className={`fixed bottom-0 inset-x-0 z-40 bg-white/95 dark:bg-obsidian-950/95 backdrop-blur-md border-t border-stone-200 dark:border-zinc-800 p-3 pb-[calc(0.75rem+env(safe-area-inset-bottom,0px))] sm:hidden transition-all duration-300 shadow-2xl ${
           showStickyBar ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0 pointer-events-none'
         }`}
       >
@@ -951,23 +951,38 @@ export default function ProductDetailPage({ params }: ProductDetailPageProps) {
             <span className="text-xs font-serif font-bold text-stone-900 dark:text-white truncate block">
               {selectedProduct.name}
             </span>
-            <span className="text-xs font-mono font-bold text-teal-800 dark:text-teal-400">
-              {selectedProduct.price.toFixed(2)} RON
-            </span>
+            <div className="flex items-center gap-1.5 mt-0.5">
+              <span className="text-sm font-mono font-bold text-teal-800 dark:text-teal-400">
+                {(selectedProduct.price * quantity).toFixed(2)} RON
+              </span>
+              <span className="text-[10px] text-stone-500 font-mono">
+                • {selectedProduct.volume}
+              </span>
+            </div>
           </div>
 
           <button
             onClick={handleAddToCart}
             disabled={selectedProduct.stock <= 0}
-            className={`px-6 py-3 rounded-full font-bold text-xs uppercase tracking-wider shadow-lg flex-shrink-0 active:scale-95 ${
+            className={`min-h-[48px] px-6 py-3 rounded-full font-bold text-xs uppercase tracking-wider shadow-lg flex-shrink-0 active:scale-95 touch-manipulation flex items-center gap-2 ${
               selectedProduct.stock <= 0
-                ? 'bg-stone-300 text-stone-500'
+                ? 'bg-stone-300 text-stone-500 cursor-not-allowed'
                 : isAdded
-                ? 'bg-emerald-600 text-white'
-                : 'bg-teal-800 text-white'
+                ? 'bg-emerald-600 text-white shadow-emerald-500/20'
+                : 'bg-teal-800 hover:bg-teal-700 text-white shadow-teal-900/25'
             }`}
           >
-            {isAdded ? 'Adăugat!' : 'Adaugă în Coș'}
+            {isAdded ? (
+              <>
+                <Check className="w-4 h-4" />
+                <span>Adăugat!</span>
+              </>
+            ) : (
+              <>
+                <ShoppingBag className="w-4 h-4" />
+                <span>Adaugă în Coș</span>
+              </>
+            )}
           </button>
         </div>
       </div>
