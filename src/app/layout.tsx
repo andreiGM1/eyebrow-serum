@@ -6,6 +6,7 @@ import { AuthProvider } from '@/lib/store/auth-context';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import CartDrawer from '@/components/layout/CartDrawer';
+import MarketingPopup from '@/components/marketing/MarketingPopup';
 
 export const metadata: Metadata = {
   title: 'EVERGREEN & ISLE | Natural Skincare & Botanical Brow Care',
@@ -83,6 +84,7 @@ export default function RootLayout({
               <Navbar />
               <main className="flex-1">{children}</main>
               <CartDrawer />
+              <MarketingPopup />
               <Footer />
             </AuthProvider>
           </CartProvider>

@@ -106,12 +106,23 @@ export default function Navbar() {
 
   return (
     <>
-      {/* Top Notification Bar */}
-      <div className="bg-[#EAEFEA] dark:bg-[#071714] border-b border-teal-900/10 dark:border-teal-500/20 text-[10px] sm:text-xs py-1.5 sm:py-2 px-3 sm:px-4 text-center text-teal-950 dark:text-teal-200 font-sans tracking-tight sm:tracking-wider uppercase flex items-center justify-center gap-1.5 sm:gap-2 transition-colors overflow-hidden">
-        <span className="w-1.5 h-1.5 rounded-full bg-teal-600 dark:bg-teal-400 animate-ping flex-shrink-0" />
-        <span className="font-medium truncate sm:whitespace-normal">
-          <span className="inline sm:hidden">LIVRARE GRATUITĂ PESTE 200 RON • 100% BOTANIC PUR</span>
-          <span className="hidden sm:inline">LIVRARE GRATUITĂ ÎN TOATĂ ROMÂNIA LA COMENZI PESTE 200 RON • FORMULE BOTANICE 100% PURE</span>
+      {/* Top Notification Bar (Black Friday Marketing Banner) */}
+      <div
+        onClick={() => {
+          if (typeof window !== 'undefined') {
+            window.dispatchEvent(new CustomEvent('open-marketing-popup'));
+          }
+        }}
+        className="bg-[#1C1714] dark:bg-[#081512] border-b border-stone-800 text-[10px] sm:text-xs py-1.5 sm:py-2 px-3 sm:px-4 text-center text-white font-sans tracking-tight sm:tracking-wider uppercase flex items-center justify-center gap-2 transition-colors cursor-pointer hover:bg-[#28211D] dark:hover:bg-[#0D221D] select-none"
+        title="Apasă pentru a deschide oferta Black Friday"
+      >
+        <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping flex-shrink-0" />
+        <span className="font-medium truncate sm:whitespace-normal flex items-center gap-2">
+          <span className="px-2 py-0.5 rounded-full bg-[#4A4039] text-stone-200 text-[9px] font-mono font-bold tracking-widest flex-shrink-0">
+            BLACK FRIDAY
+          </span>
+          <span className="inline sm:hidden">50 LEI CADOU + CADOURI GRATUITE &rarr;</span>
+          <span className="hidden sm:inline">50 LEI CADOU + PÂNĂ LA 3 CADOURI GRATUITE • LIVRARE RAPIDĂ &rarr;</span>
         </span>
       </div>
 

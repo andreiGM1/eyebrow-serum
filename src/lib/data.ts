@@ -387,6 +387,22 @@ export const INITIAL_PRODUCTS: Product[] = [
 
 export const INITIAL_COUPONS: Coupon[] = [
   {
+    id: 'cp-bf50',
+    code: 'BLACKFRIDAY50',
+    discount_percent: 0,
+    discount_amount: 50,
+    min_order_amount: 150,
+    is_active: true,
+  },
+  {
+    id: 'cp-ev50',
+    code: 'EVERGREEN50',
+    discount_percent: 0,
+    discount_amount: 50,
+    min_order_amount: 150,
+    is_active: true,
+  },
+  {
     id: 'cp1',
     code: 'BROWVIP15',
     discount_percent: 15,
