@@ -82,6 +82,12 @@ export default function Navbar() {
     }, 100);
   };
 
+  useEffect(() => {
+    const handleCustomOpen = () => handleOpenSearch();
+    window.addEventListener('open-search-modal', handleCustomOpen);
+    return () => window.removeEventListener('open-search-modal', handleCustomOpen);
+  }, []);
+
   const handleCloseSearch = () => {
     setIsSearchOpen(false);
     setSearchQuery('');

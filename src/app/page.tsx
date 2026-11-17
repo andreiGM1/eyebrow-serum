@@ -17,6 +17,7 @@ import {
 } from 'lucide-react';
 import { INITIAL_PRODUCTS, INITIAL_CATEGORIES } from '@/lib/data';
 import ProductCard from '@/components/product/ProductCard';
+import EditorialHero from '@/components/home/EditorialHero';
 
 export default function HomePage() {
   const featuredProducts = INITIAL_PRODUCTS.filter((p) => p.is_featured);
@@ -24,122 +25,8 @@ export default function HomePage() {
   return (
     <div className="min-h-screen bg-[#FAF7F2] dark:bg-obsidian-950 text-stone-900 dark:text-foreground overflow-hidden transition-colors">
       
-      {/* 1. CINEMATIC HERO SECTION WITH BACKGROUND VIDEO */}
-      <section className="relative pt-12 pb-20 sm:pt-20 sm:pb-32 px-4 sm:px-6 lg:px-8 border-b border-stone-200 dark:border-zinc-800/80">
-        
-        {/* Background Cinematic Video with High-End Ambient Scrim */}
-        <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
-          <video
-            autoPlay
-            loop
-            muted
-            playsInline
-            className="w-full h-full object-cover opacity-20 dark:opacity-30 scale-105 filter blur-[1px]"
-          >
-            <source src="/videos/evergreen-isle-hero.mp4" type="video/mp4" />
-          </video>
-          {/* Dual scrim for flawless contrast in both light mode (linen) and dark mode (obsidian/spruce) */}
-          <div className="absolute inset-0 bg-gradient-to-r from-[#FAF7F2]/95 via-[#FAF7F2]/85 to-[#FAF7F2]/60 dark:from-[#061513]/95 dark:via-[#081B18]/85 to-[#0A2420]/60" />
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_var(--tw-gradient-stops))] from-teal-500/10 via-transparent to-transparent" />
-        </div>
-
-        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-10">
-          
-          {/* Left Hero Column */}
-          <div className="lg:col-span-7 space-y-6 text-center lg:text-left">
-            
-            {/* Brand Pill */}
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-teal-800/10 dark:bg-teal-400/10 border border-teal-700/30 dark:border-teal-400/30 text-teal-900 dark:text-teal-200 text-xs font-mono shadow-sm font-semibold tracking-wider">
-              <Leaf className="w-3.5 h-3.5 text-teal-700 dark:text-teal-400" />
-              <span>EVERGREEN &amp; ISLE • NATURAL SKINCARE</span>
-            </div>
-
-            {/* Main Headline */}
-            <h1 className="font-serif text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-stone-950 dark:text-white leading-[1.15]">
-              Sprâncene Mai Dese. <br />
-              <span className="teal-gradient-text">Fără Chimicale. Fără Iritații.</span>
-            </h1>
-
-            {/* Sub-headline / Copy for 30-65 demographic */}
-            <p className="text-sm sm:text-base text-stone-700 dark:text-zinc-200 max-w-xl mx-auto lg:mx-0 leading-relaxed font-normal">
-              Tratament botanic 100% pur creat special pentru femeile care vor să reactiveze foliculii afectați de pensat excesiv sau trecerea anilor. Cu ulei virgin de ricin presat la rece, rozmarin și esteri de jojoba, fără prostaglandine sintetice și fără riscul pătării pleoapelor.
-            </p>
-
-            {/* Action CTAs */}
-            <div className="pt-2 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
-              <Link
-                href="/catalog"
-                className="w-full sm:w-auto px-8 py-4 rounded-xl bg-teal-800 hover:bg-teal-700 text-white font-bold text-xs uppercase tracking-wider transition-all duration-200 active:scale-95 shadow-xl shadow-teal-900/25 flex items-center justify-center gap-2 group"
-              >
-                <span>Descoperă Colecția</span>
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </Link>
-
-              <Link
-                href="/simulator"
-                className="w-full sm:w-auto px-6 py-4 rounded-xl bg-white/90 dark:bg-obsidian-900/90 hover:bg-white dark:hover:bg-zinc-800 border border-stone-300 dark:border-teal-700/40 text-teal-900 dark:text-teal-200 font-semibold text-xs tracking-wider transition-all duration-200 active:scale-95 flex items-center justify-center gap-2 shadow-sm backdrop-blur-sm"
-              >
-                <Sparkles className="w-4 h-4 text-teal-700 dark:text-teal-400 animate-spin" style={{ animationDuration: '8s' }} />
-                <span>Simulator Timeline &amp; Diagnostic</span>
-              </Link>
-            </div>
-
-            {/* Trust highlights */}
-            <div className="pt-6 border-t border-stone-200 dark:border-zinc-800/80 grid grid-cols-3 gap-2 sm:gap-4 text-left max-w-md mx-auto lg:mx-0">
-              <div className="group">
-                <span className="font-serif text-lg sm:text-2xl font-bold text-stone-900 dark:text-white block group-hover:text-teal-700 dark:group-hover:text-teal-300 transition-colors">100%</span>
-                <span className="text-[10px] sm:text-[11px] font-mono text-stone-600 dark:text-zinc-400">Extracte Pure (Fără Apă)</span>
-              </div>
-              <div className="group">
-                <span className="font-serif text-lg sm:text-2xl font-bold text-teal-700 dark:text-teal-400 block">0%</span>
-                <span className="text-[10px] sm:text-[11px] font-mono text-stone-600 dark:text-zinc-400">Hormoni / Prostaglandine</span>
-              </div>
-              <div className="group">
-                <span className="font-serif text-lg sm:text-2xl font-bold text-stone-900 dark:text-white block group-hover:text-teal-700 dark:group-hover:text-teal-300 transition-colors">90 Zile</span>
-                <span className="text-[10px] sm:text-[11px] font-mono text-stone-600 dark:text-zinc-400">Cură per Flacon 3 ml</span>
-              </div>
-            </div>
-
-          </div>
-
-          {/* Right Hero Column: Video Showcase with Floating Luxury Glass Card */}
-          <div className="lg:col-span-5 relative flex justify-center">
-            <div className="relative w-72 sm:w-84 aspect-[9/16] rounded-3xl overflow-hidden border-2 border-teal-800/40 dark:border-teal-500/40 shadow-2xl shadow-teal-950/20 group animate-float bg-black">
-              <video
-                autoPlay
-                loop
-                muted
-                playsInline
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-              >
-                <source src="/videos/evergreen-isle-hero.mp4" type="video/mp4" />
-              </video>
-
-              {/* Floating luxury certificate badge */}
-              <div className="absolute top-4 sm:top-5 left-3 sm:left-4 right-3 sm:right-4 bg-white/95 dark:bg-obsidian-950/90 backdrop-blur-md border border-stone-200 dark:border-teal-700/40 p-2.5 sm:p-3.5 rounded-2xl flex items-center gap-2.5 sm:gap-3 shadow-2xl z-10">
-                <div className="p-2 sm:p-2.5 rounded-xl bg-teal-800/10 dark:bg-teal-400/10 border border-teal-700/30 text-teal-700 dark:text-teal-400 animate-pulse flex-shrink-0">
-                  <ShieldCheck className="w-4 h-4 sm:w-5 sm:h-5 text-teal-700 dark:text-teal-400" />
-                </div>
-                <div>
-                  <div className="text-[11px] sm:text-xs font-serif font-bold text-stone-950 dark:text-white tracking-wider">
-                    EVERGREEN &amp; ISLE
-                  </div>
-                  <div className="text-[9px] sm:text-[10px] font-mono text-teal-700 dark:text-teal-400 font-semibold uppercase tracking-wider">
-                    Natural Skincare Atelier
-                  </div>
-                </div>
-              </div>
-
-              {/* Bottom video overlay badge */}
-              <div className="absolute bottom-4 left-4 right-4 bg-obsidian-950/80 backdrop-blur-md border border-white/10 p-2.5 rounded-xl flex items-center justify-between text-white text-xs">
-                <span className="font-mono text-[10px] uppercase tracking-wider text-teal-200">100% Bioactiv &amp; Vegan</span>
-                <span className="text-[10px] font-mono text-stone-300">Pure Botanical</span>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </section>
+      {/* 1. CINEMATIC EDITORIAL SCROLL-DRIVEN MASK HERO (SEROTONINN STYLE) */}
+      <EditorialHero />
 
       {/* CLARITY STRIP: Creat Special pentru Femei 30-65 Ani */}
       <section className="py-8 bg-white/90 dark:bg-obsidian-900/90 border-b border-stone-200 dark:border-zinc-800 transition-colors">
