@@ -180,15 +180,15 @@ export default function Footer() {
           <div>
             <h4 className="text-xs uppercase tracking-widest text-stone-950 dark:text-white font-mono mb-4 flex items-center gap-1.5 font-bold">
               <Mail className="w-3.5 h-3.5 text-teal-600 dark:text-teal-400" />
-              Atelier Newsletter
+              VIP Newsletter
             </h4>
             <p className="text-xs text-stone-600 dark:text-zinc-400 mb-3">
-              Abonează-te pentru sfaturi dermatologice de îngrijire a sprâncenelor și un cupon de bun venit de 10%.
+              Abonează-te pentru sfaturi botanice și deblochează instant 50 Lei Cadou + până la 3 Cadouri Gratuite.
             </p>
             {subscribed ? (
               <div className="flex items-center gap-2 text-xs text-emerald-700 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/40 p-2.5 rounded-lg border border-emerald-200 dark:border-emerald-500/20">
                 <CheckCircle2 className="w-4 h-4 flex-shrink-0 text-emerald-600 dark:text-emerald-400" />
-                <span>Te-ai abonat! Codul tău este EVERGREEN10</span>
+                <span>Te-ai abonat! Codul tău este BLACKFRIDAY50 (-50 Lei)</span>
               </div>
             ) : (
               <form onSubmit={handleSubscribe} className="space-y-2">

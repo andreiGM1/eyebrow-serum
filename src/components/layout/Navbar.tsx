@@ -119,10 +119,10 @@ export default function Navbar() {
         <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping flex-shrink-0" />
         <span className="font-medium truncate sm:whitespace-normal flex items-center gap-2">
           <span className="px-2 py-0.5 rounded-full bg-[#4A4039] text-stone-200 text-[9px] font-mono font-bold tracking-widest flex-shrink-0">
-            BLACK FRIDAY
+            NEWSLETTER VIP
           </span>
           <span className="inline sm:hidden">50 LEI CADOU + CADOURI GRATUITE &rarr;</span>
-          <span className="hidden sm:inline">50 LEI CADOU + PÂNĂ LA 3 CADOURI GRATUITE • LIVRARE RAPIDĂ &rarr;</span>
+          <span className="hidden sm:inline">ABONEAZĂ-TE: 50 LEI CADOU + PÂNĂ LA 3 CADOURI GRATUITE • COD BLACKFRIDAY50 &rarr;</span>
         </span>
       </div>
 

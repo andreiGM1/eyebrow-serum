@@ -18,7 +18,7 @@ export default function MarketingPopup() {
   const scrollTimerRef = useRef<NodeJS.Timeout | null>(null);
   const countdownIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
-  // 1. Scroll-trigger logic: triggers a few seconds after the user starts scrolling
+  // 1. Timing logic: activates 20 seconds (20000ms) after visit or scroll
   useEffect(() => {
     // Check if user already dismissed or claimed in this session
     const dismissed = sessionStorage.getItem('evergreen_bf_popup_dismissed');
@@ -28,17 +28,15 @@ export default function MarketingPopup() {
       return;
     }
 
+    // Main 20-second timer (20,000 ms)
+    const timer = setTimeout(() => {
+      setIsOpen(true);
+    }, 20000);
+
+    // Also track scroll trigger: if user scrolls, ensure popup opens within 20s
     const handleScroll = () => {
-      const scrollY = window.scrollY;
-
-      // When user has scrolled past 150px and hasn't triggered yet
-      if (scrollY > 150 && !hasScrolled) {
+      if (window.scrollY > 100 && !hasScrolled) {
         setHasScrolled(true);
-
-        // Activate pop-up 2.5 seconds after scrolling
-        scrollTimerRef.current = setTimeout(() => {
-          setIsOpen(true);
-        }, 2500);
       }
     };
 
@@ -51,6 +49,7 @@ export default function MarketingPopup() {
     window.addEventListener('open-marketing-popup', handleManualOpen);
 
     return () => {
+      clearTimeout(timer);
       window.removeEventListener('scroll', handleScroll);
       window.removeEventListener('open-marketing-popup', handleManualOpen);
       if (scrollTimerRef.current) clearTimeout(scrollTimerRef.current);
@@ -141,18 +140,21 @@ export default function MarketingPopup() {
           </div>
         </div>
 
-        {/* Pill Badge: BLACK FRIDAY SALE */}
+        {/* Pill Badge: NEWSLETTER VIP / BLACK FRIDAY */}
         <div className="mt-3.5 flex justify-center">
           <span className="px-4 py-1.5 rounded-full bg-[#4A4039] text-stone-200 text-[10px] sm:text-[11px] font-mono font-bold tracking-[0.2em] uppercase">
-            BLACK FRIDAY SALE
+            {!isUnlocked ? 'NEWSLETTER VIP • BLACK FRIDAY' : 'NEWSLETTER CONFIRMAT • BLACK FRIDAY'}
           </span>
         </div>
 
         {/* Dynamic Content: Step 1 (Form) vs Step 2 (Unlocked) */}
         {!isUnlocked ? (
-          /* ──────── STEP 1: INITIAL OFFER & EMAIL INPUT ──────── */
-          <div className="mt-5 space-y-5">
+          /* ──────── STEP 1: INITIAL OFFER & NEWSLETTER EMAIL INPUT ──────── */
+          <div className="mt-4 space-y-4">
             <div>
+              <span className="text-[11px] sm:text-xs uppercase tracking-wider text-[#A2C2B4] font-sans font-medium block mb-1">
+                Abonează-te la Newsletter &amp; Primești
+              </span>
               <span className="font-serif text-2xl sm:text-3xl text-stone-100 font-normal block leading-tight">
                 You&apos;ve Got
               </span>
@@ -160,8 +162,8 @@ export default function MarketingPopup() {
                 50 Lei Off + Up to <br />
                 <span className="font-serif italic font-medium">3 FREE Gifts</span>
               </h3>
-              <p className="text-[11px] text-stone-400 mt-2 font-sans">
-                (50 RON Reducere Imediată + Set 3 Accesorii Botanice Cadou)
+              <p className="text-xs text-stone-300 mt-2 font-sans leading-relaxed">
+                Înscrie-te la newsletter-ul nostru botanic exclusiv pentru a debloca reducerea imediată și cadourile.
               </p>
             </div>
 
@@ -171,7 +173,7 @@ export default function MarketingPopup() {
                 <input
                   type="email"
                   required
-                  placeholder="Your email address"
+                  placeholder="Adresa ta de email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className="w-full bg-white text-stone-900 placeholder-stone-400 rounded-lg px-4 py-3.5 text-base focus:outline-none focus:ring-2 focus:ring-teal-500 font-sans shadow-inner text-center"
@@ -182,18 +184,21 @@ export default function MarketingPopup() {
                 type="submit"
                 className="w-full min-h-[48px] py-3.5 px-6 rounded-lg bg-[#FAF5EE] hover:bg-white text-stone-950 font-sans font-bold text-sm sm:text-base tracking-wide shadow-lg active:scale-95 touch-manipulation transition-all cursor-pointer"
               >
-                Claim Offer
+                Abonează-te &amp; Revendică Oferta
               </button>
             </form>
 
-            <p className="text-[10px] text-stone-500 font-sans">
-              Ofertă valabilă pentru comenzi de peste 150 RON. Fără spam.
+            <p className="text-[10px] text-stone-400 font-sans leading-normal">
+              Prin abonare vei primi noutăți botanice, ghiduri de îngrijire și oferte VIP. Fără spam, te poți dezabona oricând cu 1 click.
             </p>
           </div>
         ) : (
           /* ──────── STEP 2: UNLOCKED STATE (Image 2) ──────── */
-          <div className="mt-5 space-y-5 animate-in fade-in zoom-in-95 duration-200">
+          <div className="mt-4 space-y-4 animate-in fade-in zoom-in-95 duration-200">
             <div>
+              <span className="text-[11px] sm:text-xs uppercase tracking-wider text-emerald-400 font-sans font-medium block mb-1">
+                Te-ai abonat cu succes la newsletter!
+              </span>
               <span className="font-serif text-2xl sm:text-3xl text-stone-100 font-normal block leading-tight">
                 You&apos;ve Unlocked
               </span>
@@ -204,8 +209,8 @@ export default function MarketingPopup() {
               <div className="mt-3 p-3 rounded-xl bg-teal-950/60 border border-teal-700/40 text-left flex items-start gap-2.5">
                 <CheckCircle2 className="w-5 h-5 text-emerald-400 flex-shrink-0 mt-0.5" />
                 <div className="text-xs text-stone-200">
-                  <span className="font-bold text-emerald-300 block">Cupon BLACKFRIDAY50 activat!</span>
-                  <span>Reducerea este aplicată automat în coș la finalizarea comenzii.</span>
+                  <span className="font-bold text-emerald-300 block">Cupon de newsletter BLACKFRIDAY50 activat!</span>
+                  <span>Reducerea de 50 Lei este aplicată automat în coș la finalizarea comenzii.</span>
                 </div>
               </div>
 
@@ -224,8 +229,8 @@ export default function MarketingPopup() {
               </button>
             </div>
 
-            <p className="text-[10px] text-stone-500 font-sans">
-              Cadourile gratuite (periuță bambus + ghid ritual) sunt adăugate automat în pachet.
+            <p className="text-[10px] text-stone-400 font-sans">
+              Cadourile gratuite (periuță bambus + ghid ritual) sunt adăugate automat în pachetul tău.
             </p>
           </div>
         )}
@@ -234,3 +239,4 @@ export default function MarketingPopup() {
     </div>
   );
 }
+
