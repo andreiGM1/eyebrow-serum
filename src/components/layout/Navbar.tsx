@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 import {
   Search,
   ShoppingBag,
@@ -40,6 +40,27 @@ export default function Navbar() {
   const [isMegaMenuOpen, setIsMegaMenuOpen] = useState(false);
   const searchInputRef = useRef<HTMLInputElement>(null);
   const megaMenuTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  const pathname = usePathname();
+  const isHome = pathname === '/';
+  const [isScrolledPastHero, setIsScrolledPastHero] = useState(false);
+
+  useEffect(() => {
+    if (!isHome) {
+      setIsScrolledPastHero(true);
+      return;
+    }
+    const handleScroll = () => {
+      // Hero section is ~270vh tall; keep transparent navbar during hero exploration
+      const past = window.scrollY > window.innerHeight * 2.3;
+      setIsScrolledPastHero(past);
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [isHome]);
+
+  const isHeroTransparent = isHome && !isScrolledPastHero;
 
   // Lock body scroll when mobile menu or search is open
   useEffect(() => {
@@ -112,190 +133,253 @@ export default function Navbar() {
 
   return (
     <>
-      {/* Top Notification Bar (Black Friday Marketing Banner) */}
+      {/* Top Navbar Wrapper: Fixed & transparent over Hero on homepage, Sticky on other pages */}
       <div
-        onClick={() => {
-          if (typeof window !== 'undefined') {
-            window.dispatchEvent(new CustomEvent('open-marketing-popup'));
-          }
-        }}
-        className="bg-[#1C1714] dark:bg-[#081512] border-b border-stone-800 text-[10px] sm:text-xs py-1.5 sm:py-2 px-3 sm:px-4 text-center text-white font-sans tracking-tight sm:tracking-wider uppercase flex items-center justify-center gap-2 transition-colors cursor-pointer hover:bg-[#28211D] dark:hover:bg-[#0D221D] select-none"
-        title="Apasă pentru a deschide oferta Black Friday"
+        className={
+          isHeroTransparent
+            ? 'fixed top-0 left-0 right-0 z-40 transition-all duration-300'
+            : 'sticky top-0 z-40 transition-all duration-300'
+        }
       >
-        <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping flex-shrink-0" />
-        <span className="font-medium truncate sm:whitespace-normal flex items-center gap-2">
-          <span className="px-2 py-0.5 rounded-full bg-[#4A4039] text-stone-200 text-[9px] font-mono font-bold tracking-widest flex-shrink-0">
-            NEWSLETTER VIP
+        {/* Top Notification Bar (Black Friday Marketing Banner) */}
+        <div
+          onClick={() => {
+            if (typeof window !== 'undefined') {
+              window.dispatchEvent(new CustomEvent('open-marketing-popup'));
+            }
+          }}
+          className={
+            isHeroTransparent
+              ? 'bg-black/35 backdrop-blur-md border-b border-white/10 text-[10px] sm:text-xs py-1.5 sm:py-2 px-3 sm:px-4 text-center text-white font-sans tracking-tight sm:tracking-wider uppercase flex items-center justify-center gap-2 transition-colors cursor-pointer hover:bg-black/50 select-none'
+              : 'bg-[#1C1714] dark:bg-[#081512] border-b border-stone-800 text-[10px] sm:text-xs py-1.5 sm:py-2 px-3 sm:px-4 text-center text-white font-sans tracking-tight sm:tracking-wider uppercase flex items-center justify-center gap-2 transition-colors cursor-pointer hover:bg-[#28211D] dark:hover:bg-[#0D221D] select-none'
+          }
+          title="Apasă pentru a deschide oferta Black Friday"
+        >
+          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping flex-shrink-0" />
+          <span className="font-medium truncate sm:whitespace-normal flex items-center gap-2">
+            <span className="px-2 py-0.5 rounded-full bg-[#4A4039] text-stone-200 text-[9px] font-mono font-bold tracking-widest flex-shrink-0">
+              NEWSLETTER VIP
+            </span>
+            <span className="inline sm:hidden">50 LEI CADOU + CADOURI GRATUITE &rarr;</span>
+            <span className="hidden sm:inline">ABONEAZĂ-TE: 50 LEI CADOU + PÂNĂ LA 3 CADOURI GRATUITE • COD BLACKFRIDAY50 &rarr;</span>
           </span>
-          <span className="inline sm:hidden">50 LEI CADOU + CADOURI GRATUITE &rarr;</span>
-          <span className="hidden sm:inline">ABONEAZĂ-TE: 50 LEI CADOU + PÂNĂ LA 3 CADOURI GRATUITE • COD BLACKFRIDAY50 &rarr;</span>
-        </span>
-      </div>
-
-      {/* Main Header */}
-      <header className="sticky top-0 z-40 bg-white/95 dark:bg-[#071513]/95 backdrop-blur-md border-b border-stone-200 dark:border-teal-500/20 transition-all duration-300 shadow-sm">
-        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between gap-2 sm:gap-4">
-
-          {/* Mobile Menu Button - Accessible 44px+ touch target with instant response */}
-          <button
-            onClick={() => setIsMobileMenuOpen(true)}
-            className="lg:hidden min-w-[44px] min-h-[44px] flex items-center justify-center p-2.5 rounded-xl border border-stone-200/80 dark:border-zinc-800 bg-stone-50/80 dark:bg-obsidian-900 text-stone-800 dark:text-zinc-200 hover:text-teal-600 dark:hover:text-teal-400 hover:border-teal-500/40 active:scale-95 active:bg-teal-500/10 focus:outline-none transition-all shadow-sm touch-manipulation cursor-pointer flex-shrink-0"
-            aria-label="Deschide Meniul Principal"
-            title="Meniu"
-          >
-            <Menu className="w-5 h-5 text-stone-800 dark:text-zinc-200" />
-          </button>
-
-          {/* Brand Logo - Responsive sizing preventing overflow on 360px viewports */}
-          <Link href="/" className="flex flex-col items-start group min-w-0 flex-shrink">
-            <span className="text-base sm:text-2xl font-serif tracking-[0.14em] sm:tracking-[0.2em] font-bold text-[#143D36] dark:text-[#E8F3F0] group-hover:text-teal-600 dark:group-hover:text-teal-300 transition-colors truncate">
-              EVERGREEN &amp; ISLE
-            </span>
-            <span className="text-[7.5px] sm:text-[9.5px] uppercase tracking-[0.25em] sm:tracking-[0.32em] text-[#658777] dark:text-[#8EAE9E] font-sans font-medium mt-0.5 truncate">
-              NATURAL SKINCARE
-            </span>
-          </Link>
-
-          {/* Desktop Navigation Links & Mega Menu Trigger */}
-          <nav className="hidden lg:flex items-center space-x-7 text-sm font-medium tracking-wide">
-
-            {/* Mega Menu Parent: Catalog */}
-            <div
-              className="relative"
-              onMouseEnter={handleMegaMenuEnter}
-              onMouseLeave={handleMegaMenuLeave}
-            >
-              <Link
-                href="/catalog"
-                onClick={handleCategoryNavClick}
-                className="flex items-center gap-1.5 text-stone-700 dark:text-zinc-300 hover:text-teal-600 dark:hover:text-teal-400 py-6 transition-colors group cursor-pointer"
-              >
-                <Layers className="w-4 h-4 text-stone-500 dark:text-zinc-400 group-hover:text-teal-600 dark:group-hover:text-teal-400 group-hover:rotate-12 transition-transform duration-300" />
-                <span>CATALOG PRODUSE</span>
-                <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${isMegaMenuOpen ? 'rotate-180 text-teal-600 dark:text-teal-400' : ''}`} />
-              </Link>
-
-              {/* Mega Menu Dropdown */}
-              {isMegaMenuOpen && (
-                <div className="absolute top-full left-1/2 -translate-x-1/2 w-[720px] bg-white dark:bg-obsidian-950 border border-stone-300 dark:border-teal-500/30 rounded-b-2xl shadow-2xl p-6 grid grid-cols-2 gap-4 animate-in fade-in slide-in-from-top-2 duration-200 z-50">
-                  <div className="col-span-2 pb-2 border-b border-stone-200 dark:border-zinc-800 flex items-center justify-between">
-                    <span className="text-xs font-mono uppercase text-teal-700 dark:text-teal-400 tracking-wider flex items-center gap-1.5 font-bold">
-                      <Feather className="w-3.5 h-3.5 text-teal-600 dark:text-teal-400" />
-                      Categoriile Noastre de Excelență Botanică
-                    </span>
-                    <Link
-                      href="/catalog"
-                      onClick={handleCategoryNavClick}
-                      className="text-xs text-stone-700 dark:text-zinc-400 hover:text-teal-700 dark:hover:text-teal-400 flex items-center gap-1 group font-semibold cursor-pointer"
-                    >
-                      Vezi tot catalogul <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
-                    </Link>
-                  </div>
-
-                  {INITIAL_CATEGORIES.map((cat) => (
-                    <Link
-                      key={cat.id}
-                      href={`/catalog?category=${cat.slug}`}
-                      onClick={handleCategoryNavClick}
-                      className="p-4 rounded-xl border border-stone-200 dark:border-zinc-800 hover:border-teal-700/50 dark:hover:border-teal-400/50 bg-stone-50 dark:bg-obsidian-900 hover:bg-stone-100 dark:hover:bg-zinc-800/80 transition-all flex flex-col justify-between group shadow-sm cursor-pointer"
-                    >
-                      <div>
-                        <div className="text-sm font-serif font-bold text-stone-950 dark:text-zinc-100 group-hover:text-teal-800 dark:group-hover:text-teal-300 transition-colors flex items-center justify-between">
-                          <span>{cat.name}</span>
-                          <span className="text-teal-700 dark:text-teal-400 text-xs opacity-0 group-hover:opacity-100 transition-opacity">&rarr;</span>
-                        </div>
-                        <p className="text-xs text-stone-700 dark:text-zinc-300 mt-1.5 line-clamp-2 leading-relaxed">
-                          {cat.description}
-                        </p>
-                      </div>
-                      <span className="text-[11px] text-teal-800 dark:text-teal-300 font-mono font-semibold mt-3 group-hover:underline">
-                        Explorează categoria &rarr;
-                      </span>
-                    </Link>
-                  ))}
-                </div>
-              )}
-            </div>
-
-            {/* Inovativ: Simulator Creștere Sprâncene */}
-            <Link
-              href="/simulator"
-              className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-teal-800/10 dark:bg-teal-400/10 border border-teal-700/30 dark:border-teal-400/30 text-teal-900 dark:text-teal-200 hover:bg-teal-800/20 transition-all text-xs tracking-wider font-semibold shadow-sm"
-            >
-              <Sparkles className="w-3.5 h-3.5 text-teal-600 dark:text-teal-400 animate-spin" style={{ animationDuration: '6s' }} />
-              <span>DIAGNOSTIC & SIMULATOR</span>
-            </Link>
-
-            <Link
-              href="/about"
-              className="text-stone-700 dark:text-zinc-300 hover:text-teal-600 dark:hover:text-teal-400 transition-colors flex items-center gap-1.5"
-            >
-              <Compass className="w-3.5 h-3.5 text-stone-500 dark:text-zinc-400" />
-              <span>ATELIER BOTANIC</span>
-            </Link>
-
-            {isAdmin && (
-              <Link
-                href="/admin"
-                className="text-teal-800 dark:text-teal-300 hover:text-teal-600 flex items-center gap-1.5 text-xs font-mono transition-colors font-bold px-2.5 py-1 rounded-lg bg-teal-800/10 border border-teal-700/30"
-              >
-                <FlaskConical className="w-3.5 h-3.5 text-teal-600 dark:text-teal-400/80" />
-                <span>ADMIN</span>
-              </Link>
-            )}
-          </nav>
-
-          {/* Right Action Icons: Theme Toggle (desktop only), Search, Account, Cart */}
-          <div className="flex items-center space-x-1 sm:space-x-3 md:space-x-4">
-
-            {/* LIGHT / DARK MODE TOGGLE BUTTON - Hidden on phone/tablet, placed inside mobile drawer menu */}
-            <button
-              onClick={toggleTheme}
-              className="relative p-2.5 rounded-full border border-stone-300 dark:border-teal-700/40 bg-stone-100 dark:bg-obsidian-900 hover:bg-stone-200 dark:hover:bg-zinc-800 text-stone-800 dark:text-teal-300 transition-all shadow-sm group focus:outline-none hidden md:flex"
-              aria-label={`Comută pe modul ${theme === 'dark' ? 'luminos' : 'întunecat'}`}
-              title={`Comută pe modul ${theme === 'dark' ? 'Light Mode (Ivory)' : 'Dark Mode (Obsidian)'}`}
-            >
-              {theme === 'dark' ? (
-                <Sun className="w-4 h-4 text-amber-300 group-hover:rotate-90 group-hover:scale-110 transition-all duration-300" />
-              ) : (
-                <Moon className="w-4 h-4 text-stone-800 group-hover:-rotate-45 group-hover:scale-110 transition-all duration-300" />
-              )}
-            </button>
-
-            {/* Search Trigger - 44px accessible touch target */}
-            <button
-              onClick={handleOpenSearch}
-              className="min-w-[44px] min-h-[44px] flex items-center justify-center p-2.5 text-stone-700 dark:text-zinc-300 hover:text-teal-800 dark:hover:text-teal-300 transition-colors rounded-full hover:bg-stone-100 dark:hover:bg-zinc-800/50 active:scale-95 touch-manipulation cursor-pointer"
-              aria-label="Căutare produse"
-            >
-              <Search className="w-5 h-5 sm:w-4 sm:h-4" />
-            </button>
-
-            {/* Account Icon */}
-            <Link
-              href="/account"
-              className="min-w-[44px] min-h-[44px] items-center justify-center p-2.5 text-stone-700 dark:text-zinc-300 hover:text-teal-800 dark:hover:text-teal-300 transition-colors rounded-full hover:bg-stone-100 dark:hover:bg-zinc-800/50 hidden sm:flex"
-              aria-label="Contul meu"
-            >
-              <User className="w-4 h-4" />
-            </Link>
-
-            {/* Cart Drawer Trigger - 44px thumb target with badge */}
-            <button
-              onClick={openCart}
-              className="relative min-w-[44px] min-h-[44px] flex items-center justify-center p-2.5 bg-teal-800/10 hover:bg-teal-800/20 border border-teal-800/30 text-stone-900 dark:text-zinc-100 rounded-full transition-all shadow-sm group active:scale-95 touch-manipulation cursor-pointer"
-              aria-label="Coș de cumpărături"
-            >
-              <ShoppingBag className="w-5 h-5 sm:w-4 sm:h-4 text-teal-800 dark:text-teal-300 group-hover:scale-110 transition-transform" />
-              {totalItemsCount > 0 && (
-                <span className="absolute -top-1 -right-1 bg-teal-800 dark:bg-teal-500 text-white dark:text-obsidian-950 text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center shadow-lg border border-white dark:border-obsidian-950 animate-bounce">
-                  {totalItemsCount}
-                </span>
-              )}
-            </button>
-          </div>
         </div>
-      </header>
+
+        {/* Main Header */}
+        <header
+          className={
+            isHeroTransparent
+              ? 'bg-black/25 backdrop-blur-md border-b border-white/10 transition-all duration-300 shadow-none'
+              : 'bg-white/95 dark:bg-[#071513]/95 backdrop-blur-md border-b border-stone-200 dark:border-teal-500/20 transition-all duration-300 shadow-sm'
+          }
+        >
+          <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between gap-2 sm:gap-4">
+
+            {/* Mobile Menu Button - Accessible 44px+ touch target with instant response */}
+            <button
+              onClick={() => setIsMobileMenuOpen(true)}
+              className={
+                isHeroTransparent
+                  ? 'lg:hidden min-w-[44px] min-h-[44px] flex items-center justify-center p-2.5 rounded-xl border border-white/20 bg-white/10 text-white hover:bg-white/20 active:scale-95 focus:outline-none transition-all shadow-sm touch-manipulation cursor-pointer flex-shrink-0'
+                  : 'lg:hidden min-w-[44px] min-h-[44px] flex items-center justify-center p-2.5 rounded-xl border border-stone-200/80 dark:border-zinc-800 bg-stone-50/80 dark:bg-obsidian-900 text-stone-800 dark:text-zinc-200 hover:text-teal-600 dark:hover:text-teal-400 hover:border-teal-500/40 active:scale-95 active:bg-teal-500/10 focus:outline-none transition-all shadow-sm touch-manipulation cursor-pointer flex-shrink-0'
+              }
+              aria-label="Deschide Meniul Principal"
+              title="Meniu"
+            >
+              <Menu className="w-5 h-5" />
+            </button>
+
+            {/* Brand Logo - Responsive sizing preventing overflow on 360px viewports */}
+            <Link href="/" className="flex flex-col items-start group min-w-0 flex-shrink">
+              <span
+                className={
+                  isHeroTransparent
+                    ? 'text-base sm:text-2xl font-serif tracking-[0.14em] sm:tracking-[0.2em] font-bold text-white group-hover:text-teal-200 transition-colors truncate drop-shadow-md'
+                    : 'text-base sm:text-2xl font-serif tracking-[0.14em] sm:tracking-[0.2em] font-bold text-[#143D36] dark:text-[#E8F3F0] group-hover:text-teal-600 dark:group-hover:text-teal-300 transition-colors truncate'
+                }
+              >
+                EVERGREEN &amp; ISLE
+              </span>
+              <span
+                className={
+                  isHeroTransparent
+                    ? 'text-[7.5px] sm:text-[9.5px] uppercase tracking-[0.25em] sm:tracking-[0.32em] text-[#A2C2B4] font-sans font-medium mt-0.5 truncate'
+                    : 'text-[7.5px] sm:text-[9.5px] uppercase tracking-[0.25em] sm:tracking-[0.32em] text-[#658777] dark:text-[#8EAE9E] font-sans font-medium mt-0.5 truncate'
+                }
+              >
+                NATURAL SKINCARE
+              </span>
+            </Link>
+
+            {/* Desktop Navigation Links & Mega Menu Trigger */}
+            <nav className="hidden lg:flex items-center space-x-7 text-sm font-medium tracking-wide">
+
+              {/* Mega Menu Parent: Catalog */}
+              <div
+                className="relative"
+                onMouseEnter={handleMegaMenuEnter}
+                onMouseLeave={handleMegaMenuLeave}
+              >
+                <Link
+                  href="/catalog"
+                  onClick={handleCategoryNavClick}
+                  className={
+                    isHeroTransparent
+                      ? 'flex items-center gap-1.5 text-white/95 hover:text-white py-6 transition-colors group cursor-pointer drop-shadow-sm'
+                      : 'flex items-center gap-1.5 text-stone-700 dark:text-zinc-300 hover:text-teal-600 dark:hover:text-teal-400 py-6 transition-colors group cursor-pointer'
+                  }
+                >
+                  <Layers className={`w-4 h-4 transition-transform duration-300 ${isHeroTransparent ? 'text-white' : 'text-stone-500 dark:text-zinc-400'} group-hover:rotate-12`} />
+                  <span>CATALOG PRODUSE</span>
+                  <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${isMegaMenuOpen ? 'rotate-180 text-teal-400' : ''}`} />
+                </Link>
+
+                {/* Mega Menu Dropdown */}
+                {isMegaMenuOpen && (
+                  <div className="absolute top-full left-1/2 -translate-x-1/2 w-[720px] bg-white dark:bg-obsidian-950 border border-stone-300 dark:border-teal-500/30 rounded-b-2xl shadow-2xl p-6 grid grid-cols-2 gap-4 animate-in fade-in slide-in-from-top-2 duration-200 z-50">
+                    <div className="col-span-2 pb-2 border-b border-stone-200 dark:border-zinc-800 flex items-center justify-between">
+                      <span className="text-xs font-mono uppercase text-teal-700 dark:text-teal-400 tracking-wider flex items-center gap-1.5 font-bold">
+                        <Feather className="w-3.5 h-3.5 text-teal-600 dark:text-teal-400" />
+                        Categoriile Noastre de Excelență Botanică
+                      </span>
+                      <Link
+                        href="/catalog"
+                        onClick={handleCategoryNavClick}
+                        className="text-xs text-stone-700 dark:text-zinc-400 hover:text-teal-700 dark:hover:text-teal-400 flex items-center gap-1 group font-semibold cursor-pointer"
+                      >
+                        Vezi tot catalogul <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
+                      </Link>
+                    </div>
+
+                    {INITIAL_CATEGORIES.map((cat) => (
+                      <Link
+                        key={cat.id}
+                        href={`/catalog?category=${cat.slug}`}
+                        onClick={handleCategoryNavClick}
+                        className="p-4 rounded-xl border border-stone-200 dark:border-zinc-800 hover:border-teal-700/50 dark:hover:border-teal-400/50 bg-stone-50 dark:bg-obsidian-900 hover:bg-stone-100 dark:hover:bg-zinc-800/80 transition-all flex flex-col justify-between group shadow-sm cursor-pointer"
+                      >
+                        <div>
+                          <div className="text-sm font-serif font-bold text-stone-950 dark:text-zinc-100 group-hover:text-teal-800 dark:group-hover:text-teal-300 transition-colors flex items-center justify-between">
+                            <span>{cat.name}</span>
+                            <span className="text-teal-700 dark:text-teal-400 text-xs opacity-0 group-hover:opacity-100 transition-opacity">&rarr;</span>
+                          </div>
+                          <p className="text-xs text-stone-700 dark:text-zinc-300 mt-1.5 line-clamp-2 leading-relaxed">
+                            {cat.description}
+                          </p>
+                        </div>
+                        <span className="text-[11px] text-teal-800 dark:text-teal-300 font-mono font-semibold mt-3 group-hover:underline">
+                          Explorează categoria &rarr;
+                        </span>
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              {/* Inovativ: Simulator Creștere Sprâncene */}
+              <Link
+                href="/simulator"
+                className={
+                  isHeroTransparent
+                    ? 'flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white/15 border border-white/25 text-white hover:bg-white/25 transition-all text-xs tracking-wider font-semibold shadow-sm backdrop-blur-sm'
+                    : 'flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-teal-800/10 dark:bg-teal-400/10 border border-teal-700/30 dark:border-teal-400/30 text-teal-900 dark:text-teal-200 hover:bg-teal-800/20 transition-all text-xs tracking-wider font-semibold shadow-sm'
+                }
+              >
+                <Sparkles className="w-3.5 h-3.5 text-teal-300 animate-spin" style={{ animationDuration: '6s' }} />
+                <span>DIAGNOSTIC & SIMULATOR</span>
+              </Link>
+
+              <Link
+                href="/about"
+                className={
+                  isHeroTransparent
+                    ? 'text-white/90 hover:text-white transition-colors flex items-center gap-1.5 drop-shadow-sm'
+                    : 'text-stone-700 dark:text-zinc-300 hover:text-teal-600 dark:hover:text-teal-400 transition-colors flex items-center gap-1.5'
+                }
+              >
+                <Compass className="w-3.5 h-3.5" />
+                <span>ATELIER BOTANIC</span>
+              </Link>
+
+              {isAdmin && (
+                <Link
+                  href="/admin"
+                  className="text-teal-300 hover:text-white flex items-center gap-1.5 text-xs font-mono transition-colors font-bold px-2.5 py-1 rounded-lg bg-white/10 border border-white/20"
+                >
+                  <FlaskConical className="w-3.5 h-3.5 text-teal-300" />
+                  <span>ADMIN</span>
+                </Link>
+              )}
+            </nav>
+
+            {/* Right Action Icons: Theme Toggle (desktop only), Search, Account, Cart */}
+            <div className="flex items-center space-x-1 sm:space-x-3 md:space-x-4">
+
+              {/* LIGHT / DARK MODE TOGGLE BUTTON */}
+              <button
+                onClick={toggleTheme}
+                className={
+                  isHeroTransparent
+                    ? 'relative p-2.5 rounded-full border border-white/20 bg-white/10 hover:bg-white/20 text-white transition-all shadow-sm group focus:outline-none hidden md:flex'
+                    : 'relative p-2.5 rounded-full border border-stone-300 dark:border-teal-700/40 bg-stone-100 dark:bg-obsidian-900 hover:bg-stone-200 dark:hover:bg-zinc-800 text-stone-800 dark:text-teal-300 transition-all shadow-sm group focus:outline-none hidden md:flex'
+                }
+                aria-label={`Comută pe modul ${theme === 'dark' ? 'luminos' : 'întunecat'}`}
+                title={`Comută pe modul ${theme === 'dark' ? 'Light Mode (Ivory)' : 'Dark Mode (Obsidian)'}`}
+              >
+                {theme === 'dark' ? (
+                  <Sun className="w-4 h-4 text-amber-300 group-hover:rotate-90 group-hover:scale-110 transition-all duration-300" />
+                ) : (
+                  <Moon className="w-4 h-4 text-white group-hover:-rotate-45 group-hover:scale-110 transition-all duration-300" />
+                )}
+              </button>
+
+              {/* Search Trigger */}
+              <button
+                onClick={handleOpenSearch}
+                className={
+                  isHeroTransparent
+                    ? 'min-w-[44px] min-h-[44px] flex items-center justify-center p-2.5 text-white hover:text-teal-200 transition-colors rounded-full hover:bg-white/10 active:scale-95 touch-manipulation cursor-pointer'
+                    : 'min-w-[44px] min-h-[44px] flex items-center justify-center p-2.5 text-stone-700 dark:text-zinc-300 hover:text-teal-800 dark:hover:text-teal-300 transition-colors rounded-full hover:bg-stone-100 dark:hover:bg-zinc-800/50 active:scale-95 touch-manipulation cursor-pointer'
+                }
+                aria-label="Căutare produse"
+              >
+                <Search className="w-5 h-5 sm:w-4 sm:h-4" />
+              </button>
+
+              {/* Account Icon */}
+              <Link
+                href="/account"
+                className={
+                  isHeroTransparent
+                    ? 'min-w-[44px] min-h-[44px] items-center justify-center p-2.5 text-white hover:text-teal-200 transition-colors rounded-full hover:bg-white/10 hidden sm:flex'
+                    : 'min-w-[44px] min-h-[44px] items-center justify-center p-2.5 text-stone-700 dark:text-zinc-300 hover:text-teal-800 dark:hover:text-teal-300 transition-colors rounded-full hover:bg-stone-100 dark:hover:bg-zinc-800/50 hidden sm:flex'
+                }
+                aria-label="Contul meu"
+              >
+                <User className="w-4 h-4" />
+              </Link>
+
+              {/* Cart Drawer Trigger */}
+              <button
+                onClick={openCart}
+                className={
+                  isHeroTransparent
+                    ? 'relative min-w-[44px] min-h-[44px] flex items-center justify-center p-2.5 bg-white/15 hover:bg-white/25 border border-white/30 text-white rounded-full transition-all shadow-sm group active:scale-95 touch-manipulation cursor-pointer backdrop-blur-sm'
+                    : 'relative min-w-[44px] min-h-[44px] flex items-center justify-center p-2.5 bg-teal-800/10 hover:bg-teal-800/20 border border-teal-800/30 text-stone-900 dark:text-zinc-100 rounded-full transition-all shadow-sm group active:scale-95 touch-manipulation cursor-pointer'
+                }
+                aria-label="Coș de cumpărături"
+              >
+                <ShoppingBag className="w-5 h-5 sm:w-4 sm:h-4 text-white group-hover:scale-110 transition-transform" />
+                {totalItemsCount > 0 && (
+                  <span className="absolute -top-1 -right-1 bg-emerald-500 text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center shadow-lg border border-black animate-bounce">
+                    {totalItemsCount}
+                  </span>
+                )}
+              </button>
+            </div>
+          </div>
+        </header>
+      </div>
 
       {/* Dynamic Search Modal Overlay */}
       {isSearchOpen && (
