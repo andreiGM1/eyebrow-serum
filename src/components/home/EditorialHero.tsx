@@ -107,9 +107,6 @@ export default function EditorialHero() {
   const expansionFactor = Math.pow(Math.min(1, effectiveProgress / 0.72), 1.6);
   const currentMaskSize = initialBaseSize + expansionFactor * 550;
 
-  // Artwork lines fade out smoothly as mask expands past 40% of the transition
-  const artworkOpacity = Math.max(0, 1 - Math.pow(effectiveProgress / 0.42, 1.4));
-
   // Initial typography fades out as zoom starts
   const initialTypographyOpacity = Math.max(0, 1 - effectiveProgress * 2.8);
 
@@ -126,15 +123,15 @@ export default function EditorialHero() {
       {/* Sticky Fullscreen Canvas: Always exactly 100dvh, NEVER exits or cuts off */}
       <div className="sticky top-0 w-full h-[100dvh] overflow-hidden bg-[#071513]">
         
-        {/* ──────── 1. THE CINEMATIC VIDEO (Always full screen, masked by eyebrow + eye) ──────── */}
+        {/* ──────── 1. THE CINEMATIC VIDEO (Masked exclusively by user's eyebrow + eye mask, no image overlay) ──────── */}
         <div
           className="absolute inset-0 w-full h-full overflow-hidden transition-[mask] duration-200"
           style={{
-            WebkitMaskImage: effectiveProgress >= 0.75 ? 'none' : 'url(/images/hero-eye-filled-mask.png)',
+            WebkitMaskImage: effectiveProgress >= 0.75 ? 'none' : 'url(/images/hero-user-mask.png)',
             WebkitMaskSize: `${currentMaskSize}% auto`,
             WebkitMaskPosition: 'center center',
             WebkitMaskRepeat: 'no-repeat',
-            maskImage: effectiveProgress >= 0.75 ? 'none' : 'url(/images/hero-eye-filled-mask.png)',
+            maskImage: effectiveProgress >= 0.75 ? 'none' : 'url(/images/hero-user-mask.png)',
             maskSize: `${currentMaskSize}% auto`,
             maskPosition: 'center center',
             maskRepeat: 'no-repeat',
@@ -152,27 +149,7 @@ export default function EditorialHero() {
           </video>
         </div>
 
-        {/* ──────── 2. THE ARTISTIC EYEBROW & EYE OVERLAY (User's Exact Artwork) ──────── */}
-        <div
-          className="absolute inset-0 flex items-center justify-center pointer-events-none transition-opacity duration-150"
-          style={{
-            opacity: artworkOpacity,
-          }}
-        >
-          <img
-            src="/images/hero-eye-mask.png"
-            alt="Evergreen Eyebrow & Lash Art"
-            className="object-contain drop-shadow-[0_15px_35px_rgba(0,0,0,0.8)] filter brightness-110 contrast-125"
-            style={{
-              width: `${currentMaskSize}%`,
-              maxWidth: 'none',
-              transform: 'translateZ(0)',
-              willChange: 'width',
-            }}
-          />
-        </div>
-
-        {/* ──────── 3. AMBIENT DARK LUXURY SCRIM (Ensures 100% Legibility over Video) ──────── */}
+        {/* ──────── 2. AMBIENT DARK LUXURY SCRIM (Ensures 100% Legibility over Video when expanded) ──────── */}
         <div
           className="absolute inset-0 bg-gradient-to-b from-black/85 via-black/40 to-black/90 pointer-events-none transition-opacity duration-300"
           style={{
