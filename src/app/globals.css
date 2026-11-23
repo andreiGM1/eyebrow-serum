@@ -30,6 +30,7 @@ html.dark {
   html {
     scroll-behavior: smooth;
     -webkit-text-size-adjust: 100%;
+    overscroll-behavior-y: none;
   }
 
   body {
@@ -40,6 +41,7 @@ html.dark {
     -webkit-font-smoothing: antialiased;
     overflow-x: hidden;
     max-width: 100vw;
+    overscroll-behavior-y: none;
     transition: background-color 0.3s ease, color 0.3s ease;
   }
 

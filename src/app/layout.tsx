@@ -7,6 +7,7 @@ import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import CartDrawer from '@/components/layout/CartDrawer';
 import MarketingPopup from '@/components/marketing/MarketingPopup';
+import ScrollAmortization from '@/components/common/ScrollAmortization';
 
 export const metadata: Metadata = {
   title: 'EVERGREEN & ISLE | Natural Skincare & Botanical Brow Care',
@@ -82,10 +83,12 @@ export default function RootLayout({
           <CartProvider>
             <AuthProvider>
               <Navbar />
-              <main className="flex-1">{children}</main>
+              <ScrollAmortization>
+                <main className="flex-1">{children}</main>
+                <Footer />
+              </ScrollAmortization>
               <CartDrawer />
               <MarketingPopup />
-              <Footer />
             </AuthProvider>
           </CartProvider>
         </ThemeProvider>

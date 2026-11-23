@@ -55,6 +55,8 @@ export default function EditorialHero() {
   const targetProgress = useRef(0);
   const currentProgress = useRef(0);
   const touchStartY = useRef(0);
+  const arrivalAtTopTime = useRef(0);
+  const lastScrollYRef = useRef(0);
 
   const [activeCampaignIndex, setActiveCampaignIndex] = useState(0);
   const [isExpandedState, setIsExpandedState] = useState(false);
@@ -143,6 +145,16 @@ export default function EditorialHero() {
 
     animId = requestAnimationFrame(updateMotion);
 
+    // Track arrival at top to prevent accidental mask collapse during fast scroll deceleration
+    const handleScrollTracking = () => {
+      const currentY = window.scrollY;
+      if (currentY <= 2 && lastScrollYRef.current > 15) {
+        arrivalAtTopTime.current = performance.now();
+      }
+      lastScrollYRef.current = currentY;
+    };
+    window.addEventListener('scroll', handleScrollTracking, { passive: true });
+
     // ──────── SCROLL-GATED INTERCEPTION LOGIC ────────
     // When at the top of the page, scrolling gestures ONLY expand the mask.
     // The page does NOT move down until targetProgress reaches 1.0!
@@ -163,10 +175,16 @@ export default function EditorialHero() {
           e.preventDefault();
           targetProgress.current = Math.max(0, targetProgress.current + e.deltaY * 0.0018);
         }
+        // If e.deltaY < 0 and targetProgress is 0: bubbles to ScrollAmortization to cushion top
       } else {
         // Fully expanded (>= 0.999)
         if (e.deltaY < 0 && window.scrollY <= 2) {
-          // User is at top and scrolling UP -> reverse/shrink mask back
+          // If we just arrived at the top from a fast scroll up (< 500ms ago),
+          // DO NOT immediately collapse the mask; let ScrollAmortization cushion the kinetic energy.
+          if (performance.now() - arrivalAtTopTime.current < 500) {
+            return;
+          }
+          // Intentional deliberate scroll up while stationary at top -> reverse/shrink mask back
           e.preventDefault();
           targetProgress.current = Math.max(0, targetProgress.current + e.deltaY * 0.0018);
         }
@@ -195,8 +213,11 @@ export default function EditorialHero() {
           targetProgress.current = Math.min(1, Math.max(0, targetProgress.current + deltaY * 0.004));
         }
       } else {
-        // Fully expanded: if swiping down at top, allow shrinking back
+        // Fully expanded: if swiping down at top, allow shrinking back after arrival settling
         if (deltaY < 0 && window.scrollY <= 2) {
+          if (performance.now() - arrivalAtTopTime.current < 500) {
+            return;
+          }
           e.preventDefault();
           targetProgress.current = Math.max(0, targetProgress.current + deltaY * 0.004);
         }
@@ -227,6 +248,7 @@ export default function EditorialHero() {
     return () => {
       isRunning = false;
       cancelAnimationFrame(animId);
+      window.removeEventListener('scroll', handleScrollTracking);
       window.removeEventListener('wheel', handleWheel);
       window.removeEventListener('touchstart', handleTouchStart);
       window.removeEventListener('touchmove', handleTouchMove);
