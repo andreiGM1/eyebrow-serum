@@ -77,9 +77,9 @@ export default function EditorialHero() {
 
       const diff = targetProgress.current - currentProgress.current;
 
-      // Snappy & fluid lerp damping
+      // Smooth & slow luxury lerp damping
       if (Math.abs(diff) > 0.0002) {
-        currentProgress.current += diff * 0.11;
+        currentProgress.current += diff * 0.058;
       } else {
         currentProgress.current = targetProgress.current;
       }
@@ -165,28 +165,28 @@ export default function EditorialHero() {
       if (!isAtTop) return;
 
       if (targetProgress.current < 0.999) {
-        // Not yet fully expanded: intercept all scroll gestures
+        // Not yet fully expanded: intercept all scroll gestures (smooth & slow)
         if (e.deltaY > 0) {
           // Scrolling down -> expand mask
           e.preventDefault();
-          targetProgress.current = Math.min(1, targetProgress.current + e.deltaY * 0.0018);
+          targetProgress.current = Math.min(1, targetProgress.current + e.deltaY * 0.0011);
         } else if (e.deltaY < 0 && targetProgress.current > 0) {
           // Scrolling up -> shrink mask
           e.preventDefault();
-          targetProgress.current = Math.max(0, targetProgress.current + e.deltaY * 0.0018);
+          targetProgress.current = Math.max(0, targetProgress.current + e.deltaY * 0.0011);
         }
         // If e.deltaY < 0 and targetProgress is 0: bubbles to ScrollAmortization to cushion top
       } else {
         // Fully expanded (>= 0.999)
         if (e.deltaY < 0 && window.scrollY <= 2) {
-          // If we just arrived at the top from a fast scroll up (< 500ms ago),
+          // If we just arrived at the top from a fast scroll up (< 650ms ago),
           // DO NOT immediately collapse the mask; let ScrollAmortization cushion the kinetic energy.
-          if (performance.now() - arrivalAtTopTime.current < 500) {
+          if (performance.now() - arrivalAtTopTime.current < 650) {
             return;
           }
           // Intentional deliberate scroll up while stationary at top -> reverse/shrink mask back
           e.preventDefault();
-          targetProgress.current = Math.max(0, targetProgress.current + e.deltaY * 0.0018);
+          targetProgress.current = Math.max(0, targetProgress.current + e.deltaY * 0.0011);
         }
         // If e.deltaY > 0, do NOT call preventDefault(): allow native page scroll down!
       }
@@ -210,16 +210,16 @@ export default function EditorialHero() {
         // Intercept touch swipe while mask is expanding
         if (deltaY > 0 || (deltaY < 0 && targetProgress.current > 0)) {
           e.preventDefault();
-          targetProgress.current = Math.min(1, Math.max(0, targetProgress.current + deltaY * 0.004));
+          targetProgress.current = Math.min(1, Math.max(0, targetProgress.current + deltaY * 0.0022));
         }
       } else {
         // Fully expanded: if swiping down at top, allow shrinking back after arrival settling
         if (deltaY < 0 && window.scrollY <= 2) {
-          if (performance.now() - arrivalAtTopTime.current < 500) {
+          if (performance.now() - arrivalAtTopTime.current < 650) {
             return;
           }
           e.preventDefault();
-          targetProgress.current = Math.max(0, targetProgress.current + deltaY * 0.004);
+          targetProgress.current = Math.max(0, targetProgress.current + deltaY * 0.0022);
         }
         // deltaY > 0 naturally scrolls down into the website
       }

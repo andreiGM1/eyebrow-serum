@@ -8,15 +8,13 @@ interface ScrollAmortizationProps {
 
 /**
  * ScrollAmortization:
- * High-performance, 120 FPS physics-based elastic cushioning (amortizare)
- * at the top and bottom boundaries of the document.
+ * Ultra-smooth, slow monotonic deceleration cushion (amortizare lină, lentă, fără bounce).
  * 
- * - When scrolling very fast down to the end of the page (footer), it absorbs momentum
- *   with an elastic hydraulic rebound and returns smoothly to resting position.
- * - When scrolling very fast up to the top of the page, it cushions the arrival
- *   with an elastic rebound without hard collision or jarring stop.
- * - When scrolling beyond boundaries with wheel or touch drag, it offers smooth
- *   logarithmic spring resistance.
+ * Design:
+ * - ZERO oscillation / bounce: uses monotonic exponential ease-out that never overshoots zero.
+ * - Soft, subtle cushion (max ~18-20px) when scrolling fast to the top or bottom of the page.
+ * - Slow, velvety decay back to resting state.
+ * - Seamless 120 FPS GPU composite transforms with automatic style reset at rest.
  */
 export default function ScrollAmortization({ children }: ScrollAmortizationProps) {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -26,102 +24,99 @@ export default function ScrollAmortization({ children }: ScrollAmortizationProps
     if (!el) return;
 
     let currentOffset = 0;
-    let velocity = 0;
+    let targetOffset = 0;
     let animId: number | null = null;
-    let isAnimating = false;
+    let isRunning = false;
 
-    // High precision velocity tracker for scroll arrival detection
+    // Velocity tracker for fast arrivals
     let lastScrollY = window.scrollY;
     let lastTime = performance.now();
-    let scrollSpeed = 0; // px per millisecond
+    let scrollSpeed = 0; // px / ms
 
-    // Spring physics constants: critically damped for luxury feel
-    const springTension = 0.14; // Elastic pull
-    const springDamping = 0.76; // Hydraulic cushioning
+    // Animation loop: monotonic lerp with gradual decay (Mathematically CANNOT bounce)
+    const updateMotion = () => {
+      // 1. Target exponentially decays towards 0 (slowly)
+      targetOffset *= 0.88;
 
-    const updatePhysics = () => {
-      // Spring force: F = -k * x
-      const force = -springTension * currentOffset;
-      velocity = (velocity + force) * springDamping;
-      currentOffset += velocity;
+      // 2. Current offset smoothly and slowly follows targetOffset
+      currentOffset += (targetOffset - currentOffset) * 0.065;
 
-      // When resting threshold reached, terminate loop and clean DOM transform
-      if (Math.abs(currentOffset) < 0.15 && Math.abs(velocity) < 0.15) {
+      // 3. Resting check: when settled, cleanly clear the transform
+      if (Math.abs(currentOffset) < 0.12 && Math.abs(targetOffset) < 0.12) {
         currentOffset = 0;
-        velocity = 0;
-        isAnimating = false;
+        targetOffset = 0;
+        isRunning = false;
         el.style.transform = '';
         return;
       }
 
       el.style.transform = `translate3d(0, ${currentOffset.toFixed(2)}px, 0)`;
-      animId = requestAnimationFrame(updatePhysics);
+      animId = requestAnimationFrame(updateMotion);
     };
 
-    const triggerSpring = (impulse: number) => {
-      velocity += impulse;
-      if (!isAnimating) {
-        isAnimating = true;
-        animId = requestAnimationFrame(updatePhysics);
+    const startMotion = () => {
+      if (!isRunning) {
+        isRunning = true;
+        animId = requestAnimationFrame(updateMotion);
       }
     };
 
-    // 1. Detect high-speed scroll arrivals at boundaries
+    // 1. Detect fast scroll arrivals at document boundaries
     const handleScroll = () => {
       const now = performance.now();
       const dt = Math.max(1, now - lastTime);
       const currentScrollY = window.scrollY;
       const dy = currentScrollY - lastScrollY;
-      scrollSpeed = dy / dt; // positive = scrolling down, negative = scrolling up
+      scrollSpeed = dy / dt; // positive = downward, negative = upward
       lastScrollY = currentScrollY;
       lastTime = now;
 
       const maxScroll = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
 
-      // High-speed arrival at the BOTTOM of the page
-      if (currentScrollY >= maxScroll - 3 && scrollSpeed > 0.28) {
-        const impulse = -Math.min(68, scrollSpeed * 24);
-        triggerSpring(impulse);
+      // Fast arrival at BOTTOM (footer): soft, slow upward cushion (max -18px)
+      if (currentScrollY >= maxScroll - 2 && scrollSpeed > 0.3) {
+        const cushion = -Math.min(18, Math.max(6, scrollSpeed * 8));
+        if (cushion < targetOffset) {
+          targetOffset = cushion;
+          startMotion();
+        }
       }
 
-      // High-speed arrival at the TOP of the page
-      if (currentScrollY <= 3 && scrollSpeed < -0.28) {
-        const impulse = Math.min(68, Math.abs(scrollSpeed) * 24);
-        triggerSpring(impulse);
+      // Fast arrival at TOP: soft, slow downward cushion (max +18px)
+      if (currentScrollY <= 2 && scrollSpeed < -0.3) {
+        const cushion = Math.min(18, Math.max(6, Math.abs(scrollSpeed) * 8));
+        if (cushion > targetOffset) {
+          targetOffset = cushion;
+          startMotion();
+        }
       }
     };
 
-    // 2. Wheel overscroll at boundaries (desktop mouse & trackpad)
+    // 2. Wheel overscroll at boundaries (desktop / trackpad)
     const handleWheel = (e: WheelEvent) => {
       const currentScrollY = window.scrollY;
       const maxScroll = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
 
-      // Top boundary: scrolling up at the very top of the page
+      // Scrolling UP at the very top of the page
       if (currentScrollY <= 1 && e.deltaY < 0) {
         e.preventDefault();
-        const resistance = Math.max(0.12, 1 - Math.abs(currentOffset) / 85);
-        velocity += -e.deltaY * 0.16 * resistance;
-        if (!isAnimating) {
-          isAnimating = true;
-          animId = requestAnimationFrame(updatePhysics);
-        }
+        const resistance = Math.max(0.08, 1 - Math.abs(targetOffset) / 22);
+        targetOffset = Math.min(20, targetOffset - e.deltaY * 0.035 * resistance);
+        startMotion();
         return;
       }
 
-      // Bottom boundary: scrolling down at the end of the page
+      // Scrolling DOWN at the bottom of the page
       if (currentScrollY >= maxScroll - 2 && e.deltaY > 0) {
         e.preventDefault();
-        const resistance = Math.max(0.12, 1 - Math.abs(currentOffset) / 85);
-        velocity -= e.deltaY * 0.16 * resistance;
-        if (!isAnimating) {
-          isAnimating = true;
-          animId = requestAnimationFrame(updatePhysics);
-        }
+        const resistance = Math.max(0.08, 1 - Math.abs(targetOffset) / 22);
+        targetOffset = Math.max(-20, targetOffset - e.deltaY * 0.035 * resistance);
+        startMotion();
         return;
       }
     };
 
-    // 3. Touch drag overscroll (mobile / tablet touchscreens)
+    // 3. Touch pull at boundaries (mobile / tablet)
     let touchStartY = 0;
 
     const handleTouchStart = (e: TouchEvent) => {
@@ -140,27 +135,22 @@ export default function ScrollAmortization({ children }: ScrollAmortizationProps
       // Pull down at top
       if (currentScrollY <= 1 && deltaY > 0) {
         e.preventDefault();
-        currentOffset = Math.min(75, deltaY * 0.35);
-        el.style.transform = `translate3d(0, ${currentOffset.toFixed(2)}px, 0)`;
+        targetOffset = Math.min(20, deltaY * 0.12);
+        startMotion();
         return;
       }
 
       // Pull up at bottom
       if (currentScrollY >= maxScroll - 2 && deltaY < 0) {
         e.preventDefault();
-        currentOffset = Math.max(-75, deltaY * 0.35);
-        el.style.transform = `translate3d(0, ${currentOffset.toFixed(2)}px, 0)`;
+        targetOffset = Math.max(-20, deltaY * 0.12);
+        startMotion();
         return;
       }
     };
 
     const handleTouchEnd = () => {
-      if (Math.abs(currentOffset) > 0.5) {
-        if (!isAnimating) {
-          isAnimating = true;
-          animId = requestAnimationFrame(updatePhysics);
-        }
-      }
+      startMotion();
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -189,4 +179,3 @@ export default function ScrollAmortization({ children }: ScrollAmortizationProps
     </div>
   );
 }
-
