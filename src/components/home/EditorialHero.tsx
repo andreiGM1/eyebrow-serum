@@ -44,6 +44,19 @@ const CAMPAIGNS: CampaignItem[] = [
   },
 ];
 
+// Helper to check if event occurred inside an active modal, drawer, or scrollable popup (e.g. CartDrawer)
+const shouldIgnoreScroll = (target: EventTarget | null): boolean => {
+  if (typeof document !== 'undefined') {
+    if (document.body.style.overflow === 'hidden') return true;
+  }
+  if (!target || !(target instanceof Element)) return false;
+  return Boolean(
+    target.closest(
+      '[role="dialog"], [aria-modal="true"], [data-drawer], [data-modal], .cart-drawer, [data-cart-drawer], aside, nav, [data-prevent-hero-scroll], .overflow-y-auto, .overflow-y-scroll'
+    )
+  );
+};
+
 export default function EditorialHero() {
   const containerRef = useRef<HTMLDivElement>(null);
   const maskRef = useRef<HTMLDivElement>(null);
@@ -100,7 +113,7 @@ export default function EditorialHero() {
       const invScale = 1 / scale;
 
       if (maskRef.current) {
-        maskRef.current.style.transform = `translate3d(-50%, -50%, 0) scale3d(${scale}, ${scale}, 1)`;
+        maskRef.current.style.transform = `translate3d(-50.3%, -72.7%, 0) scale3d(${scale}, ${scale}, 1)`;
         
         // Remove mask once completely off-screen to save composite pass
         if (p >= 0.76) {
@@ -160,24 +173,27 @@ export default function EditorialHero() {
     // The page does NOT move down until targetProgress reaches 1.0!
 
     const handleWheel = (e: WheelEvent) => {
-      const isAtTop = window.scrollY <= 2;
+      // Guard against interfering with CartDrawer, modals, or scrollable popups
+      if (shouldIgnoreScroll(e.target)) return;
 
+      const isAtTop = window.scrollY <= 2;
       if (!isAtTop) return;
 
-      if (targetProgress.current < 0.999) {
-        // Not yet fully expanded: intercept all scroll gestures (smooth & slow)
+      if (currentProgress.current < 0.985) {
+        // Zoom is in progress: intercept all scroll gestures (smooth & slow)
         if (e.deltaY > 0) {
           // Scrolling down -> expand mask
           e.preventDefault();
-          targetProgress.current = Math.min(1, targetProgress.current + e.deltaY * 0.0011);
+          targetProgress.current = Math.min(1, targetProgress.current + e.deltaY * 0.0010);
         } else if (e.deltaY < 0 && targetProgress.current > 0) {
           // Scrolling up -> shrink mask
           e.preventDefault();
-          targetProgress.current = Math.max(0, targetProgress.current + e.deltaY * 0.0011);
+          targetProgress.current = Math.max(0, targetProgress.current + e.deltaY * 0.0010);
         }
         // If e.deltaY < 0 and targetProgress is 0: bubbles to ScrollAmortization to cushion top
       } else {
-        // Fully expanded (>= 0.999)
+        // Fully expanded (>= 0.985):
+        // Allow smooth native scrolling down into the catalog
         if (e.deltaY < 0 && window.scrollY <= 2) {
           // If we just arrived at the top from a fast scroll up (< 650ms ago),
           // DO NOT immediately collapse the mask; let ScrollAmortization cushion the kinetic energy.
@@ -186,19 +202,22 @@ export default function EditorialHero() {
           }
           // Intentional deliberate scroll up while stationary at top -> reverse/shrink mask back
           e.preventDefault();
-          targetProgress.current = Math.max(0, targetProgress.current + e.deltaY * 0.0011);
+          targetProgress.current = Math.max(0, targetProgress.current + e.deltaY * 0.0010);
         }
         // If e.deltaY > 0, do NOT call preventDefault(): allow native page scroll down!
       }
     };
 
     const handleTouchStart = (e: TouchEvent) => {
+      if (shouldIgnoreScroll(e.target)) return;
       if (e.touches.length > 0) {
         touchStartY.current = e.touches[0].clientY;
       }
     };
 
     const handleTouchMove = (e: TouchEvent) => {
+      if (shouldIgnoreScroll(e.target)) return;
+
       const isAtTop = window.scrollY <= 2;
       if (!isAtTop || e.touches.length === 0) return;
 
@@ -206,7 +225,7 @@ export default function EditorialHero() {
       const deltaY = touchStartY.current - currentY; // positive when swiping up (scrolling down)
       touchStartY.current = currentY;
 
-      if (targetProgress.current < 0.999) {
+      if (currentProgress.current < 0.985) {
         // Intercept touch swipe while mask is expanding
         if (deltaY > 0 || (deltaY < 0 && targetProgress.current > 0)) {
           e.preventDefault();
@@ -226,10 +245,12 @@ export default function EditorialHero() {
     };
 
     const handleKeyDown = (e: KeyboardEvent) => {
+      if (shouldIgnoreScroll(e.target)) return;
+
       const isAtTop = window.scrollY <= 2;
       if (!isAtTop) return;
 
-      if (targetProgress.current < 0.999) {
+      if (currentProgress.current < 0.985) {
         if (e.key === 'ArrowDown' || e.key === 'PageDown' || e.key === ' ') {
           e.preventDefault();
           targetProgress.current = Math.min(1, targetProgress.current + 0.35);
@@ -296,8 +317,8 @@ export default function EditorialHero() {
         ref={maskRef}
         className="absolute left-1/2 top-1/2 w-[min(88vw,560px)] aspect-[772/454] overflow-hidden pointer-events-none"
         style={{
-          transform: 'translate3d(-50%, -50%, 0) scale3d(1, 1, 1)',
-          transformOrigin: 'center center',
+          transform: 'translate3d(-50.3%, -72.7%, 0) scale3d(1, 1, 1)',
+          transformOrigin: '50.3% 72.7%',
           WebkitMaskImage: 'url(/images/hero-user-mask.png)',
           WebkitMaskSize: '100% 100%',
           WebkitMaskPosition: 'center center',
@@ -315,10 +336,12 @@ export default function EditorialHero() {
           loop
           muted
           playsInline
-          className="absolute left-1/2 top-1/2 w-[100vw] h-[100dvh] min-w-[100vw] min-h-[100dvh] max-w-none max-h-none object-cover"
+          className="absolute w-[100vw] h-[100dvh] min-w-[100vw] min-h-[100dvh] max-w-none max-h-none object-cover"
           style={{
+            left: '50.3%',
+            top: '72.7%',
             transform: 'translate3d(-50%, -50%, 0) scale3d(1, 1, 1)',
-            transformOrigin: 'center center',
+            transformOrigin: '50% 50%',
             willChange: 'transform',
           }}
         >

@@ -74,7 +74,7 @@ export default function CartDrawer() {
   const freeShippingProgress = Math.min(100, (subtotal / freeShippingThreshold) * 100);
 
   return (
-    <div className="fixed inset-0 z-50 overflow-hidden">
+    <div className="fixed inset-0 z-50 overflow-hidden" role="dialog" aria-modal="true" data-drawer="cart" data-prevent-hero-scroll="true">
       {/* Backdrop */}
       <div
         className="fixed inset-0 bg-black/60 backdrop-blur-sm transition-opacity"

@@ -16,6 +16,19 @@ interface ScrollAmortizationProps {
  * - Slow, velvety decay back to resting state.
  * - Seamless 120 FPS GPU composite transforms with automatic style reset at rest.
  */
+// Helper to ensure CartDrawer, modals, and drawers have uninterrupted scroll
+const shouldIgnoreScroll = (target: EventTarget | null): boolean => {
+  if (typeof document !== 'undefined') {
+    if (document.body.style.overflow === 'hidden') return true;
+  }
+  if (!target || !(target instanceof Element)) return false;
+  return Boolean(
+    target.closest(
+      '[role="dialog"], [aria-modal="true"], [data-drawer], [data-modal], .cart-drawer, [data-cart-drawer], aside, nav, [data-prevent-hero-scroll], .overflow-y-auto, .overflow-y-scroll'
+    )
+  );
+};
+
 export default function ScrollAmortization({ children }: ScrollAmortizationProps) {
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -94,6 +107,7 @@ export default function ScrollAmortization({ children }: ScrollAmortizationProps
 
     // 2. Wheel overscroll at boundaries (desktop / trackpad)
     const handleWheel = (e: WheelEvent) => {
+      if (shouldIgnoreScroll(e.target)) return;
       const currentScrollY = window.scrollY;
       const maxScroll = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
 
@@ -120,12 +134,14 @@ export default function ScrollAmortization({ children }: ScrollAmortizationProps
     let touchStartY = 0;
 
     const handleTouchStart = (e: TouchEvent) => {
+      if (shouldIgnoreScroll(e.target)) return;
       if (e.touches.length > 0) {
         touchStartY = e.touches[0].clientY;
       }
     };
 
     const handleTouchMove = (e: TouchEvent) => {
+      if (shouldIgnoreScroll(e.target)) return;
       if (e.touches.length === 0) return;
       const currentY = e.touches[0].clientY;
       const deltaY = currentY - touchStartY;
