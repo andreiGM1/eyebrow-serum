@@ -51,8 +51,8 @@ export default function Navbar() {
       return;
     }
     const handleScroll = () => {
-      // Hero section is ~250vh tall; keep transparent navbar during hero exploration
-      const past = window.scrollY > window.innerHeight * 2.1;
+      // Hero section is 100dvh tall now. When scrolling down past 80px, transition navbar to solid
+      const past = window.scrollY > 80;
       setIsScrolledPastHero((prev) => (prev !== past ? past : prev));
     };
     window.addEventListener('scroll', handleScroll, { passive: true });

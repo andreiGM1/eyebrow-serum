@@ -23,7 +23,7 @@ export default function HomePage() {
   const featuredProducts = INITIAL_PRODUCTS.filter((p) => p.is_featured);
 
   return (
-    <div className="min-h-screen bg-[#FAF7F2] dark:bg-obsidian-950 text-stone-900 dark:text-foreground overflow-hidden transition-colors">
+    <div className="min-h-screen bg-[#FAF7F2] dark:bg-obsidian-950 text-stone-900 dark:text-foreground overflow-x-hidden transition-colors">
       
       {/* 1. CINEMATIC EDITORIAL SCROLL-DRIVEN MASK HERO (SEROTONINN STYLE) */}
       <EditorialHero />
