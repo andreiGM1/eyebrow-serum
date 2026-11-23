@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
-import { ArrowRight, Maximize2, Minimize2, Sparkles } from 'lucide-react';
+import { ArrowRight, Maximize2, Minimize2 } from 'lucide-react';
 
 interface CampaignItem {
   id: string;
@@ -46,42 +46,99 @@ const CAMPAIGNS: CampaignItem[] = [
 
 export default function EditorialHero() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const maskRef = useRef<HTMLDivElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const initialOverlayRef = useRef<HTMLDivElement>(null);
+  const scrimRef = useRef<HTMLDivElement>(null);
+  const expandedOverlayRef = useRef<HTMLDivElement>(null);
+
   const targetProgress = useRef(0);
   const currentProgress = useRef(0);
-  const [renderProgress, setRenderProgress] = useState(0);
-  const [isManualExpanded, setIsManualExpanded] = useState(false);
-  const [activeCampaignIndex, setActiveCampaignIndex] = useState(0);
 
-  // Silky smooth lerp loop using requestAnimationFrame
+  const [activeCampaignIndex, setActiveCampaignIndex] = useState(0);
+  const [isExpandedState, setIsExpandedState] = useState(false);
+
   useEffect(() => {
     let animId: number;
+    let isRunning = true;
 
-    const updateLerp = () => {
-      if (isManualExpanded) {
-        // Fast, smooth spring to 1 when manually expanded
-        const diff = 1 - currentProgress.current;
-        if (Math.abs(diff) > 0.001) {
-          currentProgress.current += diff * 0.12;
-          setRenderProgress(currentProgress.current);
-        } else {
-          currentProgress.current = 1;
-          setRenderProgress(1);
-        }
+    // GPU-accelerated 60/120 FPS transform loop (ZERO React re-renders while scrolling)
+    const updateMotion = () => {
+      if (!isRunning) return;
+
+      const diff = targetProgress.current - currentProgress.current;
+
+      // Smooth lerp damping factor
+      if (Math.abs(diff) > 0.0001) {
+        currentProgress.current += diff * 0.095;
       } else {
-        // Smooth linear interpolation to target scroll progress
-        const diff = targetProgress.current - currentProgress.current;
-        if (Math.abs(diff) > 0.0005) {
-          currentProgress.current += diff * 0.085;
-          setRenderProgress(currentProgress.current);
+        currentProgress.current = targetProgress.current;
+      }
+
+      const p = currentProgress.current;
+
+      // Update state flag only when crossing threshold (for button text toggle)
+      const expandedNow = p > 0.6;
+      setIsExpandedState((prev) => (prev !== expandedNow ? expandedNow : prev));
+
+      // 1. GPU Scale Calculation:
+      // The mask container scales from 1.0 up to ~8.0.
+      // The video inside counter-scales by (1 / scale) so the video remains locked full-screen!
+      // This uses 100% compositor matrix transforms with ZERO CPU mask re-rasterization.
+      const t = Math.min(1, Math.max(0, p / 0.72));
+      const easeT = Math.pow(t, 1.7);
+      const scale = 1.0 + easeT * 7.2;
+      const invScale = 1 / scale;
+
+      if (maskRef.current) {
+        maskRef.current.style.transform = `translate3d(-50%, -50%, 0) scale3d(${scale}, ${scale}, 1)`;
+        
+        // Remove mask once completely off-screen to save any minor composite pass
+        if (p >= 0.75) {
+          if (maskRef.current.style.webkitMaskImage !== 'none') {
+            maskRef.current.style.webkitMaskImage = 'none';
+            maskRef.current.style.maskImage = 'none';
+          }
+        } else {
+          if (maskRef.current.style.webkitMaskImage !== 'url("/images/hero-user-mask.png")') {
+            maskRef.current.style.webkitMaskImage = 'url(/images/hero-user-mask.png)';
+            maskRef.current.style.maskImage = 'url(/images/hero-user-mask.png)';
+          }
         }
       }
-      animId = requestAnimationFrame(updateLerp);
+
+      if (videoRef.current) {
+        videoRef.current.style.transform = `translate3d(-50%, -50%, 0) scale3d(${invScale}, ${invScale}, 1)`;
+      }
+
+      // 2. Initial Typography Opacity & Subtle Float-Up (Dissolves between 0 and 0.28)
+      if (initialOverlayRef.current) {
+        const initT = Math.min(1, Math.max(0, p / 0.28));
+        const initOpacity = Math.max(0, 1 - initT);
+        initialOverlayRef.current.style.opacity = String(initOpacity);
+        initialOverlayRef.current.style.transform = `translate3d(0, ${-initT * 30}px, 0)`;
+        initialOverlayRef.current.style.pointerEvents = initOpacity > 0.08 ? 'auto' : 'none';
+      }
+
+      // 3. Dark Scrim & Expanded Editorial Manifesto (Fades in between 0.58 and 0.88)
+      const expT = Math.min(1, Math.max(0, (p - 0.58) / 0.28));
+      if (scrimRef.current) {
+        scrimRef.current.style.opacity = String(expT);
+      }
+      if (expandedOverlayRef.current) {
+        expandedOverlayRef.current.style.opacity = String(expT);
+        expandedOverlayRef.current.style.transform = `translate3d(0, ${(1 - expT) * 25}px, 0)`;
+        expandedOverlayRef.current.style.pointerEvents = expT > 0.5 ? 'auto' : 'none';
+      }
+
+      animId = requestAnimationFrame(updateMotion);
     };
 
-    animId = requestAnimationFrame(updateLerp);
+    animId = requestAnimationFrame(updateMotion);
 
+    // High performance passive scroll listener
     const handleScroll = () => {
-      if (!containerRef.current || isManualExpanded) return;
+      if (!containerRef.current) return;
       const rect = containerRef.current.getBoundingClientRect();
       const scrollRange = rect.height - window.innerHeight;
       if (scrollRange <= 0) return;
@@ -93,77 +150,87 @@ export default function EditorialHero() {
     handleScroll();
 
     return () => {
+      isRunning = false;
       cancelAnimationFrame(animId);
       window.removeEventListener('scroll', handleScroll);
     };
-  }, [isManualExpanded]);
+  }, []);
 
-  const effectiveProgress = isManualExpanded ? 1 : renderProgress;
-
-  // Mask size calculation:
-  // Starts at ~50% (desktop) / 80% (mobile) and smoothly expands to ~650% (way past all edges)
-  const isMobile = typeof window !== 'undefined' ? window.innerWidth < 768 : false;
-  const initialBaseSize = isMobile ? 80 : 50;
-  const expansionFactor = Math.pow(Math.min(1, effectiveProgress / 0.72), 1.6);
-  const currentMaskSize = initialBaseSize + expansionFactor * 550;
-
-  // Initial typography fades out as zoom starts
-  const initialTypographyOpacity = Math.max(0, 1 - effectiveProgress * 2.8);
-
-  // Expanded manifesto and campaigns fade in gracefully from 60% progress onwards
-  const expandedElementsOpacity = Math.max(0, Math.min(1, (effectiveProgress - 0.62) / 0.28));
+  const handleToggleExpand = () => {
+    if (isExpandedState) {
+      targetProgress.current = 0;
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      targetProgress.current = 1;
+      if (containerRef.current) {
+        const top = containerRef.current.offsetTop + window.innerHeight * 1.5;
+        window.scrollTo({ top, behavior: 'smooth' });
+      }
+    }
+  };
 
   const currentCampaign = CAMPAIGNS[activeCampaignIndex];
 
   return (
     <div
       ref={containerRef}
-      className="relative w-full h-[270vh] bg-[#071513] text-white select-none"
+      className="relative w-full h-[250vh] bg-[#071513] text-white select-none"
     >
-      {/* Sticky Fullscreen Canvas: Always exactly 100dvh, NEVER exits or cuts off */}
+      {/* Sticky Fullscreen Canvas: Stays fixed 100dvh, NEVER letterboxes or exits abruptly */}
       <div className="sticky top-0 w-full h-[100dvh] overflow-hidden bg-[#071513]">
         
-        {/* ──────── 1. THE CINEMATIC VIDEO (Masked exclusively by user's eyebrow + eye mask, no image overlay) ──────── */}
+        {/* ──────── 1. GPU-ACCELERATED MASKED VIDEO CONTAINER ──────── */}
+        {/* 
+          Container is centered and proportioned to the mask.
+          Mask is 100% 100% static, so the GPU never re-rasters.
+          Scaling container up while counter-scaling video inside creates a pure GPU iris zoom!
+        */}
         <div
-          className="absolute inset-0 w-full h-full overflow-hidden transition-[mask] duration-200"
+          ref={maskRef}
+          className="absolute left-1/2 top-1/2 w-[min(88vw,560px)] aspect-[772/454] overflow-hidden pointer-events-none"
           style={{
-            WebkitMaskImage: effectiveProgress >= 0.75 ? 'none' : 'url(/images/hero-user-mask.png)',
-            WebkitMaskSize: `${currentMaskSize}% auto`,
+            transform: 'translate3d(-50%, -50%, 0) scale3d(1, 1, 1)',
+            transformOrigin: 'center center',
+            WebkitMaskImage: 'url(/images/hero-user-mask.png)',
+            WebkitMaskSize: '100% 100%',
             WebkitMaskPosition: 'center center',
             WebkitMaskRepeat: 'no-repeat',
-            maskImage: effectiveProgress >= 0.75 ? 'none' : 'url(/images/hero-user-mask.png)',
-            maskSize: `${currentMaskSize}% auto`,
+            maskImage: 'url(/images/hero-user-mask.png)',
+            maskSize: '100% 100%',
             maskPosition: 'center center',
             maskRepeat: 'no-repeat',
-            willChange: 'mask-size, -webkit-mask-size',
+            willChange: 'transform',
           }}
         >
           <video
+            ref={videoRef}
             autoPlay
             loop
             muted
             playsInline
-            className="w-full h-full object-cover scale-105"
+            className="absolute left-1/2 top-1/2 w-[100vw] h-[100dvh] min-w-[100vw] min-h-[100dvh] max-w-none max-h-none object-cover"
+            style={{
+              transform: 'translate3d(-50%, -50%, 0) scale3d(1, 1, 1)',
+              transformOrigin: 'center center',
+              willChange: 'transform',
+            }}
           >
             <source src="/videos/evergreen-isle-hero.mp4" type="video/mp4" />
           </video>
         </div>
 
-        {/* ──────── 2. AMBIENT DARK LUXURY SCRIM (Ensures 100% Legibility over Video when expanded) ──────── */}
+        {/* ──────── 2. AMBIENT DARK LUXURY SCRIM (Ensures 100% text legibility over full-bleed video) ──────── */}
         <div
-          className="absolute inset-0 bg-gradient-to-b from-black/85 via-black/40 to-black/90 pointer-events-none transition-opacity duration-300"
-          style={{
-            opacity: expandedElementsOpacity,
-          }}
+          ref={scrimRef}
+          className="absolute inset-0 bg-gradient-to-b from-black/85 via-black/40 to-black/90 pointer-events-none"
+          style={{ opacity: 0, willChange: 'opacity' }}
         />
 
-        {/* ──────── 4. INITIAL UNEXPANDED EDITORIAL OVERLAY (Fades smoothly on scroll) ──────── */}
+        {/* ──────── 3. INITIAL UNEXPANDED EDITORIAL OVERLAY ──────── */}
         <div
-          className="absolute inset-0 z-20 pointer-events-none flex flex-col justify-between p-4 sm:p-8 pt-24 sm:pt-28 pb-6 sm:pb-8 transition-opacity duration-200"
-          style={{
-            opacity: initialTypographyOpacity,
-            pointerEvents: initialTypographyOpacity > 0.1 ? 'auto' : 'none',
-          }}
+          ref={initialOverlayRef}
+          className="absolute inset-0 z-20 flex flex-col justify-between p-4 sm:p-8 pt-24 sm:pt-28 pb-6 sm:pb-8"
+          style={{ willChange: 'opacity, transform' }}
         >
           {/* Top Brand Title */}
           <div className="flex flex-col items-start max-w-full">
@@ -182,7 +249,7 @@ export default function EditorialHero() {
             {/* Quick Expand Button */}
             <div className="flex flex-col items-start gap-1.5">
               <button
-                onClick={() => setIsManualExpanded(true)}
+                onClick={handleToggleExpand}
                 className="min-h-[44px] px-5 py-2.5 rounded-full bg-white text-stone-950 hover:bg-stone-100 text-[11px] font-mono font-bold tracking-wider uppercase flex items-center gap-2 shadow-2xl active:scale-95 touch-manipulation cursor-pointer transition-transform"
               >
                 <Maximize2 className="w-3.5 h-3.5 text-stone-900" />
@@ -206,13 +273,11 @@ export default function EditorialHero() {
           </div>
         </div>
 
-        {/* ──────── 5. EXPANDED EDITORIAL OVERLAY (Manifesto & 3 Campaigns) ──────── */}
+        {/* ──────── 4. EXPANDED EDITORIAL OVERLAY (Manifesto & 3 Campaigns) ──────── */}
         <div
-          className="absolute inset-0 z-30 flex flex-col justify-between p-4 sm:p-8 pt-24 sm:pt-28 pb-8 text-white transition-opacity duration-300"
-          style={{
-            opacity: expandedElementsOpacity,
-            pointerEvents: expandedElementsOpacity > 0.4 ? 'auto' : 'none',
-          }}
+          ref={expandedOverlayRef}
+          className="absolute inset-0 z-30 flex flex-col justify-between p-4 sm:p-8 pt-24 sm:pt-28 pb-8 text-white pointer-events-none"
+          style={{ opacity: 0, willChange: 'opacity, transform' }}
         >
           {/* Top: Editorial Manifesto Box */}
           <div className="max-w-2xl bg-black/50 backdrop-blur-md p-4 sm:p-6 rounded-2xl border border-white/15 self-start shadow-2xl">
@@ -220,16 +285,14 @@ export default function EditorialHero() {
               <span className="text-[10px] sm:text-xs font-mono uppercase tracking-[0.25em] text-[#8DAFA0] font-bold">
                 SS2026 BOTANICAL BIOLIPID COLLECTION
               </span>
-              {isManualExpanded && (
-                <button
-                  onClick={() => setIsManualExpanded(false)}
-                  className="text-stone-300 hover:text-white text-xs font-mono flex items-center gap-1 uppercase tracking-wider p-1 cursor-pointer"
-                  title="Restrânge"
-                >
-                  <Minimize2 className="w-3.5 h-3.5" />
-                  <span className="hidden sm:inline">Restrânge</span>
-                </button>
-              )}
+              <button
+                onClick={handleToggleExpand}
+                className="text-stone-300 hover:text-white text-xs font-mono flex items-center gap-1 uppercase tracking-wider p-1 cursor-pointer"
+                title="Restrânge"
+              >
+                <Minimize2 className="w-3.5 h-3.5" />
+                <span className="hidden sm:inline">Restrânge</span>
+              </button>
             </div>
             <p className="font-sans text-xs sm:text-sm md:text-base leading-relaxed tracking-wide text-stone-100 uppercase font-semibold">
               COLECȚIA NOASTRĂ BOTANICĂ REVELEAZĂ O NOUĂ REALITATE PENTRU REGENERAREA ȘI DENSITATEA FOLICULARĂ.

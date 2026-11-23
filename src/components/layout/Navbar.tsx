@@ -51,9 +51,9 @@ export default function Navbar() {
       return;
     }
     const handleScroll = () => {
-      // Hero section is ~270vh tall; keep transparent navbar during hero exploration
-      const past = window.scrollY > window.innerHeight * 2.3;
-      setIsScrolledPastHero(past);
+      // Hero section is ~250vh tall; keep transparent navbar during hero exploration
+      const past = window.scrollY > window.innerHeight * 2.1;
+      setIsScrolledPastHero((prev) => (prev !== past ? past : prev));
     };
     window.addEventListener('scroll', handleScroll, { passive: true });
     handleScroll();
